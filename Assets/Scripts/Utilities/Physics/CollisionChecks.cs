@@ -46,6 +46,25 @@ namespace Utilities.Physics
             return false;
         }
         
+        public static bool Point2Rect(Vector2 point, Bounds bounds)
+        {
+            var min = bounds.min;
+            var size = bounds.size;
+
+            return Point2Rect(point.x, point.y, min.x, min.y, size.x, size.y);
+        }
+        public static bool Point2Rect(float px, float py, float rx, float ry, float rw, float rh) {
+
+            // is the point inside the rectangle's bounds?
+            if (px >= rx &&        // right of the left edge AND
+                px <= rx + rw &&   // left of the right edge AND
+                py >= ry &&        // below the top AND
+                py <= ry + rh) {   // above the bottom
+                return true;
+            }
+            return false;
+        }
+        
         // POINT/CIRCLE
         //based on: https://www.jeffreythompson.org/collision-detection/point-circle.php
         public static bool Point2Circle(float px, float py, float cx, float cy, float r)
