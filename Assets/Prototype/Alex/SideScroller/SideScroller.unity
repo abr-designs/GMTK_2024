@@ -1700,7 +1700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec1847bc00f194458c44bbf7d5df957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 1
+  moveForce: 5
   jumpForce: 5
 --- !u!114 &2060648929
 MonoBehaviour:
@@ -1714,7 +1714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c372b7321d66492d98be9917d412a046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleDif: 2
+  scaleDif: 3
+  scaleTime: 0.1
   mask:
     serializedVersion: 2
     m_Bits: 64
