@@ -1,3 +1,4 @@
+using Interactables;
 using UnityEngine;
 
 namespace Printer
@@ -34,7 +35,7 @@ namespace Printer
             connectedGantry?.ValueChanged(newValue);
         }
 
-        public void SetIsInteracting(bool b)
+        public override void SetIsInteracting(bool b)
         {
             _isInteracting = b;
         }
