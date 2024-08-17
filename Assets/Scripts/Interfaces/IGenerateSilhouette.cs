@@ -1,7 +1,9 @@
-﻿namespace Interfaces
+﻿using Levels;
+
+namespace Interfaces
 {
     public interface IGenerateSilhouette
     {
-        void BuildSilhouette();
+        void BuildSilhouette(LevelDataContainer levelDataContainer);
     }
 }
