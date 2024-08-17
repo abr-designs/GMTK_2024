@@ -18,12 +18,10 @@ namespace Interactables
     
         public CONTROL_PANEL_TYPE controlPanelType;
 
-        private GameObject container;
-
         [SerializeField]
         private ControlInputData[] controls;
 
-        public void SetActive(bool state) => container.SetActive(state);
+        public void SetActive(bool state) => gameObject.SetActive(state);
 
         public void ShuffleControls()
         {
