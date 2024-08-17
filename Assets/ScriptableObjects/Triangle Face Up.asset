@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2db278c269468384ac4ad08d837101, type: 3}
+  m_Name: Triangle Face Up
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8027768219405232684, guid: dcd2624c0d67cb948924530c694714e9, type: 3}
+  Mesh: {fileID: -3200268733767158421, guid: fd3a9640571c5da45993bc46c192a7da, type: 3}
+  sideViewSprite: {fileID: 0}
+  isoViewSprite: {fileID: 0}

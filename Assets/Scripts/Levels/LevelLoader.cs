@@ -1,19 +1,18 @@
 ﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 using Utilities;
 
 namespace Levels
 {
     public class LevelLoader : HiddenSingleton<LevelLoader>
     {
-        public static LevelController CurrentLevelController { get; private set; }
+        public static LevelDataContainer CurrentLevelDataContainer { get; private set; }
         private int _currentLevelIndex = -1;
         private GameObject _currentLevelGameObject;
 
         [SerializeField]
-        private LevelController[] levels;
+        private LevelDataContainer[] levels;
 
         private void LoadLevel(int indexToLoad)
         {
@@ -27,7 +26,7 @@ namespace Levels
 
             _currentLevelGameObject = levelInstance.gameObject;
             _currentLevelIndex = indexToLoad;
-            CurrentLevelController = levelInstance;
+            CurrentLevelDataContainer = levelInstance;
         }
 
         private bool TryLoadNextLevel()
