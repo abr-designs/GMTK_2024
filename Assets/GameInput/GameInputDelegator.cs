@@ -38,6 +38,9 @@ namespace GameInput
 
         public void OnMouseLeftClick(InputAction.CallbackContext context)
         {
+            if (context.performed == false)
+                return;
+            
             if (LockInputs)
             {
                 OnLeftClick?.Invoke(false);
@@ -50,6 +53,9 @@ namespace GameInput
 
         public void OnMouseRightClick(InputAction.CallbackContext context)
         {
+            if (context.performed == false)
+                return;
+            
             if (LockInputs)
             {
                 OnRightClick?.Invoke(false);
