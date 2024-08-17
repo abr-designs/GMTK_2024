@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 using Utilities;
 
@@ -8,7 +7,8 @@ namespace Levels
     public class LevelLoader : HiddenSingleton<LevelLoader>
     {
         public static LevelDataContainer CurrentLevelDataContainer { get; private set; }
-        private int _currentLevelIndex = -1;
+        public static int CurrentLevelIndex { get; private set; } = -1;
+        
         private GameObject _currentLevelGameObject;
 
         [SerializeField]
@@ -25,16 +25,16 @@ namespace Levels
             var levelInstance = Instantiate(levels[indexToLoad], transform);
 
             _currentLevelGameObject = levelInstance.gameObject;
-            _currentLevelIndex = indexToLoad;
+            CurrentLevelIndex = indexToLoad;
             CurrentLevelDataContainer = levelInstance;
         }
 
         private bool TryLoadNextLevel()
         {
-            if (_currentLevelIndex + 1 >= levels.Length)
+            if (CurrentLevelIndex + 1 >= levels.Length)
                 return false;
 
-            LoadLevel(_currentLevelIndex + 1);
+            LoadLevel(CurrentLevelIndex + 1);
             return true;
         }
 
@@ -42,7 +42,7 @@ namespace Levels
         {
             TryCleanCurrentLevel();
 
-            LoadLevel(_currentLevelIndex);
+            LoadLevel(CurrentLevelIndex);
         }
         //============================================================================================================//
 
@@ -56,7 +56,7 @@ namespace Levels
         //============================================================================================================//
         public static bool OnLastLevel()
         {
-            return Instance._currentLevelIndex == Instance.levels.Length - 1;
+            return CurrentLevelIndex == Instance.levels.Length - 1;
         }
 
         public static bool LoadNextLevel() => Instance.TryLoadNextLevel();

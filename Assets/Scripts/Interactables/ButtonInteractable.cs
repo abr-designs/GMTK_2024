@@ -1,4 +1,7 @@
-﻿namespace Interactables
+﻿using System.Diagnostics;
+using UnityEngine;
+
+namespace Interactables
 {
     public class ButtonInteractable : InteractableInputControl
     {
@@ -15,8 +18,15 @@
             throw new System.NotImplementedException();
         }
 
-        public override void SetValue(float f) {
-            throw new System.NotImplementedException();
+        public override void SetValue(float f)
+        {
+            _inputValue = f;
+        }
+
+        [Conditional("UNITY_EDITOR"), ContextMenu("Press Button")]
+        private void SetToMax()
+        {
+            SetValue(1f);
         }
     }
 }

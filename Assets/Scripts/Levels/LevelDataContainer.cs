@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Interactables.Enums;
 using Levels.Enums;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace Levels
         public string levelName;
         //THis is the tag used to place the user generate 
         public string worldPlaceTag;
+
+        public CONTROL_PANEL_TYPE controlPanelType;
         //What types of controls should be available for this Level/Puzzle
         public CONTROLS usableControls;
 
@@ -27,7 +30,19 @@ namespace Levels
         [Min(1f)]
         public float yScale;
 
+        [SerializeField, Min(0f)]
+        private float width;
+        [SerializeField, Min(0f)]
+        private float depth;
+
+        public Vector3 MinPosition => new Vector3(-width / 2f, 0f, -depth / 2f);
+        public Vector3 MaxPosition => new Vector3(width / 2f, 0f, depth / 2f);
+        
+
         public LayerData[] layers;
+
+        [Min(0.01f)]
+        public float outputScale = 1f;
 
         //============================================================================================================//
         
@@ -85,6 +100,21 @@ namespace Levels
                     Quaternion.Euler(0f, layerData.yRotation, 0f),
                     scale);
             }
+
+            var halfWidth = width / 2f;
+            var halfDepth = depth / 2f;
+
+            var points = new[]
+            {
+                new Vector3(-halfWidth, 0f, -halfDepth), //min
+                new Vector3(-halfWidth, 0f, halfDepth), //TL
+                new Vector3(halfWidth, 0f, halfDepth), //max
+                new Vector3(halfWidth, 0f, -halfDepth) //BR
+            };
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLineStrip(points, true);
+
         }
         //============================================================================================================//
 #endif

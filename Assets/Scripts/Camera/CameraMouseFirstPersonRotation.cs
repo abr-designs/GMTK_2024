@@ -1,10 +1,12 @@
+using System;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CameraMouseFirstPersonRotation : MonoBehaviour {
 
-    [Header("References")]
-    public CinemachineVirtualCamera virtualCamera;
+    [SerializeField, Header("References")]
+    private CinemachineVirtualCamera virtualCamera;
 
     [Header("Variables")]
     public float sensitivityX = 5f; // Sensitivity for the X axis rotation
@@ -18,6 +20,11 @@ public class CameraMouseFirstPersonRotation : MonoBehaviour {
 
     public float minY = -80f; // Minimum Y rotation
     public float maxY = 80f;  // Maximum Y rotation
+
+    private void Start()
+    {
+        Assert.IsNotNull(virtualCamera);
+    }
 
     void Update() {
         // Get mouse delta input
