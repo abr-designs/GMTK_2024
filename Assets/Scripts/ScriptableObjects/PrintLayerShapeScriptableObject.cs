@@ -9,5 +9,7 @@ namespace Levels
         public Mesh Mesh;
         public Sprite sideViewSprite;
         public Sprite isoViewSprite;
+        public Sprite simpleShapeSprite;
+
     }
 }

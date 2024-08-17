@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2db278c269468384ac4ad08d837101, type: 3}
   m_Name: Cylinder Face Forward
   m_EditorClassIdentifier: 
-  name: Cylinder Face Forward
   prefab: {fileID: 8689962729618738178, guid: 3bc4985ff5ca7dc468b095175c7af0b9, type: 3}
   Mesh: {fileID: -8491383464845808958, guid: fd3a9640571c5da45993bc46c192a7da, type: 3}
-  sideViewSprite: {fileID: 0}
+  sideViewSprite: {fileID: 21300000, guid: 7dabd52310576fd449186e5f6391cce1, type: 3}
   isoViewSprite: {fileID: 0}
+  simpleShapeSprite: {fileID: 0}
