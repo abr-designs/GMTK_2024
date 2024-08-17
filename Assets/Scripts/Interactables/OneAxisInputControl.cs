@@ -8,8 +8,7 @@ namespace Printer {
         Rotation
     }
 
-    public class
-        OneAxisInputControl : InteractableInputControl // should inherit from something like an interactableInputControl
+    public class OneAxisInputControl : InteractableInputControl // should inherit from something like an interactableInputControl
     {
         public override float InputValue => inputControlValue;
 
@@ -75,6 +74,10 @@ namespace Printer {
 
             ValueChanged(inputControlValue);
         }
+        
+        public override void SetValue(float f) {
+            throw new System.NotImplementedException();
+        }
 
 #if UNITY_EDITOR
         void OnValidate() {
@@ -82,9 +85,7 @@ namespace Printer {
             ValueChanged(inputControlValue);
         }
 
-        public override void SetValue(float f) {
-            throw new System.NotImplementedException();
-        }
+
 #endif
 
     }

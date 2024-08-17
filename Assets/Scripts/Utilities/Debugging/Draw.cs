@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using UnityEditor;
 using UnityEngine;
 
 namespace Utilities.Debugging
@@ -25,8 +26,10 @@ namespace Utilities.Debugging
 
             var camPositionOffset = camRight * offset;
 
-            UnityEditor.Handles.color = color;
-            UnityEditor.Handles.Label(position + camPositionOffset, label);
+#if UNITY_EDITOR
+            Handles.color = color;
+            Handles.Label(position + camPositionOffset, label);
+#endif
         }
 
         [Conditional("UNITY_EDITOR")]
