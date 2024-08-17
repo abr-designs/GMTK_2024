@@ -1,60 +1,94 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Interfaces;
 using Levels;
 using UnityEngine;
 
+public enum SPRITE_VIEW {
+    SIDE_VIEW = 0,
+    ISO_VIEW
+}
+
 public class SpriteGenerator : MonoBehaviour, IGenerateSilhouette
 {
-    private const int MAX_SPRITES = 10;
-
-    private SpriteRenderer[] sideSpriteRenderers = new SpriteRenderer[MAX_SPRITES];
-
     [SerializeField]
     private LevelDataContainer _debugLevel;
 
     [SerializeField]
     private GameObject layerPrefab;
 
+    [SerializeField]
+    private Camera spriteCamera;
+    [SerializeField]
+    private Transform cameraTargetContainer;
+
     public void BuildSilhouette(LevelDataContainer levelDataContainer)
     {
-        for(int i = 0; i < sideSpriteRenderers.Length; i++)
-        {
-            if(i + 1 <= levelDataContainer.layers.Length)
-            {
-                sideSpriteRenderers[i].enabled = true;
-                var layer = levelDataContainer.layers[i];
-                var sideViewSprite = layer.printLayerShape.sideViewSprite;
-                var isoViewSprite = layer.printLayerShape.isoViewSprite;
+        BuildLevel(levelDataContainer);
+    }
 
-                sideSpriteRenderers[i].sprite = sideViewSprite;
-                sideSpriteRenderers[i].transform.localPosition = new Vector3(0,i);
-                sideSpriteRenderers[i].transform.localScale = new Vector3(layer.localScale.x,1,1);
+    // Instantiate each layer
+    private void BuildLevel(LevelDataContainer levelDataContainer) {
 
-            } else {
-                sideSpriteRenderers[i].enabled = false;
-            }
+        // Clear existing prefabs from camera
+        foreach(Transform t in cameraTargetContainer.transform) {
+            t.gameObject.SetActive(false);
+            Destroy(t.gameObject);
         }
 
+        for(int i = 0; i < levelDataContainer.layers.Length; i++) {
+            
+            var layerObject = Instantiate(levelDataContainer.layers[i].printLayerShape.prefab, cameraTargetContainer);
+            var layerData = levelDataContainer.layers[i];
+            layerObject.gameObject.layer = spriteCamera.gameObject.layer;
+
+            var pos = /*basePosition + */ new Vector3(layerData.localPosition.x, levelDataContainer.yScale * i, layerData.localPosition.y);
+            var scale = new Vector3(layerData.localScale.x, levelDataContainer.yScale, layerData.localScale.y);
+            //var color = layerData.Material == null ? Color.magenta : layerData.Material.color;
+
+            layerObject.localScale = scale;
+            layerObject.localPosition = pos;
+            //layerObject.GetComponent<MeshRenderer>().material.color = color;
+        }
+
+        // TODO -- remove
+        CaptureView(levelDataContainer, SPRITE_VIEW.ISO_VIEW);
+
+    }
+
+    public void CaptureView(LevelDataContainer levelDataContainer, SPRITE_VIEW viewType) {
+        
+        spriteCamera.enabled = true;
+
+        if(viewType == SPRITE_VIEW.SIDE_VIEW)
+        {
+            spriteCamera.transform.localPosition = new Vector3(0,((levelDataContainer.layers.Length / 2f) - 0.5f),-5f);
+            spriteCamera.transform.localRotation = Quaternion.identity;
+            spriteCamera.orthographicSize = levelDataContainer.layers.Length * levelDataContainer.yScale;
+        } else if (viewType == SPRITE_VIEW.ISO_VIEW)
+        {
+
+            spriteCamera.transform.localPosition = Vector3.zero;
+            spriteCamera.transform.localPosition = new Vector3(-5,5 + ((levelDataContainer.layers.Length / 2f) - 0.5f),-5);
+            spriteCamera.transform.localRotation = Quaternion.Euler(new Vector3(35.264f,45,0));
+            spriteCamera.orthographicSize = (levelDataContainer.layers.Length + 1) * levelDataContainer.yScale;
+        }
+
+        // Take picture (renderTexture)
+        spriteCamera.Render();
+
+        // Turn off camera
+        spriteCamera.enabled = false;
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i< MAX_SPRITES; i++) 
-        {
-            var layerSprite = Instantiate(layerPrefab,this.transform);
-            layerSprite.name = $"Layer{i}";
-            sideSpriteRenderers[i] = layerSprite.GetComponent<SpriteRenderer>();
-        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     [ContextMenu("Sprite Preview")]
     void SpritePreview()
