@@ -12,7 +12,7 @@ public class CameraInteraction : MonoBehaviour {
 
     public float sensitivityY = 1f; // Sensitivity for the Y axis rotation
 
-    LeverController interactingController;
+    InteractableInputControl interactingController;
 
     private void OnEnable() {
         GameInputDelegator.OnLeftClick += GameInputDelegator_OnLeftClick;
@@ -54,8 +54,8 @@ public class CameraInteraction : MonoBehaviour {
         // Perform the raycast and check if it hits an object with a BoxCollider
         if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) {
             // Check if the hit object has a PrinterInputContol
-            if (hit.collider.GetComponent<LeverController>() != null) {
-                interactingController = hit.collider.GetComponent<LeverController>();
+            if (hit.collider.GetComponent<InteractableInputControl>() != null) {
+                interactingController = hit.collider.GetComponent<InteractableInputControl>();
                 interactingController.SetIsInteracting(true);
             }
         }

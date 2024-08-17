@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Printer
 {
     public class
-        LeverController : InteractableInputControl // should inherit from something like an interactableInputControl
+        RadialDialController : InteractableInputControl // should inherit from something like an interactableInputControl
     {
         public override float InputValue => inputControlValue;
 
