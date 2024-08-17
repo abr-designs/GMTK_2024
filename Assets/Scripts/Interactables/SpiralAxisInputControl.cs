@@ -25,7 +25,7 @@ namespace Printer {
 
         [Header("Input Variables")]
         [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
-        [SerializeField] private float inputDampener = 125f;
+        [SerializeField] private float inputDampener = 1f;
         private bool DEBUG_updateInEditor = false;
 
         [Header("READ ONLY")]

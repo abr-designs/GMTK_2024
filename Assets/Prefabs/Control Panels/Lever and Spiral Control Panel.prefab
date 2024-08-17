@@ -447,11 +447,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spiral Grid
       objectReference: {fileID: 0}
-    - target: {fileID: 1163159656041732350, guid: 45b5e0107eedf3b4ead1e555d46bda3d,
-        type: 3}
-      propertyPath: dimensionSpeeds.y
-      value: 1.67
-      objectReference: {fileID: 0}
     - target: {fileID: 6144094315223604546, guid: 45b5e0107eedf3b4ead1e555d46bda3d,
         type: 3}
       propertyPath: m_LocalPosition.x
