@@ -10,5 +10,13 @@
         {
             _inputValue = b ? 1f : 0f;
         }
+
+        public override void AdjustValue(float delta) {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SetValue(float f) {
+            throw new System.NotImplementedException();
+        }
     }
 }
