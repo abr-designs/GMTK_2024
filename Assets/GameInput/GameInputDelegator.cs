@@ -6,9 +6,7 @@ namespace GameInput
 {
     public class GameInputDelegator : MonoBehaviour, InputActions.IGameplayActions
     {
-        public static event Action<Vector2> OnMovementChanged;
-        public static event Action OnGrabItemPressed;
-    
+        public static event Action<Vector2> OnMouseMove;
         public static event Action<bool> OnLeftClick;
         public static event Action<bool> OnRightClick;
 
@@ -38,47 +36,6 @@ namespace GameInput
 
         //============================================================================================================//
 
-        public void OnHorizontalMovement(InputAction.CallbackContext context)
-        {
-            if (LockInputs)
-            {
-                _currentInput = Vector2.zero;
-                OnMovementChanged?.Invoke(_currentInput);
-                return;
-            }
-            
-            var x = context.ReadValue<float>();
-
-            _currentInput.x = x;
-            OnMovementChanged?.Invoke(_currentInput);
-
-        }
-
-        public void OnVerticalMovement(InputAction.CallbackContext context)
-        {
-            if (LockInputs)
-            {
-                _currentInput = Vector2.zero;
-                OnMovementChanged?.Invoke(_currentInput);
-                return;
-            }
-            
-            var y = context.ReadValue<float>();
-
-            _currentInput.y = y;
-            OnMovementChanged?.Invoke(_currentInput);
-        }
-
-        public void OnGrabItem(InputAction.CallbackContext context)
-        {
-            if (LockInputs) return;
-            
-            if (context.ReadValueAsButton() == false)
-                return;
-        
-            OnGrabItemPressed?.Invoke();
-        }
-
         public void OnMouseLeftClick(InputAction.CallbackContext context)
         {
             if (LockInputs)
@@ -102,6 +59,19 @@ namespace GameInput
             var pressed = context.ReadValueAsButton();
             OnRightClick?.Invoke(pressed);
         }
+
+        public void OnMouseLook(InputAction.CallbackContext context)
+        {
+            if (LockInputs)
+            {
+                OnMouseMove?.Invoke(Vector2.zero);
+                return;
+            }
+            
+            var delta = context.ReadValue<Vector2>();
+            OnMouseMove?.Invoke(delta);
+        }
+
 
         //============================================================================================================//
     }
