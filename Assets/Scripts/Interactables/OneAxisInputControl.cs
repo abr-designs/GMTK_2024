@@ -24,6 +24,7 @@ namespace Printer {
         [Header("Input Variables")]
         [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
         [SerializeField] private float inputDampener = 125f;
+        [SerializeField] private bool DEBUG_updateInEditor = false;
 
         private bool _isInteracting = false;
 
@@ -32,11 +33,9 @@ namespace Printer {
             float rangeValue = value - 0.5f;
             switch (controlTransformType) {
                 case ControlTransformType.Position:
-                    //movingPartReference.localPosition = transformAxis * (rangeOfMotion * rangeValue);
                     SetPositionInRange(rangeValue);
                     break;
                 case ControlTransformType.Rotation:
-                    //movingPartReference.localPosition = transformAxis * (rangeOfMotion * rangeValue);
                     SetRotationInRange(rangeValue);
                     break;
             }
@@ -79,13 +78,15 @@ namespace Printer {
             throw new System.NotImplementedException();
         }
 
+        public override void SetValue(float f) {
+            throw new System.NotImplementedException();
+        }
+
 #if UNITY_EDITOR
         void OnValidate() {
             // This method is called when any value in the Inspector is changed
-            ValueChanged(inputControlValue);
+            if(DEBUG_updateInEditor) ValueChanged(inputControlValue);
         }
-
-
 #endif
 
     }

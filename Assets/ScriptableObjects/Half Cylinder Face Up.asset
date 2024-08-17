@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7766614750476639284, guid: ad0f58a91ecb51c4daaa02cdb90cb9bb, type: 3}
   Mesh: {fileID: -8223349732020281046, guid: fd3a9640571c5da45993bc46c192a7da, type: 3}
-  sideViewSprite: {fileID: 0}
+  sideViewSprite: {fileID: 21300000, guid: 1a2caed237e353547b375bcb4616b3b7, type: 3}
   isoViewSprite: {fileID: 0}
+  simpleShapeSprite: {fileID: 0}
