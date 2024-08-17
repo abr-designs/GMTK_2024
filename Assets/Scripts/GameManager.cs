@@ -2,6 +2,7 @@
 using System.Collections;
 using Interactables;
 using Interactables.Enums;
+using Interfaces;
 using Levels;
 using Levels.Enums;
 using Unity.Mathematics;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AnimationCurve animationCurve;
 
+    private IGenerateSilhouette _silhouetteGenerator;
 
     private ButtonInteractable _startButton;
     
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         LevelLoader.LoadFirstLevel();
 
+        _silhouetteGenerator = GetComponent<IGenerateSilhouette>();
         StartCoroutine(GameLoop());
     }
 
@@ -114,21 +117,15 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     //Level Setup Functions
     //============================================================================================================//
 
     private void SetupLevel()
     {
-        BuildSilhouette();
+        _silhouetteGenerator?.BuildSilhouette();
         _containerInstance = CreateNewContainer();
     }
 
-    private void BuildSilhouette()
-    {
-        throw new NotImplementedException();
-    }
     private Transform CreateNewContainer()
     {
         var newContainer = new GameObject($"---Level [{LevelLoader.CurrentLevelIndex.ToString()}] Container---").transform;
