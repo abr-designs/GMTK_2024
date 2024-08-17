@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace Interactables
@@ -8,10 +9,11 @@ namespace Interactables
         public override float InputValue => _inputValue;
 
         private float _inputValue;
-        
+
         public override void SetIsInteracting(bool b)
         {
             _inputValue = b ? 1f : 0f;
+
         }
 
         public override void AdjustValue(float delta) {
