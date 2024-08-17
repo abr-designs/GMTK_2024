@@ -292,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500535394780337233}
   - component: {fileID: 1906092420152965932}
-  - component: {fileID: 2846487992192078561}
+  - component: {fileID: -1711543196557080305}
   m_Layer: 6
   m_Name: Radial Dial
   m_TagString: Untagged
@@ -340,7 +340,7 @@ CapsuleCollider:
   m_Height: 0.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2846487992192078561
+--- !u!114 &-1711543196557080305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,12 +349,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5315850466289096459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac07f25cca2e3840b2db048b1dfd6e2, type: 3}
+  m_Script: {fileID: 11500000, guid: c42dd13a880eb84489f3b2c6ec220613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movableTransform: {fileID: 1620837054702245559}
-  maxPositionRange: 0.4
-  offsetAxis: {x: 0, y: 0, z: 1}
-  inputControlValue: 0.5
-  inputDampener: 50
+  movingPartReference: {fileID: 1620837054702245559}
   connectedGantry: {fileID: 0}
+  controlTransformType: 1
+  transformAxis: {x: 0, y: 1, z: 0}
+  rangeOfMotion: 270
+  inputControlValue: 0.5
+  inputDampener: 125

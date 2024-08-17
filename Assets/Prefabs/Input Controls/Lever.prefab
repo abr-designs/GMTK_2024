@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1787416844186955038}
   - component: {fileID: 8920150294623403071}
-  - component: {fileID: 8504761324171028869}
+  - component: {fileID: 7958628687297202188}
   m_Layer: 6
   m_Name: Lever
   m_TagString: Untagged
@@ -89,7 +89,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.4, z: 0.5}
   m_Center: {x: 0, y: 0.15, z: 0}
---- !u!114 &8504761324171028869
+--- !u!114 &7958628687297202188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,15 +98,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1117544721232796030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3859099b9d69f42936299a82c0c964, type: 3}
+  m_Script: {fileID: 11500000, guid: c42dd13a880eb84489f3b2c6ec220613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movableTransform: {fileID: 9126783427593305099}
-  maxPositionRange: 0.4
-  offsetAxis: {x: 0, y: 0, z: 1}
-  inputControlValue: 0.5
-  inputDampener: 50
+  movingPartReference: {fileID: 9126783427593305099}
   connectedGantry: {fileID: 0}
+  controlTransformType: 0
+  transformAxis: {x: 0, y: 0, z: 1}
+  rangeOfMotion: 0.4
+  inputControlValue: 0.5
+  inputDampener: 125
 --- !u!1 &5964876580805179114
 GameObject:
   m_ObjectHideFlags: 0
