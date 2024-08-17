@@ -5,7 +5,9 @@ using Interactables;
 
 public class CameraInteraction : MonoBehaviour {
 
+    [Header("Object References")] 
     Camera cabCamera; // main camera
+    [SerializeField] private CameraMouseFirstPersonRotation cameraMouseFirstPersonRotation;
 
     [Header("Variables")]
     public float maxRayDistance = 100f; // Maximum distance the ray should check
@@ -29,9 +31,11 @@ public class CameraInteraction : MonoBehaviour {
 
         if (isPressed) {
             CheckForControlInteraction();
+            cameraMouseFirstPersonRotation.enabled = false;
         }
         else {
             CheckForReleaseInteraction();
+            cameraMouseFirstPersonRotation.enabled = true;
         }
 
     }
