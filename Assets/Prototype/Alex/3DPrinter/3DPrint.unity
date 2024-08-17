@@ -1350,7 +1350,7 @@ PrefabInstance:
     - target: {fileID: 424718888947857272, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.772
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 424718888947857272, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
@@ -1410,6 +1410,61 @@ PrefabInstance:
     - target: {fileID: 903440787204834491, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000807589644517226, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883992753409061992, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: isLerping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883992753409061992, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: inputValue
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883992753409061992, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883992753409061992, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883992753409061992, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281210047857410136, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: isLerping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281210047857410136, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: inputValue
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281210047857410136, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281210047857410136, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281210047857410136, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: targetPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5693453987569489523, guid: 51e7d55a732f908478e85e32c2bf5c05,

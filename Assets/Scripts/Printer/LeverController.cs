@@ -24,10 +24,10 @@ public class LeverController : MonoBehaviour // should inherit from something li
         movableTransform.localPosition = (maxPositionRange * offsetAxis) * rangeValue;
     }
 
-    void OnValidate() {
-        // This method is called when any value in the Inspector is changed
-        ValueChanged(inputControlValue);
-    }
+    //void OnValidate() {
+    //    // This method is called when any value in the Inspector is changed
+    //    ValueChanged(inputControlValue);
+    //}
 
     public void ValueChanged(float newValue) {
         SetMeshPositionFromValue(newValue);
