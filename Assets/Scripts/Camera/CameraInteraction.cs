@@ -1,5 +1,6 @@
 using GameInput;
 using UnityEngine;
+using Printer;
 
 public class CameraInteraction : MonoBehaviour {
 
@@ -24,11 +25,9 @@ public class CameraInteraction : MonoBehaviour {
     private void GameInputDelegator_OnLeftClick(bool isPressed) {
 
         if (isPressed) {
-            Debug.Log("mouse down");
             CheckForControlInteraction();
         }
         else {
-            Debug.Log("release");
             CheckForReleaseInteraction();
         }
 
