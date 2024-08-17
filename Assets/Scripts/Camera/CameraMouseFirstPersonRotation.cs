@@ -1,8 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraMouseFirstPersonRotation : MonoBehaviour {
+
+    [Header("References")]
+    public CinemachineVirtualCamera virtualCamera;
+
+    [Header("Variables")]
     public float sensitivityX = 5f; // Sensitivity for the X axis rotation
     public float sensitivityY = 5f; // Sensitivity for the Y axis rotation
 
@@ -29,6 +33,6 @@ public class CameraMouseFirstPersonRotation : MonoBehaviour {
         rotationY = Mathf.Clamp(rotationY, minY, maxY);
 
         // Apply the rotation to the object
-        transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0f);
+        virtualCamera.transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0f);
     }
 }
