@@ -9,6 +9,7 @@ namespace Printer {
         public override float InputValue => inputControlValue;
 
         [Header("Object References")]
+        [SerializeField] private ButtonToggleInteractable toggleButton;
         [SerializeField] private Transform rotationPartReference;
         [SerializeField] private Transform positionPartReference;
         [SerializeField] private GantryController connectedGantry;
@@ -38,10 +39,16 @@ namespace Printer {
 
 
         private void Awake() {
+            toggleButton.SetValue(1f);
             SetIsChangingValue(true);
         }
 
         private void Update() {
+            
+            // check if button is on
+            if (toggleButton.InputValue == 1f) _isChangingValue = true;
+            else _isChangingValue = false;
+
             if (_isChangingValue) {
                 timeValue += Time.deltaTime;
                 ChangeValue();
@@ -57,6 +64,9 @@ namespace Printer {
 
             // normalize
             twoAxisValue = twoAxisValue * 0.5f + Vector2.one * 0.5f;
+
+            inputControlValue = twoAxisValue.x;
+
             SetMeshTransfromFromValue(twoAxisValue);
         }
 
@@ -83,14 +93,14 @@ namespace Printer {
         //    connectedGantry?.ValueChanged(newValue);
         //}
 
-        public override void SetIsInteracting(bool b) {
-            if (!b) {
-                // toggle mode
-                _isChangingValue = !_isChangingValue;
-            }
+        //public override void SetIsInteracting(bool b) {
+        //    if (!b) {
+        //        // toggle mode
+        //        _isChangingValue = !_isChangingValue;
+        //    }
 
-            SetIsChangingValue(_isChangingValue);
-        }
+        //    SetIsChangingValue(_isChangingValue);
+        //}
 
         private void SetIsChangingValue(bool b) {
             // update color
@@ -116,12 +126,16 @@ namespace Printer {
             throw new System.NotImplementedException();
         }
 
-//#if UNITY_EDITOR
-//        void OnValidate() {
-//            // This method is called when any value in the Inspector is changed
-//            if(DEBUG_updateInEditor) ValueChanged(inputControlValue);
-//        }
-//#endif
+        public override void SetIsInteracting(bool b) {
+            throw new System.NotImplementedException();
+        }
+
+        //#if UNITY_EDITOR
+        //        void OnValidate() {
+        //            // This method is called when any value in the Inspector is changed
+        //            if(DEBUG_updateInEditor) ValueChanged(inputControlValue);
+        //        }
+        //#endif
 
     }
 }

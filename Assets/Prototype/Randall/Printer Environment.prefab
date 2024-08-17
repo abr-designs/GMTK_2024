@@ -6016,6 +6016,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever and Spiral Control Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 2583042149347934973, guid: 57e279f202983c148adbf38e0ba00db8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5987252308503597250, guid: 57e279f202983c148adbf38e0ba00db8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.022
+      objectReference: {fileID: 0}
     - target: {fileID: 6835946782046033340, guid: 57e279f202983c148adbf38e0ba00db8,
         type: 3}
       propertyPath: connectedGantry

@@ -2,7 +2,7 @@
 
 namespace Interactables
 {
-    public class ButtonInteractable : InteractableInputControl
+    public class ButtonToggleInteractable : ButtonInteractable
     {
         public override float InputValue => _inputValue;
 
@@ -10,16 +10,13 @@ namespace Interactables
 
         public override void SetIsInteracting(bool b)
         {
-            _inputValue = b ? 1f : 0f;
+            if (!b)
+                _inputValue = UnityEngine.Mathf.Abs(_inputValue - 1f);
 
-        }
-
-        public override void AdjustValue(float delta) {
-            throw new System.NotImplementedException();
         }
 
         public override void SetValue(float f) {
-            throw new System.NotImplementedException();
+            _inputValue = f;
         }
     }
 }
