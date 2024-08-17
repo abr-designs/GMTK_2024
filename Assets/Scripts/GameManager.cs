@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Interactables;
 using Interactables.Enums;
 using Interfaces;
 using Levels;
 using Levels.Enums;
+using UI;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour
 {
     public static event Action OnLevelComplete;
+    public static event Action<float> OnWorldShake;
+    public static event Action<int> OnLayerSelected;
+    public static event Action OnLayerStarted;
     public static event Action<string> DisplayText;
-    public static event Action<float> OnCountdown; 
+    public static event Action<float> OnCountdown;
+
+    private Dictionary<string, GameObject> _generatedPlayerContent;
 
     [SerializeField]
     private Vector3 containerStartPosition;
@@ -22,53 +30,73 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ControlPanelContainer[] controlPanelContainers;
 
+    [SerializeField,Min(0f), Header("Level Setup")]
+    private float levelStartCountdownTime;
+    [SerializeField, Min(0f)]
+    private float layerFinishedWaitTime;
+
     [SerializeField, Min(0f), Header("Animations")]
     private float animationTime;
 
     [SerializeField]
     private AnimationCurve animationCurve;
+    [SerializeField, Min(0)]
+    private float worldShakeTime;
 
     private IGenerateSilhouette _silhouetteGenerator;
+    private ICreateWorldReplacers _createWorldReplacers;
 
+    [SerializeField]
     private ButtonInteractable _startButton;
     
     //============================================================================================================//
     
     public void Start()
     {
+        _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
         _silhouetteGenerator = GetComponent<IGenerateSilhouette>();
+        _createWorldReplacers = GetComponent<ICreateWorldReplacers>();
+        
+        Assert.IsNotNull(_startButton);
+        
+        
         StartCoroutine(GameLoop());
     }
 
     private IEnumerator GameLoop()
     {
-        while (LevelLoader.OnLastLevel() == false)
+        do
         {
             var activeControlPanel = GetControlContainerAndDisableOthers(CurrentLevel.controlPanelType);
 
             SetupLevel();
 
             yield return StartCoroutine(ApplyLevelObstaclesCoroutine());
-        
+
             //TODO Wait for button press
             DisplayText?.Invoke("Press Button to Start");
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
-        
-            //TODO Should we have a countdown here to start??
-            yield return StartCoroutine(CountdownCoroutine(0f));
+
+            //Level
+            yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
 
             //------------------------------------------------//
             var levelWaitTime = CurrentLevel.levelTime;
             var layers = CurrentLevel.layers;
             for (int i = 0; i < layers.Length; i++)
             {
+                OnLayerSelected?.Invoke(i);
+                DisplayText?.Invoke("Next Layer!");
+
                 var layer = CurrentLevel.layers[i];
+
                 //Allow the player adjust controls
                 yield return StartCoroutine(CountdownCoroutine(levelWaitTime));
-                
+                OnLayerStarted?.Invoke();
+
                 //Get Inputs
                 //------------------------------------------------//
                 var (position, rotation, scale) = GetAllTransformations(layer, activeControlPanel);
@@ -80,38 +108,39 @@ public class GameManager : MonoBehaviour
                 newTransform.position = position;
                 newTransform.rotation = quaternion.Euler(rotation);
 
-                yield return StartCoroutine(ScaleCoroutine(newTransform, Vector3.zero,  scale, 0.25f));
-                
+                yield return StartCoroutine(ScaleCoroutine(newTransform, Vector3.zero, scale, animationTime));
+
                 yield return new WaitForSeconds(1f);
-                
+
                 //Reparent object to Container
                 //------------------------------------------------//
                 newTransform.SetParent(_containerInstance);
-                
+
                 //Move the Container down
                 //------------------------------------------------//
                 var containerCurrentPosition = _containerInstance.position;
                 var endPosition = containerCurrentPosition + Vector3.down * CurrentLevel.yScale;
-                yield return StartCoroutine(MoveToPositionCoroutine(_containerInstance, containerCurrentPosition, endPosition, 0.25f));
+                yield return StartCoroutine(MoveToPositionCoroutine(_containerInstance, containerCurrentPosition,
+                    endPosition, animationTime));
                 //------------------------------------------------//
-                
-                yield return StartCoroutine(ShakeTheWorldCoroutine(activeControlPanel));
+
+                OnWorldShake?.Invoke(worldShakeTime);
             }
 
             //------------------------------------------------//
-            
+
             //TODO Calculate the score
-            
+
             yield return StartCoroutine(DisplayResultCoroutine());
 
             CleanupLevel();
-        
-            LevelLoader.LoadNextLevel();
-            
-            //TODO Shake up the Level
-            
 
-        }
+            //If we've just wrapped the last lever, exit, and begin finishing the game
+            if(LevelLoader.OnLastLevel())
+                break;
+            
+            LevelLoader.LoadNextLevel();
+        } while (true);
 
         //TODO Finish the Game
     }
@@ -187,15 +216,10 @@ public class GameManager : MonoBehaviour
     //============================================================================================================//
 
     //This function should take the generated Object, and apply it to all of the equivalent tagged world objects
-    private void ProcessPrintToWorld()
-    {
-        throw new NotImplementedException();
-    }
     
     private void CleanupLevel()
     {
-        //TODO Store Container?
-        throw new NotImplementedException();
+        _containerInstance = null;
     }
 
     //Helper Functions
@@ -213,6 +237,8 @@ public class GameManager : MonoBehaviour
 
     private ControlPanelContainer GetControlContainerAndDisableOthers(CONTROL_PANEL_TYPE controlPanelType)
     {
+        Assert.IsTrue(controlPanelType != CONTROL_PANEL_TYPE.NONE);
+        
         var foundIndex = -1;
         for (int i = 0; i < controlPanelContainers.Length; i++)
         {
@@ -228,17 +254,6 @@ public class GameManager : MonoBehaviour
 
         return controlPanelContainers[foundIndex];
     }
-    
-    /*private ControlPanelContainer GetControlContainer(CONTROL_PANEL_TYPE controlPanelType)
-    {
-        for (int i = 0; i < controlPanelContainers.Length; i++)
-        {
-            if (controlPanelContainers[i].controlPanelType == controlPanelType)
-                return controlPanelContainers[i];
-        }
-
-        throw new Exception();
-    }*/
 
     //Coroutine
     //============================================================================================================//
@@ -250,22 +265,28 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DisplayResultCoroutine()
     {
+        var continuePressed = false;
+        void OnContinuePressed()
+        {
+            continuePressed = true;
+        }
+
         //Replace world Objects
-        ProcessPrintToWorld();
+        //------------------------------------------------//
+        var currentLevel = CurrentLevel;
+
+        _generatedPlayerContent.TryAdd(currentLevel.worldPlaceTag, _containerInstance.gameObject);
+        _createWorldReplacers?.CreateWorldVersion(currentLevel.worldPlaceTag, currentLevel.outputScale, _containerInstance.gameObject);
+        //------------------------------------------------//
+        
         //TODO Enable the RenderTexture/Grab screen capture
         //Call to Display the UI to the player
         OnLevelComplete?.Invoke();
-        //TODO Wait for Continue to be pressed
-        throw new NotImplementedException();
-    }
 
-    private IEnumerator ShakeTheWorldCoroutine(ControlPanelContainer controlPanel)
-    {
-        controlPanel.ShuffleControls();
-        
-        //TODO Apply a Camera Shake
-        
-        throw new NotImplementedException();
+        //Wait for Continue to be pressed
+        //------------------------------------------------//
+        UIManager.OnContinuePressed += OnContinuePressed;
+        yield return new WaitUntil(() => continuePressed);
     }
     
     //Static Coroutines

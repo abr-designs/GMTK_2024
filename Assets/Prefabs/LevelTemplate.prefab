@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   worldPlaceTag: 
-  controlPanelType: 0
+  controlPanelType: 1
   usableControls: 1
   levelDescription: 
   levelTime: 3
