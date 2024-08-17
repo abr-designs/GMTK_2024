@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: 
-  worldPlaceTag: 
+  worldPlaceTag: GreekColumn
   controlPanelType: 2
   usableControls: 1
   levelDescription: 
@@ -89,4 +89,4 @@ MonoBehaviour:
     localPosition: {x: 0, y: 0}
     yRotation: 0
     localScale: {x: 2, y: 2}
-  outputScale: 1
+  outputScale: 0.5

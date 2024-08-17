@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
 
     private void SetupLevel()
     {
-        _silhouetteGenerator?.BuildSilhouette();
+        //_silhouetteGenerator?.BuildSilhouette();
         _containerInstance = CreateNewContainer();
     }
 
