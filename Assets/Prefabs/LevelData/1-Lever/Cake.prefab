@@ -50,7 +50,7 @@ MonoBehaviour:
   usableControls: 1
   levelDescription: 
   levelTime: 3
-  yScale: 1
+  yScale: 2
   width: 10
   depth: 10
   layers:
