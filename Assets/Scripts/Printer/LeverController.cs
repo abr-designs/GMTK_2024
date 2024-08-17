@@ -12,6 +12,8 @@ public class LeverController : MonoBehaviour // should inherit from something li
     [Range(0f, 1f)]
     public float inputControlValue = 0.5f;
 
+    public float inputDampener = 5f;
+
     bool isInteracting = false;
 
     [SerializeField] private GantryController connectedGantry;
@@ -39,10 +41,14 @@ public class LeverController : MonoBehaviour // should inherit from something li
         isInteracting = b;
     }
 
-    public void AdjustValue(float f) {
+    public void AdjustValue(float delta) {
+
+        // dampen input
+        float dampening = 1f / inputDampener;
+        delta *= dampening;
 
         // clamp
-        inputControlValue += f * maxPositionRange;
+        inputControlValue += delta * maxPositionRange;
         inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
 
         ValueChanged(inputControlValue);

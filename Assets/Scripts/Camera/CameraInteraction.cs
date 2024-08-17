@@ -10,7 +10,6 @@ public class CameraInteraction : MonoBehaviour {
     public LayerMask layerMask; // Layer mask to specify which objects the ray should interact with
 
     public float sensitivityY = 5f; // Sensitivity for the Y axis rotation
-    public float inputDampener = 5f;
 
     LeverController interactingController;
 
@@ -29,17 +28,17 @@ public class CameraInteraction : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) {
                 // Check if the hit object has a BoxCollider
                 if (hit.collider.GetComponent<LeverController>() != null) {
-                    Debug.Log("Hit an object with a BoxCollider: " + hit.collider.gameObject.name);
+                    //Debug.Log("Hit an object with a BoxCollider: " + hit.collider.gameObject.name);
                     interactingController = hit.collider.GetComponent<LeverController>();
                     interactingController.SetIsInteracting(true);
                 }
                 else {
-                    Debug.Log("Hit an object, but it doesn't have a BoxCollider.");
+                    //Debug.Log("Hit an object, but it doesn't have a BoxCollider.");
                 }
             }
-            else {
-                Debug.Log("No hit detected.");
-            }
+            //else {
+            //    Debug.Log("No hit detected.");
+            //}
         }
 
         // Check if moving interactableObject
@@ -47,9 +46,7 @@ public class CameraInteraction : MonoBehaviour {
 
             float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
 
-            float dampening = 1f / inputDampener;
-
-            interactingController.AdjustValue(mouseY * dampening);
+            interactingController.AdjustValue(mouseY);
         }
 
         // Check if the left mouse button is unclicked
