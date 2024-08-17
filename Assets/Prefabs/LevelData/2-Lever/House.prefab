@@ -74,4 +74,4 @@ MonoBehaviour:
     localPosition: {x: 0, y: 0}
     yRotation: 0
     localScale: {x: 5, y: 4}
-  outputScale: 1
+  outputScale: 1.5
