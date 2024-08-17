@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: 
-  worldPlaceTag: 
+  worldPlaceTag: House
   controlPanelType: 2
   usableControls: 1
   levelDescription: 
