@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7858696028073315379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7718463487402513837}
+  - component: {fileID: 6520950609143577007}
+  m_Layer: 0
+  m_Name: Sign
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7718463487402513837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858696028073315379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6520950609143577007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858696028073315379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d3f1461cae48d189e9cdc4df71e2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: 
+  worldPlaceTag: 
+  controlPanelType: 2
+  usableControls: 1
+  levelDescription: 
+  levelTime: 3
+  yScale: 1
+  width: 10
+  depth: 10
+  layers:
+  - Material: {fileID: 2100000, guid: f0d66f97cb64b0b4a870767aad4e14df, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 1, y: 1}
+  - Material: {fileID: 2100000, guid: f0d66f97cb64b0b4a870767aad4e14df, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 1, y: 1}
+  - Material: {fileID: 2100000, guid: f0d66f97cb64b0b4a870767aad4e14df, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 1, y: 1}
+  - Material: {fileID: 2100000, guid: f0d66f97cb64b0b4a870767aad4e14df, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 1, y: 1}
+  - Material: {fileID: 2100000, guid: f0d66f97cb64b0b4a870767aad4e14df, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 1, y: 1}
+  - Material: {fileID: 2100000, guid: 4f3ab84d208f98a49a55fc8a05cb6872, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 5, y: 1.5}
+  - Material: {fileID: 2100000, guid: 4f3ab84d208f98a49a55fc8a05cb6872, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 5, y: 0.5}
+  - Material: {fileID: 2100000, guid: 4f3ab84d208f98a49a55fc8a05cb6872, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 5, y: 0.5}
+  - Material: {fileID: 2100000, guid: 4f3ab84d208f98a49a55fc8a05cb6872, type: 2}
+    printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
+    localPosition: {x: 0, y: 0}
+    yRotation: 0
+    localScale: {x: 5, y: 2}
+  outputScale: 1
