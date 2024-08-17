@@ -78,10 +78,6 @@ namespace Printer {
             throw new System.NotImplementedException();
         }
 
-        public override void SetValue(float f) {
-            throw new System.NotImplementedException();
-        }
-
 #if UNITY_EDITOR
         void OnValidate() {
             // This method is called when any value in the Inspector is changed
