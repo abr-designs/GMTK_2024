@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Utilities;
 
@@ -66,6 +67,13 @@ namespace Levels
         public static void LoadFirstLevel() => Instance.LoadLevel(0);
         
         //============================================================================================================//
+
+#if UNITY_EDITOR
+        public LevelDataContainer[] GetDataContainers()
+        {
+            return levels;
+        }
+#endif
         
     }
 }
