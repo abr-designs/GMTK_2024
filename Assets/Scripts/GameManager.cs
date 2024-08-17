@@ -10,6 +10,7 @@ using UI;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Utilities.Animations;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class GameManager : MonoBehaviour
     private AnimationCurve animationCurve;
     [SerializeField, Min(0)]
     private float worldShakeTime;
+
+    [SerializeField]
+    private WaitForAnimationBase doorAnimation;
 
     private IGenerateSilhouette _silhouetteGenerator;
     private ICreateWorldReplacers _createWorldReplacers;
@@ -116,12 +120,16 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
                 newTransform.SetParent(_containerInstance);
 
+                yield return StartCoroutine(doorAnimation.DoAnimatioCoroutine(animationTime, false));
+
                 //Move the Container down
                 //------------------------------------------------//
                 var containerCurrentPosition = _containerInstance.position;
                 var endPosition = containerCurrentPosition + Vector3.down * CurrentLevel.yScale;
                 yield return StartCoroutine(MoveToPositionCoroutine(_containerInstance, containerCurrentPosition,
                     endPosition, animationTime));
+                
+                yield return StartCoroutine(doorAnimation.DoAnimatioCoroutine(animationTime, true));
                 //------------------------------------------------//
 
                 OnWorldShake?.Invoke(worldShakeTime);
@@ -151,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     private void SetupLevel()
     {
-        _silhouetteGenerator?.BuildSilhouette();
+        _silhouetteGenerator?.BuildSilhouette(CurrentLevel);
         _containerInstance = CreateNewContainer();
     }
 
@@ -330,5 +338,15 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+
+#if UNITY_EDITOR
+
+    private void OnDrawGizmos()
+    {
+        
+        Gizmos.DrawWireSphere(containerStartPosition, 1f);
+    }
+
+#endif
 
 }
