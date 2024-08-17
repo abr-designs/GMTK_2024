@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021dbeff935ecbc4d98d3502ee72d29e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMouseFirstPersonRotation: {fileID: 5317253378795715324}
   maxRayDistance: 100
   layerMask:
     serializedVersion: 2
