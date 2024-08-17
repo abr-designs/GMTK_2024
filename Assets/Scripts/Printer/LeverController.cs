@@ -1,56 +1,64 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LeverController : MonoBehaviour // should inherit from something like an interactableInputControl
+namespace Printer
 {
-    public Transform movableTransform;
+    public class
+        LeverController : InteractableInputControl // should inherit from something like an interactableInputControl
+    {
+        public override float InputValue => inputControlValue;
 
-    public float maxPositionRange = 0.4f;
-    public Vector3 offsetAxis = Vector3.forward;
+        [SerializeField] public Transform movableTransform;
 
-    [Range(0f, 1f)]
-    public float inputControlValue = 0.5f;
+        [SerializeField] private float maxPositionRange = 0.4f;
+        [SerializeField] private Vector3 offsetAxis = Vector3.forward;
 
-    public float inputDampener = 5f;
+        [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
 
-    bool isInteracting = false;
+        [SerializeField] private float inputDampener = 5f;
 
-    [SerializeField] private GantryController connectedGantry;
+        private bool _isInteracting = false;
 
-    public void SetMeshPositionFromValue(float value) {
+        [SerializeField] private GantryController connectedGantry;
 
-        float rangeValue = value - 0.5f;
-        movableTransform.localPosition = (maxPositionRange * offsetAxis) * rangeValue;
-    }
-
-    void OnValidate() {
-        // This method is called when any value in the Inspector is changed
-        ValueChanged(inputControlValue);
-    }
-
-    public void ValueChanged(float newValue) {
-        SetMeshPositionFromValue(newValue);
-
-        if(connectedGantry != null) {
-            connectedGantry.ValueChanged(newValue);
+        private void SetMeshPositionFromValue(float value)
+        {
+            float rangeValue = value - 0.5f;
+            movableTransform.localPosition = offsetAxis * (maxPositionRange * rangeValue);
         }
-    }
 
-    public void SetIsInteracting(bool b) {
-        isInteracting = b;
-    }
 
-    public void AdjustValue(float delta) {
+        private void ValueChanged(float newValue)
+        {
+            SetMeshPositionFromValue(newValue);
 
-        // dampen input
-        float dampening = 1f / inputDampener;
-        delta *= dampening;
+            connectedGantry?.ValueChanged(newValue);
+        }
 
-        // clamp
-        inputControlValue += delta * maxPositionRange;
-        inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
+        public void SetIsInteracting(bool b)
+        {
+            _isInteracting = b;
+        }
 
-        ValueChanged(inputControlValue);
+        public void AdjustValue(float delta)
+        {
+            // dampen input
+            float dampening = 1f / inputDampener;
+            delta *= dampening;
+
+            // clamp
+            inputControlValue += delta * maxPositionRange;
+            inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
+
+            ValueChanged(inputControlValue);
+        }
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            // This method is called when any value in the Inspector is changed
+            ValueChanged(inputControlValue);
+        }
+#endif
+
     }
 }
