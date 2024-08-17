@@ -1,6 +1,7 @@
 using GameInput;
 using UnityEngine;
 using Printer;
+using Interactables;
 
 public class CameraInteraction : MonoBehaviour {
 

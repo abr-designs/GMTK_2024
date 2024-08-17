@@ -1,3 +1,4 @@
+using Interactables;
 using UnityEngine;
 
 namespace Printer
@@ -57,6 +58,10 @@ namespace Printer
         {
             // This method is called when any value in the Inspector is changed
             ValueChanged(inputControlValue);
+        }
+
+        public override void SetValue(float f) {
+            throw new System.NotImplementedException();
         }
 #endif
 
