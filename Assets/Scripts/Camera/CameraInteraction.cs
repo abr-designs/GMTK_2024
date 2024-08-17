@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using GameInput;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraInteraction : MonoBehaviour {
 
@@ -9,49 +7,73 @@ public class CameraInteraction : MonoBehaviour {
     public float maxRayDistance = 100f; // Maximum distance the ray should check
     public LayerMask layerMask; // Layer mask to specify which objects the ray should interact with
 
-    public float sensitivityY = 5f; // Sensitivity for the Y axis rotation
+    public float sensitivityY = 1f; // Sensitivity for the Y axis rotation
 
     LeverController interactingController;
+
+    private void OnEnable() {
+        GameInputDelegator.OnLeftClick += GameInputDelegator_OnLeftClick;
+        GameInputDelegator.OnMouseMove += GameInputDelegator_OnMouseMove;
+    }
+
+    private void OnDisable() {
+        GameInputDelegator.OnLeftClick -= GameInputDelegator_OnLeftClick;
+        GameInputDelegator.OnMouseMove -= GameInputDelegator_OnMouseMove;
+    }
+
+    private void GameInputDelegator_OnLeftClick(bool isPressed) {
+
+        if (isPressed) {
+            Debug.Log("mouse down");
+            CheckForControlInteraction();
+        }
+        else {
+            Debug.Log("release");
+            CheckForReleaseInteraction();
+        }
+
+    }
+
+    private void GameInputDelegator_OnMouseMove(Vector2 delta) {
+        CheckForMoveControlInteraction(delta);
+    }
 
     private void Start() {
         camera = GetComponent<Camera>();
     }
 
-    void Update() {
-        // Check if the left mouse button is clicked
-        if (Input.GetMouseButtonDown(0)) {
-            // Create a ray from the center of the camera's view
-            Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            RaycastHit hit;
+    private void CheckForControlInteraction() {
 
-            // Perform the raycast and check if it hits an object with a BoxCollider
-            if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) {
-                // Check if the hit object has a BoxCollider
-                if (hit.collider.GetComponent<LeverController>() != null) {
-                    //Debug.Log("Hit an object with a BoxCollider: " + hit.collider.gameObject.name);
-                    interactingController = hit.collider.GetComponent<LeverController>();
-                    interactingController.SetIsInteracting(true);
-                }
-                else {
-                    //Debug.Log("Hit an object, but it doesn't have a BoxCollider.");
-                }
+        if (interactingController != null) return;
+
+        // Create a ray from the center of the camera's view
+        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        // Perform the raycast and check if it hits an object with a BoxCollider
+        if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) {
+            // Check if the hit object has a PrinterInputContol
+            if (hit.collider.GetComponent<LeverController>() != null) {
+                interactingController = hit.collider.GetComponent<LeverController>();
+                interactingController.SetIsInteracting(true);
             }
-            //else {
-            //    Debug.Log("No hit detected.");
-            //}
         }
 
-        // Check if moving interactableObject
-        if (interactingController != null && Input.GetMouseButton(0)) {
-
-            float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
-
-            interactingController.AdjustValue(mouseY);
-        }
-
-        // Check if the left mouse button is unclicked
-        if (interactingController != null && Input.GetMouseButtonUp(0)) {
-            interactingController.SetIsInteracting(false);
-        }
     }
+
+    private void CheckForReleaseInteraction() {
+        if (interactingController == null) return;
+        interactingController.SetIsInteracting(false);
+        interactingController = null;
+    }
+
+    private void CheckForMoveControlInteraction(Vector2 delta) {
+        // Check if moving interactableObject
+        if (interactingController == null) return;
+
+        float mouseY = delta.y * sensitivityY;
+        interactingController.AdjustValue(mouseY);
+    }
+
+
 }
