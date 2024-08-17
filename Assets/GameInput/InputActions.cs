@@ -30,33 +30,6 @@ namespace GameInput
             ""id"": ""4f2bd542-b0e6-4a1f-aac5-1e46a433c334"",
             ""actions"": [
                 {
-                    ""name"": ""HorizontalMovement"",
-                    ""type"": ""Value"",
-                    ""id"": ""18d9ff74-8ec0-4ca0-ad0d-b067104cdbee"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""VerticalMovement"",
-                    ""type"": ""Button"",
-                    ""id"": ""bd12a9d6-db60-4d4d-974b-025888a450f1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""GrabItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""a65766b7-fa05-44b6-8d23-f21fac251c0b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Mouse Left Click"",
                     ""type"": ""Button"",
                     ""id"": ""426bd2d0-af89-422c-9959-a5d5d2ba189d"",
@@ -73,86 +46,18 @@ namespace GameInput
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseLook"",
+                    ""type"": ""Value"",
+                    ""id"": ""e8b6713a-3400-4964-b0ae-a9b8af8aaecd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""AD"",
-                    ""id"": ""7f3f522a-0e88-414c-836f-be2ea151a320"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HorizontalMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""b2e33e55-4cb9-4534-92d4-d8a2a05dac1f"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HorizontalMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""7e78ae0d-3452-4fae-9c24-638bfa104cb5"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HorizontalMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""WS"",
-                    ""id"": ""ffe14137-de7c-4b76-b9d0-f5c3619f2374"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""97e093b9-748b-476d-a8c5-06fb95ee89ab"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""38bdaa30-7803-467c-aa55-6b859f5f41ac"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""074ec06e-9645-434a-9fa4-deeead85e4ea"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GrabItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""7040ecd5-918f-46a9-a9e3-c87cab51b03f"",
@@ -174,6 +79,17 @@ namespace GameInput
                     ""action"": ""Mouse Right Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6323fe62-808c-4094-aa26-3aee464ffecb"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -188,11 +104,9 @@ namespace GameInput
 }");
             // Gameplay
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            m_Gameplay_HorizontalMovement = m_Gameplay.FindAction("HorizontalMovement", throwIfNotFound: true);
-            m_Gameplay_VerticalMovement = m_Gameplay.FindAction("VerticalMovement", throwIfNotFound: true);
-            m_Gameplay_GrabItem = m_Gameplay.FindAction("GrabItem", throwIfNotFound: true);
             m_Gameplay_MouseLeftClick = m_Gameplay.FindAction("Mouse Left Click", throwIfNotFound: true);
             m_Gameplay_MouseRightClick = m_Gameplay.FindAction("Mouse Right Click", throwIfNotFound: true);
+            m_Gameplay_MouseLook = m_Gameplay.FindAction("MouseLook", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         }
@@ -256,20 +170,16 @@ namespace GameInput
         // Gameplay
         private readonly InputActionMap m_Gameplay;
         private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-        private readonly InputAction m_Gameplay_HorizontalMovement;
-        private readonly InputAction m_Gameplay_VerticalMovement;
-        private readonly InputAction m_Gameplay_GrabItem;
         private readonly InputAction m_Gameplay_MouseLeftClick;
         private readonly InputAction m_Gameplay_MouseRightClick;
+        private readonly InputAction m_Gameplay_MouseLook;
         public struct GameplayActions
         {
             private @InputActions m_Wrapper;
             public GameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @HorizontalMovement => m_Wrapper.m_Gameplay_HorizontalMovement;
-            public InputAction @VerticalMovement => m_Wrapper.m_Gameplay_VerticalMovement;
-            public InputAction @GrabItem => m_Wrapper.m_Gameplay_GrabItem;
             public InputAction @MouseLeftClick => m_Wrapper.m_Gameplay_MouseLeftClick;
             public InputAction @MouseRightClick => m_Wrapper.m_Gameplay_MouseRightClick;
+            public InputAction @MouseLook => m_Wrapper.m_Gameplay_MouseLook;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -279,40 +189,28 @@ namespace GameInput
             {
                 if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-                @HorizontalMovement.started += instance.OnHorizontalMovement;
-                @HorizontalMovement.performed += instance.OnHorizontalMovement;
-                @HorizontalMovement.canceled += instance.OnHorizontalMovement;
-                @VerticalMovement.started += instance.OnVerticalMovement;
-                @VerticalMovement.performed += instance.OnVerticalMovement;
-                @VerticalMovement.canceled += instance.OnVerticalMovement;
-                @GrabItem.started += instance.OnGrabItem;
-                @GrabItem.performed += instance.OnGrabItem;
-                @GrabItem.canceled += instance.OnGrabItem;
                 @MouseLeftClick.started += instance.OnMouseLeftClick;
                 @MouseLeftClick.performed += instance.OnMouseLeftClick;
                 @MouseLeftClick.canceled += instance.OnMouseLeftClick;
                 @MouseRightClick.started += instance.OnMouseRightClick;
                 @MouseRightClick.performed += instance.OnMouseRightClick;
                 @MouseRightClick.canceled += instance.OnMouseRightClick;
+                @MouseLook.started += instance.OnMouseLook;
+                @MouseLook.performed += instance.OnMouseLook;
+                @MouseLook.canceled += instance.OnMouseLook;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
             {
-                @HorizontalMovement.started -= instance.OnHorizontalMovement;
-                @HorizontalMovement.performed -= instance.OnHorizontalMovement;
-                @HorizontalMovement.canceled -= instance.OnHorizontalMovement;
-                @VerticalMovement.started -= instance.OnVerticalMovement;
-                @VerticalMovement.performed -= instance.OnVerticalMovement;
-                @VerticalMovement.canceled -= instance.OnVerticalMovement;
-                @GrabItem.started -= instance.OnGrabItem;
-                @GrabItem.performed -= instance.OnGrabItem;
-                @GrabItem.canceled -= instance.OnGrabItem;
                 @MouseLeftClick.started -= instance.OnMouseLeftClick;
                 @MouseLeftClick.performed -= instance.OnMouseLeftClick;
                 @MouseLeftClick.canceled -= instance.OnMouseLeftClick;
                 @MouseRightClick.started -= instance.OnMouseRightClick;
                 @MouseRightClick.performed -= instance.OnMouseRightClick;
                 @MouseRightClick.canceled -= instance.OnMouseRightClick;
+                @MouseLook.started -= instance.OnMouseLook;
+                @MouseLook.performed -= instance.OnMouseLook;
+                @MouseLook.canceled -= instance.OnMouseLook;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -370,11 +268,9 @@ namespace GameInput
         public MenuActions @Menu => new MenuActions(this);
         public interface IGameplayActions
         {
-            void OnHorizontalMovement(InputAction.CallbackContext context);
-            void OnVerticalMovement(InputAction.CallbackContext context);
-            void OnGrabItem(InputAction.CallbackContext context);
             void OnMouseLeftClick(InputAction.CallbackContext context);
             void OnMouseRightClick(InputAction.CallbackContext context);
+            void OnMouseLook(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {
