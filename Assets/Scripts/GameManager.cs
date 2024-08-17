@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, GameObject> _generatedPlayerContent;
 
     [SerializeField]
-    private Vector3 containerStartPosition;
+    private Vector3 spawnPosition;
     private Transform _containerInstance;
     private static LevelDataContainer CurrentLevel => LevelLoader.CurrentLevelDataContainer;
 
@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
     private float animationTime;
 
     [SerializeField]
-    private AnimationCurve animationCurve;
+    private AnimationCurve scaleCurve;
+    [SerializeField]
+    private AnimationCurve moveCurve;
     [SerializeField, Min(0)]
     private float worldShakeTime;
 
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
                 var newTransform = GetGeneratedLayerTransform(i, layer);
                 //TODO Consider animating the position & the rotation as well!
-                newTransform.position = position;
+                newTransform.position = position + spawnPosition;
                 newTransform.rotation = quaternion.Euler(rotation);
 
                 yield return StartCoroutine(ScaleCoroutine(newTransform, Vector3.zero, scale, animationTime));
@@ -120,16 +122,19 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
                 newTransform.SetParent(_containerInstance);
 
-                yield return StartCoroutine(doorAnimation.DoAnimatioCoroutine(animationTime, false));
+                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, false));
 
                 //Move the Container down
                 //------------------------------------------------//
-                var containerCurrentPosition = _containerInstance.position;
-                var endPosition = containerCurrentPosition + Vector3.down * CurrentLevel.yScale;
-                yield return StartCoroutine(MoveToPositionCoroutine(_containerInstance, containerCurrentPosition,
-                    endPosition, animationTime));
+                var objectCurrentPosition = newTransform.position;
+                var endPosition = _containerInstance.position + Vector3.up * (i * CurrentLevel.yScale);
+                yield return StartCoroutine(MoveToPositionCoroutine(
+                    newTransform, 
+                    objectCurrentPosition,
+                    endPosition, 
+                    animationTime));
                 
-                yield return StartCoroutine(doorAnimation.DoAnimatioCoroutine(animationTime, true));
+                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, true));
                 //------------------------------------------------//
 
                 OnWorldShake?.Invoke(worldShakeTime);
@@ -166,7 +171,12 @@ public class GameManager : MonoBehaviour
     private Transform CreateNewContainer()
     {
         var newContainer = new GameObject($"---Level [{LevelLoader.CurrentLevelIndex.ToString()}] Container---").transform;
-        newContainer.position = containerStartPosition;
+
+        var dataContainer = LevelLoader.CurrentLevelDataContainer;
+        var layerHeight = dataContainer.yScale;
+        var layerCount = dataContainer.layers.Length;
+        
+        newContainer.position = Vector3.down * (layerHeight * layerCount);
 
         return newContainer;
     }
@@ -320,7 +330,7 @@ public class GameManager : MonoBehaviour
         {
             var dt = t / time;
 
-            target.transform.localScale = Vector3.Lerp(startScale, targetScale, animationCurve.Evaluate(dt));
+            target.transform.localScale = Vector3.Lerp(startScale, targetScale, scaleCurve.Evaluate(dt));
                     
             yield return null;
         }
@@ -333,20 +343,10 @@ public class GameManager : MonoBehaviour
             var dt = t / time;
             
 
-            target.transform.position = Vector3.Lerp(startPosition, endPosition, animationCurve.Evaluate(dt));
+            target.transform.position = Vector3.Lerp(startPosition, endPosition, moveCurve.Evaluate(dt));
                     
             yield return null;
         }
     }
-
-#if UNITY_EDITOR
-
-    private void OnDrawGizmos()
-    {
-        
-        Gizmos.DrawWireSphere(containerStartPosition, 1f);
-    }
-
-#endif
 
 }

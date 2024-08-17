@@ -4,6 +4,6 @@ namespace Utilities.Animations
 {
     public interface IWaitForAnimation
     {
-        IEnumerator DoAnimatioCoroutine(float time, bool invert);
+        IEnumerator DoAnimationCoroutine(float time, bool invert);
     }
 }

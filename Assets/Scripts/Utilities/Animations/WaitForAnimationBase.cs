@@ -5,7 +5,7 @@ namespace Utilities.Animations
 {
     public abstract class WaitForAnimationBase : MonoBehaviour, IWaitForAnimation
     {
-        public abstract IEnumerator DoAnimatioCoroutine(float time, bool invert);
+        public abstract IEnumerator DoAnimationCoroutine(float time, bool invert);
         
         protected IEnumerator ScaleCoroutine(Transform target, Vector3 startScale, Vector3 targetScale, float time, AnimationCurve animationCurve)
         {

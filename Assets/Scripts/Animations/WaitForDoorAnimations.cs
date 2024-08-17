@@ -33,7 +33,7 @@ namespace Animations
 
         //============================================================================================================//
 
-        public override IEnumerator DoAnimatioCoroutine(float time, bool invert)
+        public override IEnumerator DoAnimationCoroutine(float time, bool invert)
         {
 
             for (int i = 0; i < doors.Length; i++)
