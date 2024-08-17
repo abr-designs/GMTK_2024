@@ -83,7 +83,9 @@ MonoBehaviour:
   movableTransform: {fileID: 9126783427593305099}
   maxPositionRange: 0.4
   offsetAxis: {x: 0, y: 0, z: 1}
-  inputValue: 0.5
+  inputControlValue: 0.5
+  inputDampener: 50
+  connectedGantry: {fileID: 0}
 --- !u!65 &8920150294623403071
 BoxCollider:
   m_ObjectHideFlags: 0
