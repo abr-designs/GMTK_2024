@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Interactables;
 using Interactables.Enums;
 using Interfaces;
@@ -49,8 +50,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private WaitForAnimationBase doorAnimation;
 
+    private IDisplayDialog _displayDialog;
     private IGenerateSilhouette _silhouetteGenerator;
     private ICreateWorldReplacers _createWorldReplacers;
+    private CinemachineImpulseSource _impulseSource;
 
     [SerializeField]
     private ButtonInteractable _startButton;
@@ -62,8 +65,10 @@ public class GameManager : MonoBehaviour
         _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
-        _silhouetteGenerator = GetComponent<IGenerateSilhouette>();
-        _createWorldReplacers = GetComponent<ICreateWorldReplacers>();
+        _displayDialog = GetComponentInChildren<IDisplayDialog>();
+        _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
+        _createWorldReplacers = GetComponentInChildren<ICreateWorldReplacers>();
+        _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         
         Assert.IsNotNull(_startButton);
         
@@ -80,12 +85,17 @@ public class GameManager : MonoBehaviour
             SetupLevel();
 
             yield return StartCoroutine(ApplyLevelObstaclesCoroutine());
+            
+            if (_displayDialog != null)
+                yield return StartCoroutine(_displayDialog.DisplayDialogCoroutine(CurrentLevel.levelScript));
 
             //TODO Wait for button press
             DisplayText?.Invoke("Press Button to Start");
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
 
+            DisplayText?.Invoke("Get Ready!");
+            
             //Level
             yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
 
@@ -137,6 +147,7 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, true));
                 //------------------------------------------------//
 
+                _impulseSource?.GenerateImpulse();
                 OnWorldShake?.Invoke(worldShakeTime);
             }
 
