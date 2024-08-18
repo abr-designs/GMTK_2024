@@ -30,7 +30,7 @@ namespace Printer
 
         [Header("Motion Type")]
         [SerializeField] private ControlTransformType controlTransformType = ControlTransformType.Rotation;
-        [SerializeField] private Vector3 transformAxis = Vector3.forward;
+        [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.forward };
         [SerializeField] private float rangeOfMotion = 0.4f;
 
         [Header("Input Variables")]
@@ -80,12 +80,12 @@ namespace Printer
 
         private void SetPositionInRange(float rangeValue)
         {
-            movingPartReference.localPosition = transformAxis * (rangeOfMotion * rangeValue);
+            movingPartReference.localPosition = transformAxis[0] * (rangeOfMotion * rangeValue);
         }
 
         private void SetRotationInRange(float rangeValue)
         {
-            Vector3 rotationEuler = transformAxis * (rangeOfMotion * rangeValue);
+            Vector3 rotationEuler = transformAxis[0] * (rangeOfMotion * rangeValue);
             Quaternion quaternion = Quaternion.Euler(rotationEuler);
             movingPartReference.localRotation = quaternion;
         }
@@ -123,7 +123,7 @@ namespace Printer
             ValueChanged(inputControlValue);
         }
 
-        public override Vector3 GetTransformAxis() {
+        public override Vector3[] GetTransformAxis() {
             return transformAxis;
         }
 
@@ -135,13 +135,9 @@ namespace Printer
             ValueChanged(inputControlValue);
         }
 
-#if UNITY_EDITOR
-        void OnValidate()
-        {
-            // This method is called when any value in the Inspector is changed
-            if (DEBUG_updateInEditor) ValueChanged(inputControlValue);
+        public override void AdjustValue(Vector2 delta) {
+            throw new System.NotImplementedException();
         }
-#endif
 
     }
 }

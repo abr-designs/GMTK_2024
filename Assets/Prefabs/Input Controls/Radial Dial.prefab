@@ -509,7 +509,8 @@ MonoBehaviour:
   movingPartReference: {fileID: 1620837054702245559}
   connectedGantry: {fileID: 0}
   controlTransformType: 1
-  transformAxis: {x: 0, y: 1, z: 0}
+  transformAxis:
+  - {x: 0, y: 1, z: 0}
   rangeOfMotion: 270
   inputControlValue: 0.5
   inputDampener: 125

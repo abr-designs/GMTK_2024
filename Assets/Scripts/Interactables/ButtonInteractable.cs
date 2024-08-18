@@ -69,7 +69,11 @@ namespace Interactables
             SetValue(1f);
         }
 
-        public override Vector3 GetTransformAxis() {
+        public override Vector3[] GetTransformAxis() {
+            throw new NotImplementedException();
+        }
+
+        public override void AdjustValue(Vector2 delta) {
             throw new NotImplementedException();
         }
     }

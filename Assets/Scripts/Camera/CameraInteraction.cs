@@ -94,10 +94,10 @@ public class CameraInteraction : MonoBehaviour
 
         //float dotValue = Vector3.Dot(new Vector3(mouseX, mouseY, 0), controlRotation);
 
-        Vector3 controlRotationAxis = interactingController.GetTransformAxis();
+        Vector3[] controlRotationAxis = interactingController.GetTransformAxis();
 
-        float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis.y * 90f) * Mathf.Deg2Rad);
-        float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis.y * 90f) * Mathf.Deg2Rad);
+        float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+        float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
 
         //Debug.Log($"{controlRotation.y} {cosY}");
 
