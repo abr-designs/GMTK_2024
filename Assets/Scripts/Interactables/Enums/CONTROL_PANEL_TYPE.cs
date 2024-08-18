@@ -7,6 +7,7 @@
         TWO_AXIS = 2,
         THREE_AXIS = 3,
         FOUR_AXIS = 4,
-        MAXIMUM = 5,
+        FIVE_AXIS = 5,
+        USE_FOR_TESTING = 6,
     }
 }

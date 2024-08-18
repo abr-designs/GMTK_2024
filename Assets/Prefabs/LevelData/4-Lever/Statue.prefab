@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   worldPlaceTag: Statue
-  controlPanelType: 3
+  controlPanelType: 4
   usableControls: 1
   levelScript: 
   levelCompleteScript: 

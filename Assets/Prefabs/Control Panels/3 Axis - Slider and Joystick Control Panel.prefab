@@ -50,7 +50,7 @@ MonoBehaviour:
   controls:
   - control: 8
     inputControl: {fileID: 5727786042412338333}
-  - control: 32
+  - control: 1
     inputControl: {fileID: 988666347221178054}
 --- !u!1 &885005610266745169
 GameObject:

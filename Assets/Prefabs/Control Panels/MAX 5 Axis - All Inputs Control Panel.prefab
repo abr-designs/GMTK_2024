@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8058309568041661947}
   - component: {fileID: 333282449206904744}
   m_Layer: 0
-  m_Name: MAX 4 Axis - All Inputs Control Panel
+  m_Name: MAX 5 Axis - All Inputs Control Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
