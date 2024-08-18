@@ -54,6 +54,8 @@ MonoBehaviour:
   - {fileID: 0}
   levelStartCountdownTime: 3
   layerFinishedWaitTime: 2
+  worldTagSceneIndex: 2
+  _startButton: {fileID: 0}
   animationTime: 0.3
   scaleCurve:
     serializedVersion: 2
@@ -105,7 +107,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   worldShakeTime: 1
   doorAnimation: {fileID: 0}
-  _startButton: {fileID: 0}
 --- !u!114 &6198028794145147045
 MonoBehaviour:
   m_ObjectHideFlags: 0
