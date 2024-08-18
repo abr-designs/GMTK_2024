@@ -86,10 +86,10 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     {
         //Layer Restrict the new Objects
         //------------------------------------------------//
-        var gameObjects = container.GetComponentsInChildren<GameObject>();
+        var gameObjects = container.GetComponentsInChildren<Transform>();
         foreach (var o in gameObjects)
         {
-            o.layer = layerMask.value;
+            o.gameObject.layer = layerMask.value;
         }
         
         //------------------------------------------------//
@@ -104,6 +104,8 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
             
 
         }
+        
+        container.SetActive(false);
     }
 
 
