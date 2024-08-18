@@ -169,8 +169,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.4, z: 0.5}
-  m_Center: {x: 0, y: 0.15, z: 0}
+  m_Size: {x: 0.1, y: 0.2, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2130247235206578875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,12 +187,15 @@ MonoBehaviour:
   movingPartReference: {fileID: 919462662085776540}
   connectedGantry: {fileID: 0}
   controlTransformType: 0
-  transformAxis: {x: 0, y: 0, z: 1}
+  transformAxis:
+  - {x: 0, y: 0, z: 1}
   rangeOfMotion: 0.4
   inputControlValue: 0.5
   inputDampener: 125
   DEBUG_updateInEditor: 0
   transformAnimator: {fileID: 6108217539991097361}
+  interactionSFX: 1
+  sfxCooldown: 0.5
 --- !u!1 &4882056028671574958
 GameObject:
   m_ObjectHideFlags: 0

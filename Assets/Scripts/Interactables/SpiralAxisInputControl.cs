@@ -108,12 +108,18 @@ namespace Printer {
         }
 
         public override void SetValue(float f) {
-            throw new System.NotImplementedException();
         }
 
         public override void SetIsInteracting(bool b) {
             throw new System.NotImplementedException();
         }
 
+        public override Vector3[] GetTransformAxis() {
+            throw new System.NotImplementedException();
+        }
+
+        public override void AdjustValue(Vector2 delta) {
+            throw new System.NotImplementedException();
+        }
     }
 }

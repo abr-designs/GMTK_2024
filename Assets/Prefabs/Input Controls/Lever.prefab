@@ -258,12 +258,15 @@ MonoBehaviour:
   movingPartReference: {fileID: 9126783427593305099}
   connectedGantry: {fileID: 0}
   controlTransformType: 1
-  transformAxis: {x: 1, y: 0, z: 0}
+  transformAxis:
+  - {x: 1, y: 0, z: 0}
   rangeOfMotion: 45
   inputControlValue: 0.5
   inputDampener: 125
   DEBUG_updateInEditor: 0
   transformAnimator: {fileID: 7156640514997751226}
+  interactionSFX: 2
+  sfxCooldown: 0.4
 --- !u!1 &5964876580805179114
 GameObject:
   m_ObjectHideFlags: 0

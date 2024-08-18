@@ -23,6 +23,12 @@ namespace Interactables
         // private
         private float lastKnownValue = 0f;
 
+
+        private void Start() {
+            if (shouldSwitchColor) buttonRenderer.material.color = offColor;
+            if (!shouldSwitchColor) buttonRenderer.material.color = waitingColor;
+        }
+
         private void Update()
         {
             // check if button value changed

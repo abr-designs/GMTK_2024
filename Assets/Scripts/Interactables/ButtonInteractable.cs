@@ -16,7 +16,21 @@ namespace Interactables
 
         [SerializeField] private bool isToggleButton = false;
 
+        [SerializeField] SFX interactionSFX;
+        [SerializeField] private float sfxCooldown = 0.5f;
+        private float sfxCountdown;
+
         private float _inputValue;
+
+        private void TriggerInteractionSFX() {
+            if (sfxCountdown > 0) return;
+
+            interactionSFX.PlaySound();
+            sfxCountdown = sfxCooldown;
+        }
+        private void Update() {
+            if (sfxCountdown > 0f) { sfxCountdown -= Time.deltaTime; }
+        }
 
         public override void SetIsInteracting(bool b)
         {
@@ -32,7 +46,9 @@ namespace Interactables
 
                     break;
             }
-            if (!b) SFX.Button.PlaySound();
+
+            // on mouse release, trigger sfx
+            if (!b) TriggerInteractionSFX();
 
 
         }
@@ -51,6 +67,14 @@ namespace Interactables
         private void SetToMax()
         {
             SetValue(1f);
+        }
+
+        public override Vector3[] GetTransformAxis() {
+            throw new NotImplementedException();
+        }
+
+        public override void AdjustValue(Vector2 delta) {
+            throw new NotImplementedException();
         }
     }
 }

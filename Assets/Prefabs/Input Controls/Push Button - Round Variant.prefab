@@ -184,20 +184,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Push Button - Round Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2415864209005555417, guid: cc0326c59ec504b438de83bb9cd19d07,
+        type: 3}
+      propertyPath: interactionSFX
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3552129754597848672, guid: cc0326c59ec504b438de83bb9cd19d07,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.125
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3552129754597848672, guid: cc0326c59ec504b438de83bb9cd19d07,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.125
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3552129754597848672, guid: cc0326c59ec504b438de83bb9cd19d07,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.125
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5910213164924358018, guid: cc0326c59ec504b438de83bb9cd19d07,
         type: 3}

@@ -55,7 +55,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Size: {x: 0.15, y: 0.15, z: 0.15}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2415864209005555417
 MonoBehaviour:
@@ -70,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isToggleButton: 0
+  interactionSFX: 3
+  sfxCooldown: 0.5
 --- !u!114 &63457685958258073
 MonoBehaviour:
   m_ObjectHideFlags: 0

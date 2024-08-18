@@ -2,14 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using GameInput;
 using Interactables;
 using Interactables.Enums;
 using Interfaces;
 using Levels;
-using Levels.Enums;
-using UI;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -23,7 +19,9 @@ public class GameManager : MonoBehaviour
     public static event Action<float> OnWorldShake;
     public static event Action<int> OnLayerSelected;
     public static event Action OnLayerStarted;
+    public static event Action OnLayerFinished;
     public static event Action<string> DisplayText;
+    public static event Action<string> DisplayResultText;
     public static event Action<float> OnCountdown;
 
     private Dictionary<string, GameObject> _generatedPlayerContent;
@@ -33,7 +31,8 @@ public class GameManager : MonoBehaviour
     private Transform _containerInstance;
     private static LevelDataContainer CurrentLevel => LevelLoader.CurrentLevelDataContainer;
 
-    [SerializeField]
+    public static ControlPanelContainer ActiveControlPanel { get; private set; }
+
     private ControlPanelContainer[] controlPanelContainers;
     private Dictionary<CONTROL_PANEL_TYPE, List<ControlPanelContainer>> _controlPanelContainers;
 
@@ -52,10 +51,6 @@ public class GameManager : MonoBehaviour
     [SerializeField, Min(0f), Header("Animations")]
     private float animationTime;
 
-    [SerializeField]
-    private AnimationCurve scaleCurve;
-    [SerializeField]
-    private AnimationCurve moveCurve;
     [SerializeField, Min(0)]
     private float worldShakeTime;
 
@@ -78,6 +73,7 @@ public class GameManager : MonoBehaviour
     
     public void Start()
     {
+        controlPanelContainers = FindObjectsOfType<ControlPanelContainer>();
         _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
@@ -87,6 +83,7 @@ public class GameManager : MonoBehaviour
         _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         _spawnLayers = GetComponentInParent<ISpawnLayers>();
+        _spawnLayers.SpawnLocation = spawnPosition;
         _moveLayers = GetComponentInParent<IMoveLayers>();
         _resultsDisplay = GetComponentInChildren<IDisplayResults>();
         
@@ -136,7 +133,8 @@ public class GameManager : MonoBehaviour
         do
         {
             var activeControlPanel = GetControlContainerAndDisableOthers(CurrentLevel.controlPanelType);
-
+            ActiveControlPanel = activeControlPanel;
+            
             SetupLevel(); 
             
             OnLevelStarted?.Invoke();
@@ -178,9 +176,11 @@ public class GameManager : MonoBehaviour
 
                 var layer = CurrentLevel.layers[i];
 
+                OnLayerStarted?.Invoke();
                 //Allow the player adjust controls
                 yield return StartCoroutine(CountdownCoroutine(levelWaitTime));
-                OnLayerStarted?.Invoke();
+                
+                OnLayerFinished?.Invoke();
 
                 yield return _spawnLayers.SpawnLayer(i, layer, CurrentLevel, activeControlPanel);
 
@@ -208,6 +208,7 @@ public class GameManager : MonoBehaviour
 
                 //Call to Display the UI to the player
                 OnLevelComplete?.Invoke();
+                DisplayResultText?.Invoke(CurrentLevel.levelCompleteScript);
             });
 
             CleanupLevel();

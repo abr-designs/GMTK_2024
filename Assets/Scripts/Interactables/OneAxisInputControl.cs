@@ -30,10 +30,11 @@ namespace Printer
 
         [Header("Motion Type")]
         [SerializeField] private ControlTransformType controlTransformType = ControlTransformType.Rotation;
-        [SerializeField] private Vector3 transformAxis = Vector3.forward;
-        [SerializeField] private float rangeOfMotion = 0.4f;
+        [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.forward };
+        [SerializeField] private float rangeOfMotion = 2.5f;
 
         [Header("Input Variables")]
+        //[SerializeField] private Vector3 positiveInputAxis = (enum)Vector3;
         [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
         [SerializeField] private float inputDampener = 125f;
         [SerializeField] private bool DEBUG_updateInEditor = false;
@@ -42,12 +43,25 @@ namespace Printer
         private TransformAnimator transformAnimator;
 
         private bool _isInteracting = false;
+        [SerializeField] SFX interactionSFX;
+        [SerializeField] private float sfxCooldown = 0.5f;
+        private float sfxCountdown;
 
         private void OnEnable()
         {
             // connect to Gantry through PrinterReferenceController
             //
 
+        }
+
+        private void TriggerInteractionSFX() {
+            if (sfxCountdown > 0) return;
+
+            interactionSFX.PlaySound();
+            sfxCountdown = sfxCooldown;
+        }
+        private void Update() {
+            if(sfxCountdown > 0f) { sfxCountdown -= Time.deltaTime; }
         }
 
         private void SetMeshPositionFromValue(float value)
@@ -66,12 +80,12 @@ namespace Printer
 
         private void SetPositionInRange(float rangeValue)
         {
-            movingPartReference.localPosition = transformAxis * (rangeOfMotion * rangeValue);
+            movingPartReference.localPosition = transformAxis[0] * (rangeOfMotion * rangeValue);
         }
 
         private void SetRotationInRange(float rangeValue)
         {
-            Vector3 rotationEuler = transformAxis * (rangeOfMotion * rangeValue);
+            Vector3 rotationEuler = transformAxis[0] * (rangeOfMotion * rangeValue);
             Quaternion quaternion = Quaternion.Euler(rotationEuler);
             movingPartReference.localRotation = quaternion;
         }
@@ -80,6 +94,8 @@ namespace Printer
         private void ValueChanged(float newValue)
         {
             SetMeshPositionFromValue(newValue);
+
+            TriggerInteractionSFX();
 
             // tell the gantry to move
             connectedGantry?.ValueChanged(newValue);
@@ -104,8 +120,11 @@ namespace Printer
             // clamp
             inputControlValue += dampenedDelta;
             inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
-            SFX.Lever.PlaySound();
             ValueChanged(inputControlValue);
+        }
+
+        public override Vector3[] GetTransformAxis() {
+            return transformAxis;
         }
 
         public override void SetValue(float f)
@@ -116,13 +135,9 @@ namespace Printer
             ValueChanged(inputControlValue);
         }
 
-#if UNITY_EDITOR
-        void OnValidate()
-        {
-            // This method is called when any value in the Inspector is changed
-            if (DEBUG_updateInEditor) ValueChanged(inputControlValue);
+        public override void AdjustValue(Vector2 delta) {
+            throw new System.NotImplementedException();
         }
-#endif
 
     }
 }
