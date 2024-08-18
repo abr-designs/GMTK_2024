@@ -12,6 +12,7 @@ namespace Interactables
         public event Action OnButtonPressed;
 
         public override float InputValue => _inputValue;
+        public override Transform InteractionTransform => transform;
 
         [SerializeField] private bool isToggleButton = false;
 

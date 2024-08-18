@@ -7,6 +7,7 @@ namespace Printer {
     {
         public Vector2 InputValues => twoAxisValue;
         public override float InputValue => inputControlValue;
+        public override Transform InteractionTransform => toggleButton.transform;
 
         [Header("Object References")]
         [SerializeField] private ButtonInteractable toggleButton;
