@@ -18,6 +18,7 @@ namespace UI
 
         [SerializeField] private Camera spriteCamera;
         [SerializeField] private Transform cameraTargetContainer;
+        [SerializeField] private Material outlineMaterial;
 
         private int _activeLayerIndex = 0;
         private SPRITE_VIEW _currentView = SPRITE_VIEW.SIDE_VIEW;
@@ -111,6 +112,10 @@ namespace UI
             {
                 var child = cameraTargetContainer.GetChild(i);
                 var renderer = child.GetComponent<MeshRenderer>();
+                var newMats = new Material[2];
+                newMats[0] = renderer.material;
+                newMats[1] = outlineMaterial;
+                renderer.materials = newMats;
                 if (_activeLayerIndex == i)
                 {
                     renderer.enabled = true;
@@ -132,19 +137,20 @@ namespace UI
 
             spriteCamera.enabled = true;
 
+
             if (_currentView == SPRITE_VIEW.SIDE_VIEW)
             {
-                spriteCamera.transform.localPosition = new Vector3(0, ((_currentLevel.layers.Length / 2f) - 0.5f), -5f);
+                spriteCamera.transform.localPosition = new Vector3(0, ((_currentLevel.layers.Length / 2f) - 0.5f) * _currentLevel.yScale, -5f);
                 spriteCamera.transform.localRotation = Quaternion.identity;
-                spriteCamera.orthographicSize = _currentLevel.layers.Length * _currentLevel.yScale;
+                spriteCamera.orthographicSize = _currentLevel.layers.Length * _currentLevel.yScale * 0.6f;
             }
             else if (_currentView == SPRITE_VIEW.ISO_VIEW)
             {
 
                 spriteCamera.transform.localPosition = Vector3.zero;
-                spriteCamera.transform.localPosition = new Vector3(-5, 5 + ((_currentLevel.layers.Length / 2f) - 0.5f), -5);
+                spriteCamera.transform.localPosition = new Vector3(-5, 5 + ((_currentLevel.layers.Length / 2f) - 0.5f) * _currentLevel.yScale, -5);
                 spriteCamera.transform.localRotation = Quaternion.Euler(new Vector3(35.264f, 45, 0));
-                spriteCamera.orthographicSize = (_currentLevel.layers.Length + 1) * _currentLevel.yScale;
+                spriteCamera.orthographicSize = (_currentLevel.layers.Length + 1) * _currentLevel.yScale * 0.6f;
             }
 
             // Take picture (renderTexture)
