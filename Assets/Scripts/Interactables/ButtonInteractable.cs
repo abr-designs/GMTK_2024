@@ -1,12 +1,18 @@
 ﻿using System;
+using Audio;
 using System.Diagnostics;
 using UnityEngine;
+using Audio.SoundFX;
+
 
 namespace Interactables
 {
     public class ButtonInteractable : InteractableInputControl
     {
+        public event Action OnButtonPressed;
+
         public override float InputValue => _inputValue;
+        public override Transform InteractionTransform => transform;
 
         [SerializeField] private bool isToggleButton = false;
 
@@ -14,20 +20,26 @@ namespace Interactables
 
         public override void SetIsInteracting(bool b)
         {
-            switch(isToggleButton) {
+            switch (isToggleButton)
+            {
                 case false:
                     _inputValue = b ? 1f : 0f;
+                    if (b)
+                        OnButtonPressed?.Invoke();
                     break;
                 case true:
                     if (!b) _inputValue = UnityEngine.Mathf.Abs(_inputValue - 1f);
+
                     break;
             }
-            
+            if (!b) SFX.Button.PlaySound();
+
 
         }
 
-        public override void AdjustValue(float delta) {
-            throw new System.NotImplementedException();
+        public override void AdjustValue(float delta)
+        {
+
         }
 
         public override void SetValue(float f)

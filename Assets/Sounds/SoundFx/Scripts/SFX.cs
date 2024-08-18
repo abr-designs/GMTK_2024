@@ -2,6 +2,9 @@
 {
     public enum SFX
     {
-        NONE = 0,
+        Gantry = 1,
+        Lever = 2,
+        Button = 3,
+
     }
 }
