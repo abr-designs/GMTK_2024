@@ -50,6 +50,7 @@ MonoBehaviour:
   layerPrefab: {fileID: 0}
   spriteCamera: {fileID: 9202875949324560880}
   cameraTargetContainer: {fileID: 706427774818336748}
+  outlineMaterial: {fileID: 2100000, guid: 1117295d026a1c547a6c2ba1d324f617, type: 2}
   toggleButtons: []
 --- !u!1 &5776835718462277306
 GameObject:

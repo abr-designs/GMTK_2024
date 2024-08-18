@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194971721073177248}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -202,20 +202,4 @@ MonoBehaviour:
     audioClips:
     - {fileID: 8300000, guid: 49bcea9f2f680304f9f4561a4e05243c, type: 3}
     - {fileID: 8300000, guid: 80822df4fe2bd084c9376fd2379b2281, type: 3}
-    volume: 1
-  - name: CERAMIC_BREAK
-    type: 4
-    audioClips:
-    - {fileID: 8300000, guid: f3743c9d4fcc0e24b9666df759c6459c, type: 3}
-    volume: 1
-  - name: KING_HAPPY
-    type: 5
-    audioClips:
-    - {fileID: 8300000, guid: f64f510a5efe18f40886705b2e0a7cf2, type: 3}
-    - {fileID: 8300000, guid: 75eaed57d8ab41e4ca79efc89cdf5480, type: 3}
-    volume: 1
-  - name: KING_ANGRY
-    type: 6
-    audioClips:
-    - {fileID: 8300000, guid: 277a374ebee05c04283037c975689e3f, type: 3}
     volume: 1
