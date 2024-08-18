@@ -87,9 +87,12 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
         //Layer Restrict the new Objects
         //------------------------------------------------//
         var gameObjects = container.GetComponentsInChildren<Transform>();
+        
+        int LayerIgnoreRaycast = LayerMask.NameToLayer("WorldTagScene");
+
         foreach (var o in gameObjects)
         {
-            o.gameObject.layer = layerMask.value;
+            o.gameObject.layer = LayerIgnoreRaycast;// layerMask.value;
         }
         
         //------------------------------------------------//
