@@ -60,22 +60,19 @@ public class GameManager : MonoBehaviour
     private float worldShakeTime;
 
     [SerializeField, Header("Animation Boys")]
-    private WaitForAnimationBase doorAnimation;
-    [SerializeField]
     private WaitForAnimationBase controlPanel;
     [SerializeField]
     private WaitForAnimationBase startButton;
     [SerializeField]
     private WaitForAnimationBase tvScreenAnimation;
-    [SerializeField]
-    private TransformAnimator checkMarkAnimation;
 
     private IDisplayDialog _displayDialog;
     private IGenerateSilhouette _silhouetteGenerator;
     private ICreateWorldReplacers _createWorldReplacers;
     private CinemachineImpulseSource _impulseSource;
-
-
+    private ISpawnLayers _spawnLayers;
+    private IMoveLayers _moveLayers;
+    private IDisplayResults _resultsDisplay;
 
     //============================================================================================================//
     
@@ -84,15 +81,18 @@ public class GameManager : MonoBehaviour
         _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
-
-
         //Find from Children
         //------------------------------------------------//
         _displayDialog = GetComponentInChildren<IDisplayDialog>();
         _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
+        _spawnLayers = GetComponentInParent<ISpawnLayers>();
+        _moveLayers = GetComponentInParent<IMoveLayers>();
+        _resultsDisplay = GetComponentInChildren<IDisplayResults>();
         
         Assert.IsNotNull(_startButton);
+        Assert.IsNotNull(_spawnLayers);
+        Assert.IsNotNull(_moveLayers);
 
         //Sort the Panels
         //------------------------------------------------//
@@ -116,9 +116,6 @@ public class GameManager : MonoBehaviour
             
         }
         //============================================================================================================//
-        
-        if (checkMarkAnimation)
-            checkMarkAnimation.gameObject.SetActive(false);
         
         StartCoroutine(GameLoop());
     }
@@ -153,15 +150,15 @@ public class GameManager : MonoBehaviour
             DisplayText?.Invoke("Press Button to Start");
             
             if (startButton)
-                yield return StartCoroutine(startButton.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
+                yield return startButton.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
             
             if (startButton)
-                StartCoroutine(startButton.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+                startButton.DoAnimation(animationTime, ANIM_DIR.TO_END);
             
             if (tvScreenAnimation)
-                StartCoroutine(tvScreenAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
+                tvScreenAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
             DisplayText?.Invoke("Get Ready!");
             
@@ -169,7 +166,7 @@ public class GameManager : MonoBehaviour
             yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
             
             if (controlPanel)
-                yield return StartCoroutine(controlPanel.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
+                yield return controlPanel.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
             //------------------------------------------------//
             var levelWaitTime = CurrentLevel.levelTime;
@@ -185,39 +182,15 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(CountdownCoroutine(levelWaitTime));
                 OnLayerStarted?.Invoke();
 
-                //Get Inputs
-                //------------------------------------------------//
-                var (position, rotation, scale) = GetAllTransformations(layer, activeControlPanel);
-
-                //Create New Object & Apply Transformations
-                //------------------------------------------------//
-                var newTransform = GetGeneratedLayerTransform(i, layer);
-                //TODO Consider animating the position & the rotation as well!
-                newTransform.position = position + spawnPosition;
-                newTransform.rotation = quaternion.Euler(rotation);
-
-                yield return StartCoroutine(ScaleCoroutine(newTransform, Vector3.zero, scale, animationTime));
-
-                yield return new WaitForSeconds(1f);
+                yield return _spawnLayers.SpawnLayer(i, layer, CurrentLevel, activeControlPanel);
 
                 //Reparent object to Container
                 //------------------------------------------------//
+                var newTransform = _spawnLayers.GeneratedTransform;
                 newTransform.SetParent(_containerInstance);
 
-                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+                yield return _moveLayers.MoveLayer(i, CurrentLevel.yScale, newTransform, _containerInstance);
 
-                //Move the Container down
-                //------------------------------------------------//
-                var objectCurrentPosition = newTransform.position;
-                var endPosition = _containerInstance.position + Vector3.up * (i * CurrentLevel.yScale);
-                yield return StartCoroutine(MoveToPositionCoroutine(
-                    newTransform, 
-                    objectCurrentPosition,
-                    endPosition, 
-                    animationTime));
-                
-                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
-                //------------------------------------------------//
 
                 _impulseSource?.GenerateImpulse();
                 OnWorldShake?.Invoke(worldShakeTime);
@@ -225,24 +198,17 @@ public class GameManager : MonoBehaviour
 
             //------------------------------------------------//
 
-            //TODO Calculate the score
-
-            if (checkMarkAnimation)
+            yield return _resultsDisplay.Display(() =>
             {
-                checkMarkAnimation.gameObject.SetActive(true);
-                checkMarkAnimation.Loop();
-            }
+                var currentLevel = CurrentLevel;
 
-            if (tvScreenAnimation)
-                yield return StartCoroutine(tvScreenAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
-            
-            if (checkMarkAnimation)
-            {
-                checkMarkAnimation.gameObject.SetActive(false);
-                checkMarkAnimation.Stop();
-            }
-            
-            yield return StartCoroutine(DisplayResultCoroutine());
+                _generatedPlayerContent.TryAdd(currentLevel.worldPlaceTag, _containerInstance.gameObject);
+                _createWorldReplacers?.CreateWorldVersion(currentLevel.worldPlaceTag, currentLevel.outputScale, _containerInstance.gameObject);
+                //------------------------------------------------//
+
+                //Call to Display the UI to the player
+                OnLevelComplete?.Invoke();
+            });
 
             CleanupLevel();
 
@@ -253,7 +219,7 @@ public class GameManager : MonoBehaviour
             LevelLoader.LoadNextLevel();
             
             if (controlPanel)
-                yield return StartCoroutine(controlPanel.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+                yield return controlPanel.DoAnimation(animationTime, ANIM_DIR.TO_END);
             
             
         } while (true);
@@ -283,58 +249,6 @@ public class GameManager : MonoBehaviour
 
         return newContainer;
     }
-
-    private static (Vector3 position, Vector3 rotation, Vector3 scale) GetAllTransformations(LayerData layerData, ControlPanelContainer controlPanel)
-    {
-        var currentLevel = CurrentLevel;
-        var maxScale = CurrentLevel.maxScale;
-        
-        var outPosition = Vector3.zero;
-        var outRotation = Vector3.zero;
-        var outScale = new Vector3(0f, layerData.localScale.y, 0f);
-
-        var levelMinPosition = CurrentLevel.MinPosition;
-        var levelMaxPosition = CurrentLevel.MaxPosition;
-        
-        var controlValues = controlPanel.GetControlValues();
-
-        //Go through each of the controls, then apply their values based on what they should be effecting
-        for (int i = 0; i < controlValues.Length; i++)
-        {
-            var (control, value, value2) = controlValues[i];
-
-            switch (control)
-            {
-                case CONTROLS.SCALE:
-                    var yScale = currentLevel.yScale;
-                    outScale = new Vector3(maxScale * Mathf.Clamp(value, 0.1f, 1f), 
-                        yScale,
-                        maxScale * Mathf.Clamp(value, 0.1f, 1f));
-                    break;
-                case CONTROLS.X_SCALE:
-                    outScale.x = maxScale * Mathf.Clamp(value, 0.1f, 1f);
-                    break;
-                case CONTROLS.Z_SCALE:
-                    outScale.z = maxScale * Mathf.Clamp(value, 0.1f, 1f);
-                    break;
-                case CONTROLS.X_POS:
-                    outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
-                    break;
-                case CONTROLS.Z_POS:
-                    outPosition.z = Mathf.Lerp(levelMinPosition.z, levelMaxPosition.z, value2);
-                    break;
-                case CONTROLS.Y_ROT:
-                    outRotation.y = value * 360f;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-        }
-
-
-        return (outPosition, outRotation, outScale);
-    }
     
     //Level End Functions
     //============================================================================================================//
@@ -348,16 +262,6 @@ public class GameManager : MonoBehaviour
 
     //Helper Functions
     //============================================================================================================//
-
-    private Transform GetGeneratedLayerTransform(int layer, LayerData layerData)
-    {
-        var newLayerTransform = Instantiate(layerData.printLayerShape.prefab);
-        newLayerTransform.gameObject.name = $"Layer_[{layer.ToString()}] {layerData.printLayerShape.prefab.name}";
-
-        newLayerTransform.gameObject.GetComponent<MeshRenderer>().sharedMaterial = layerData.Material;
-        
-        return newLayerTransform;
-    }
 
     private ControlPanelContainer GetControlContainerAndDisableOthers(CONTROL_PANEL_TYPE controlPanelType)
     {
@@ -391,35 +295,7 @@ public class GameManager : MonoBehaviour
     {
         yield break;
     }
-
-    private IEnumerator DisplayResultCoroutine()
-    {
-        var continuePressed = false;
-        void OnContinuePressed()
-        {
-            continuePressed = true;
-        }
-
-        GameInputDelegator.LockInputs = true;
-        //Replace world Objects
-        //------------------------------------------------//
-        var currentLevel = CurrentLevel;
-
-        _generatedPlayerContent.TryAdd(currentLevel.worldPlaceTag, _containerInstance.gameObject);
-        _createWorldReplacers?.CreateWorldVersion(currentLevel.worldPlaceTag, currentLevel.outputScale, _containerInstance.gameObject);
-        //------------------------------------------------//
-        
-        //TODO Enable the RenderTexture/Grab screen capture
-        //Call to Display the UI to the player
-        OnLevelComplete?.Invoke();
-
-        //Wait for Continue to be pressed
-        //------------------------------------------------//
-        UIManager.OnContinuePressed += OnContinuePressed;
-        yield return new WaitUntil(() => continuePressed);
-        
-        GameInputDelegator.LockInputs = false;
-    }
+    
     
     //Static Coroutines
     //============================================================================================================//
@@ -434,31 +310,6 @@ public class GameManager : MonoBehaviour
             var value = countUp ? t : time - t;
             OnCountdown?.Invoke(value);
             
-            yield return null;
-        }
-    }
-    
-    private IEnumerator ScaleCoroutine(Transform target, Vector3 startScale, Vector3 targetScale, float time)
-    {
-        for (var t = 0f; t <= time; t += Time.deltaTime)
-        {
-            var dt = t / time;
-
-            target.transform.localScale = Vector3.Lerp(startScale, targetScale, scaleCurve.Evaluate(dt));
-                    
-            yield return null;
-        }
-    }
-
-    private IEnumerator MoveToPositionCoroutine(Transform target, Vector3 startPosition, Vector3 endPosition, float time)
-    {
-        for (var t = 0f; t <= time; t += Time.deltaTime)
-        {
-            var dt = t / time;
-            
-
-            target.transform.position = Vector3.Lerp(startPosition, endPosition, moveCurve.Evaluate(dt));
-                    
             yield return null;
         }
     }
