@@ -12,11 +12,13 @@ using UI;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using Utilities;
 using Utilities.Animations;
 
 public class GameManager : MonoBehaviour
 {
+    public static event Action OnLevelStarted;
     public static event Action OnLevelComplete;
     public static event Action<float> OnWorldShake;
     public static event Action<int> OnLayerSelected;
@@ -39,6 +41,13 @@ public class GameManager : MonoBehaviour
     private float levelStartCountdownTime;
     [SerializeField, Min(0f)]
     private float layerFinishedWaitTime;
+    
+    [SerializeField, Min(0), Space(10f)]
+    private int worldTagSceneIndex;
+    
+    [SerializeField, Header("Static Interactables")]
+    private ButtonInteractable _startButton;
+
 
     [SerializeField, Min(0f), Header("Animations")]
     private float animationTime;
@@ -58,9 +67,8 @@ public class GameManager : MonoBehaviour
     private ICreateWorldReplacers _createWorldReplacers;
     private CinemachineImpulseSource _impulseSource;
 
-    [SerializeField]
-    private ButtonInteractable _startButton;
-    
+
+
     //============================================================================================================//
     
     public void Start()
@@ -74,7 +82,6 @@ public class GameManager : MonoBehaviour
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         
         Assert.IsNotNull(_startButton);
-
 
         //Sort the Panels
         //------------------------------------------------//
@@ -105,11 +112,21 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameLoop()
     {
+        var operation = SceneManager.LoadSceneAsync(worldTagSceneIndex, LoadSceneMode.Additive);
+
+        while (operation.isDone == false)
+        {
+            yield return null;
+        }
+        
+        
         do
         {
             var activeControlPanel = GetControlContainerAndDisableOthers(CurrentLevel.controlPanelType);
 
-            SetupLevel();
+            SetupLevel(); 
+            
+            OnLevelStarted?.Invoke();
 
             yield return StartCoroutine(ApplyLevelObstaclesCoroutine());
             
@@ -222,6 +239,7 @@ public class GameManager : MonoBehaviour
     private static (Vector3 position, Vector3 rotation, Vector3 scale) GetAllTransformations(LayerData layerData, ControlPanelContainer controlPanel)
     {
         var currentLevel = CurrentLevel;
+        var maxScale = CurrentLevel.maxScale;
         
         var outPosition = Vector3.zero;
         var outRotation = Vector3.zero;
@@ -241,15 +259,15 @@ public class GameManager : MonoBehaviour
             {
                 case CONTROLS.SCALE:
                     var yScale = currentLevel.yScale;
-                    outScale = new Vector3(layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f), 
+                    outScale = new Vector3(maxScale * Mathf.Clamp(value, 0.1f, 1f), 
                         yScale,
-                        layerData.localScale.y * Mathf.Clamp(value, 0.1f, 1f));
+                        maxScale * Mathf.Clamp(value, 0.1f, 1f));
                     break;
                 case CONTROLS.X_SCALE:
-                    outScale.x = layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f);
+                    outScale.x = maxScale * Mathf.Clamp(value, 0.1f, 1f);
                     break;
                 case CONTROLS.Z_SCALE:
-                    outScale.z = layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f);
+                    outScale.z = maxScale * Mathf.Clamp(value, 0.1f, 1f);
                     break;
                 case CONTROLS.X_POS:
                     outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
