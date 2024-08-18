@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: 
-  worldPlaceTag: 
+  worldPlaceTag: Tree3
   controlPanelType: 2
   usableControls: 1
   levelDescription: 
