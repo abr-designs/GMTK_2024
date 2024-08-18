@@ -55,6 +55,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   levelStartCountdownTime: 3
   layerFinishedWaitTime: 2
   worldTagSceneIndex: 2
@@ -109,11 +112,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   worldShakeTime: 1
-  doorAnimation: {fileID: 0}
   controlPanel: {fileID: 0}
   startButton: {fileID: 0}
   tvScreenAnimation: {fileID: 0}
-  checkMarkAnimation: {fileID: 0}
 --- !u!114 &1389329100808479559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584874110060090731, guid: 370aa306f4554d5489a3f86edf69a877,
+        type: 3}
+      propertyPath: toggleButtons.Array.size
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

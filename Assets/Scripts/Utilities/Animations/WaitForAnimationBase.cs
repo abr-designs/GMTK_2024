@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Utilities.Animations
@@ -11,6 +10,7 @@ namespace Utilities.Animations
 
         protected abstract void Start();
 
+        //FIXME Only do the animation if we're not already at then intended destination OR Start!!
         public abstract Coroutine DoAnimation(float time, ANIM_DIR animDir);
         
         protected IEnumerator ScaleCoroutine(Transform target, Vector3 startScale, Vector3 targetScale, float time, AnimationCurve animationCurve)

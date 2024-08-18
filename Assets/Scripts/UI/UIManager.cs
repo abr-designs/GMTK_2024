@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Utilities.Animations;
 
 namespace UI
 {
@@ -13,7 +15,12 @@ namespace UI
         [SerializeField]
         private TMP_Text displayText;
         [SerializeField]
-        private TextMeshPro timerWorldText;
+        private WaitForAnimationBase windowMoveAnimation;
+        [SerializeField, Min(0f)]
+        private float animationTime;
+        
+        [SerializeField]
+        private TMP_Text timerWorldText;
 
         [SerializeField]
         private GameObject resultsWindowObject;
@@ -40,6 +47,7 @@ namespace UI
             continueButton.onClick.AddListener(() =>
             {
                 OnContinuePressed?.Invoke();
+                resultsWindowObject.SetActive(false);
             });
 
             resultsWindowObject.gameObject.SetActive(false);
@@ -56,7 +64,7 @@ namespace UI
         
         private void OnLayerStarted()
         {
-            displayText.text = string.Empty;
+            OnDisplayText(string.Empty);
         }
         
         private void OnCountdown(float time)
@@ -66,11 +74,23 @@ namespace UI
         
         private void OnDisplayText(string textToDisplay)
         {
-            displayText.text = textToDisplay;
+            StartCoroutine(AnimateText(textToDisplay));
         }
         private void OnLevelComplete()
         {
             resultsWindowObject.gameObject.SetActive(true);
+        }
+        //============================================================================================================//
+
+        private IEnumerator AnimateText(string textToDisplay)
+        {
+            yield return windowMoveAnimation.DoAnimation(animationTime, ANIM_DIR.TO_END);
+            displayText.text = textToDisplay;
+            
+            if(string.IsNullOrWhiteSpace(textToDisplay))
+                yield break;
+            
+            yield return windowMoveAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
         }
     }
 }
