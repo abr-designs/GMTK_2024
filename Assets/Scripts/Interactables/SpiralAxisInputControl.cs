@@ -108,7 +108,6 @@ namespace Printer {
         }
 
         public override void SetValue(float f) {
-            throw new System.NotImplementedException();
         }
 
         public override void SetIsInteracting(bool b) {
