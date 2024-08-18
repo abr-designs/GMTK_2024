@@ -3,7 +3,8 @@ using System.Collections;
 using Interfaces;
 using TMPro;
 using UnityEngine;
-
+using Audio.SoundFX;
+using Audio;
 namespace UI
 {
     public class DialogSystem : MonoBehaviour, IDisplayDialog
@@ -25,7 +26,8 @@ namespace UI
             for (int i = 0; i < text_length + 2; i++)
             {
                 container.maxVisibleCharacters = i;
-                yield return new WaitForSeconds(0.1f);
+                SFX.Text.PlaySound();
+                yield return new WaitForSeconds(0.05f);
             }
             //tick++;
             yield break;
