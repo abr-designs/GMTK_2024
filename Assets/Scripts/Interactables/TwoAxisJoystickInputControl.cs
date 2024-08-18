@@ -21,15 +21,15 @@ namespace Printer {
 
         [Header("Motion Type")]
         [SerializeField] private ControlTransformType controlTransformType = ControlTransformType.Rotation;
-        [SerializeField] private Vector3 transformAxis1 = Vector3.forward;
-        [SerializeField] private Vector3 transformAxis2 = Vector3.right;
-        [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.forward , Vector3.right };
+        //[SerializeField] private Vector3 transformAxis1 = Vector3.forward;
+        //[SerializeField] private Vector3 transformAxis2 = Vector3.right;
+        [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.forward , Vector3.left };
 
-        [SerializeField] private float rangeOfMotion = 0.4f;
+        [SerializeField] private float rangeOfMotion = 45f;
 
         [Header("Input Variables")]
         private float inputControlValue = 0.5f;
-        [SerializeField, Range(0f, 1f)] private Vector2 twoAxisValue = Vector2.one * 0.5f;
+        [SerializeField] private Vector2 twoAxisValue = Vector2.one * 0.5f;
         [SerializeField] private float inputDampener = 125f;
         private bool DEBUG_updateInEditor = false;
 
@@ -52,21 +52,6 @@ namespace Printer {
             if (sfxCountdown > 0f) { sfxCountdown -= Time.deltaTime; }
         }
 
-        //private void ChangeValue() {
-
-        //    twoAxisValue = new Vector2(
-        //        Mathf.Sin(timeValue * dimensionSpeeds.x),
-        //        //(timeValue * dimensionSpeeds.x) % 1f,
-        //        Mathf.Cos(timeValue * dimensionSpeeds.y));
-
-        //    // normalize
-        //    twoAxisValue = twoAxisValue * 0.5f + Vector2.one * 0.5f;
-
-        //    inputControlValue = twoAxisValue.x;
-
-        //    SetMeshTransformFromValue(twoAxisValue);
-        //}
-
         private void SetMeshTransformFromValue(Vector2 value)
         {
             Vector2 rangeValue = value - (Vector2.one * 0.5f);
@@ -81,21 +66,29 @@ namespace Printer {
         }
 
         private void SetPositionInRange(Vector2 rangeValue) {
-            //movingPartReference.localPosition = transformAxis1 * (rangeOfMotion * rangeValue.x) +
-            //    transformAxis2 * (rangeOfMotion * rangeValue.y);
             movingPartReference.localPosition =
                 transformAxis[0] * (rangeOfMotion * rangeValue.x) +
                 transformAxis[1] * (rangeOfMotion * rangeValue.y);
         }
 
         private void SetRotationInRange(Vector2 rangeValue) {
-            //Vector3 rotationEuler = transformAxis1 * (rangeOfMotion * rangeValue.x) +
-            //    transformAxis2 * (rangeOfMotion * rangeValue.y);
             Vector3 rotationEuler =
                 transformAxis[0] * (rangeOfMotion * rangeValue.x) +
                 transformAxis[1] * (rangeOfMotion * rangeValue.y);
             Quaternion quaternion = Quaternion.Euler(rotationEuler);
             movingPartReference.localRotation = quaternion;
+        }
+
+
+        private void ValueChanged(Vector2 newValue) {
+            SetMeshTransformFromValue(newValue);
+
+            TriggerInteractionSFX();
+
+            // tell the gantry to move
+            //connectedGantry?.ValueChanged(newValue);
+            // instead, broadcast a message that a control value has changed
+            //
         }
 
         public override void AdjustValue(Vector2 delta) {
@@ -108,7 +101,7 @@ namespace Printer {
             twoAxisValue.x = Mathf.Clamp(twoAxisValue.x, 0, 1);
             twoAxisValue.y = Mathf.Clamp(twoAxisValue.y, 0, 1);
 
-            //ValueChanged(inputControlValue);
+            ValueChanged(twoAxisValue);
         }
 
         public override void SetValue(float f) {
@@ -123,7 +116,7 @@ namespace Printer {
         }
 
         public override Vector3[] GetTransformAxis() {
-            throw new System.NotImplementedException();
+            return transformAxis;
         }
 
         public override void AdjustValue(float delta) {

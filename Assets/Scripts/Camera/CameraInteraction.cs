@@ -3,6 +3,7 @@ using GameInput;
 using UnityEngine;
 using Printer;
 using Interactables;
+using UnityEngine.UIElements;
 
 public class CameraInteraction : MonoBehaviour
 {
@@ -96,15 +97,29 @@ public class CameraInteraction : MonoBehaviour
 
         Vector3[] controlRotationAxis = interactingController.GetTransformAxis();
 
-        float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
-        float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+        if (controlRotationAxis.Length == 1) {
+            float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
 
-        //Debug.Log($"{controlRotation.y} {cosY}");
+            float adjustment = mouseY * cosY + mouseX * sinY;
 
-        float adjustment = mouseY * cosY + mouseX * sinY;
+            interactingController.AdjustValue(adjustment);
+        }
+        else if (controlRotationAxis.Length == 2) {
 
+            float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
 
-        interactingController.AdjustValue(adjustment);
+            float sinX = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosX = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+
+            float adjustment1 = mouseY * cosY + mouseX * sinY;
+            float adjustment2 =  mouseY * sinX + mouseX * cosX;
+
+            Vector2 adjustment = new Vector2 (adjustment1, adjustment2);
+
+            interactingController.AdjustValue(adjustment);
+        }
     }
 
 

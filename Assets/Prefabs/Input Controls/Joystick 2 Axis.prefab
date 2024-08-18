@@ -72,10 +72,11 @@ MonoBehaviour:
   movingPartReference: {fileID: 1355647361148838}
   connectedGantry: {fileID: 0}
   controlTransformType: 1
-  transformAxis1: {x: 0, y: 0, z: 1}
-  transformAxis2: {x: 1, y: 0, z: 0}
-  rangeOfMotion: 0.4
-  twoAxisValue: {x: 0, y: 0}
+  transformAxis:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 0, z: -1}
+  rangeOfMotion: 45
+  twoAxisValue: {x: 0.5, y: 0.5}
   inputDampener: 125
   transformAnimator: {fileID: 1568605621989967858}
   interactionSFX: 2
@@ -257,7 +258,6 @@ GameObject:
   - component: {fileID: 258745854598563712}
   - component: {fileID: 3155058939745311143}
   - component: {fileID: 1018376625964550566}
-  - component: {fileID: 3291145190728918702}
   m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -330,27 +330,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3291145190728918702
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2826658282517180290}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3304664675814409302
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +341,6 @@ GameObject:
   - component: {fileID: 656528436870758958}
   - component: {fileID: 4734031569344038261}
   - component: {fileID: 3810994117154661621}
-  - component: {fileID: 1601095325443232552}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -435,27 +413,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1601095325443232552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3304664675814409302}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5629642720040213424
 GameObject:
   m_ObjectHideFlags: 0

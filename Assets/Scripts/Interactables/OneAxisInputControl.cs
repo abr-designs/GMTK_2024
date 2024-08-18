@@ -31,7 +31,7 @@ namespace Printer
         [Header("Motion Type")]
         [SerializeField] private ControlTransformType controlTransformType = ControlTransformType.Rotation;
         [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.forward };
-        [SerializeField] private float rangeOfMotion = 0.4f;
+        [SerializeField] private float rangeOfMotion = 2.5f;
 
         [Header("Input Variables")]
         //[SerializeField] private Vector3 positiveInputAxis = (enum)Vector3;
