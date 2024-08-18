@@ -3,6 +3,7 @@ using System.Linq;
 using Interactables.Enums;
 using Levels.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Levels
 {
@@ -21,8 +22,8 @@ namespace Levels
         //What types of controls should be available for this Level/Puzzle
         public CONTROLS usableControls;
 
-        [TextArea]
-        public string levelDescription;
+        [FormerlySerializedAs("levelDescription")] [TextArea]
+        public string levelScript;
         
         [Min(0), Space(10f)]
         public int levelTime;
