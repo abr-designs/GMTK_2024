@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Printer {
 
-    public class
-        SpiralAxisInputControl : InteractableInputControl
+    public class SpiralAxisInputControl : InteractableInputControl
     {
+        public Vector2 InputValues => twoAxisValue;
         public override float InputValue => inputControlValue;
 
         [Header("Object References")]
@@ -67,10 +67,10 @@ namespace Printer {
 
             inputControlValue = twoAxisValue.x;
 
-            SetMeshTransfromFromValue(twoAxisValue);
+            SetMeshTransformFromValue(twoAxisValue);
         }
 
-        private void SetMeshTransfromFromValue(Vector2 value) {
+        private void SetMeshTransformFromValue(Vector2 value) {
             Vector2 rangeValue = value - (Vector2.one * 0.5f);
 
             //private void SetRotationInRange(float rangeValue) {
@@ -85,22 +85,6 @@ namespace Printer {
             positionPartReference.localPosition = targetPosOffset;
             //}
         }
-
-
-        //private void ValueChanged(float newValue) {
-        //    SetMeshPositionFromValue(newValue);
-
-        //    connectedGantry?.ValueChanged(newValue);
-        //}
-
-        //public override void SetIsInteracting(bool b) {
-        //    if (!b) {
-        //        // toggle mode
-        //        _isChangingValue = !_isChangingValue;
-        //    }
-
-        //    SetIsChangingValue(_isChangingValue);
-        //}
 
         private void SetIsChangingValue(bool b) {
             // update color
@@ -129,13 +113,6 @@ namespace Printer {
         public override void SetIsInteracting(bool b) {
             throw new System.NotImplementedException();
         }
-
-        //#if UNITY_EDITOR
-        //        void OnValidate() {
-        //            // This method is called when any value in the Inspector is changed
-        //            if(DEBUG_updateInEditor) ValueChanged(inputControlValue);
-        //        }
-        //#endif
 
     }
 }
