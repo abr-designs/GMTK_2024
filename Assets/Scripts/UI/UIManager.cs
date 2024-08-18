@@ -24,6 +24,8 @@ namespace UI
 
         [SerializeField]
         private GameObject resultsWindowObject;
+        [SerializeField]
+        private TMP_Text resultsText;
 
         [SerializeField]
         private Button continueButton;
@@ -33,9 +35,9 @@ namespace UI
         {
             GameManager.OnCountdown += OnCountdown;
             GameManager.DisplayText += OnDisplayText;
+            GameManager.DisplayResultText += DisplayResultText;
             GameManager.OnLayerStarted += OnLayerStarted;
             GameManager.OnLevelComplete += OnLevelComplete;
-
         }
 
         private void Start()
@@ -57,7 +59,9 @@ namespace UI
         {
             GameManager.OnCountdown -= OnCountdown;
             GameManager.DisplayText -= OnDisplayText;
-            GameManager.OnLayerStarted -= OnLayerStarted;   
+            GameManager.DisplayResultText -= DisplayResultText;
+            GameManager.OnLayerStarted -= OnLayerStarted;  
+            GameManager.OnLevelComplete -= OnLevelComplete;
         }
         
         //============================================================================================================//
@@ -76,6 +80,12 @@ namespace UI
         {
             StartCoroutine(AnimateText(textToDisplay));
         }
+        
+        private void DisplayResultText(string textToDisplay)
+        {
+            resultsText.text = textToDisplay;
+        }
+        
         private void OnLevelComplete()
         {
             resultsWindowObject.gameObject.SetActive(true);

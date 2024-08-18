@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static event Action<int> OnLayerSelected;
     public static event Action OnLayerStarted;
     public static event Action<string> DisplayText;
+    public static event Action<string> DisplayResultText;
     public static event Action<float> OnCountdown;
 
     private Dictionary<string, GameObject> _generatedPlayerContent;
@@ -201,6 +202,7 @@ public class GameManager : MonoBehaviour
 
                 //Call to Display the UI to the player
                 OnLevelComplete?.Invoke();
+                DisplayResultText?.Invoke(CurrentLevel.levelCompleteScript);
             });
 
             CleanupLevel();

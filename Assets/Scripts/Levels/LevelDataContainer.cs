@@ -21,8 +21,11 @@ namespace Levels
         //What types of controls should be available for this Level/Puzzle
         public CONTROLS usableControls;
 
-        [FormerlySerializedAs("levelDescription")] [TextArea]
+        [FormerlySerializedAs("levelDescription")] 
+        [TextArea]
         public string levelScript;
+        [TextArea]
+        public string levelCompleteScript;
         
         [Min(0), Space(10f)]
         public int levelTime;
