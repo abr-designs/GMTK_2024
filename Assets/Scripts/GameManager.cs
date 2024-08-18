@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
     private WaitForAnimationBase startButton;
     [SerializeField]
     private WaitForAnimationBase tvScreenAnimation;
+    [SerializeField]
+    private TransformAnimator checkMarkAnimation;
 
     private IDisplayDialog _displayDialog;
     private IGenerateSilhouette _silhouetteGenerator;
@@ -115,6 +117,8 @@ public class GameManager : MonoBehaviour
         }
         //============================================================================================================//
         
+        if (checkMarkAnimation)
+            checkMarkAnimation.gameObject.SetActive(false);
         
         StartCoroutine(GameLoop());
     }
@@ -147,13 +151,25 @@ public class GameManager : MonoBehaviour
 
             //TODO Wait for button press
             DisplayText?.Invoke("Press Button to Start");
+            
+            if (startButton)
+                yield return StartCoroutine(startButton.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
+            
+            if (startButton)
+                StartCoroutine(startButton.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+            
+            if (tvScreenAnimation)
+                StartCoroutine(tvScreenAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
 
             DisplayText?.Invoke("Get Ready!");
             
             //Level
             yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
+            
+            if (controlPanel)
+                yield return StartCoroutine(controlPanel.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
 
             //------------------------------------------------//
             var levelWaitTime = CurrentLevel.levelTime;
@@ -188,7 +204,7 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
                 newTransform.SetParent(_containerInstance);
 
-                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, false));
+                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
 
                 //Move the Container down
                 //------------------------------------------------//
@@ -200,7 +216,7 @@ public class GameManager : MonoBehaviour
                     endPosition, 
                     animationTime));
                 
-                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, true));
+                yield return StartCoroutine(doorAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_START));
                 //------------------------------------------------//
 
                 _impulseSource?.GenerateImpulse();
@@ -211,6 +227,21 @@ public class GameManager : MonoBehaviour
 
             //TODO Calculate the score
 
+            if (checkMarkAnimation)
+            {
+                checkMarkAnimation.gameObject.SetActive(true);
+                checkMarkAnimation.Loop();
+            }
+
+            if (tvScreenAnimation)
+                yield return StartCoroutine(tvScreenAnimation.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+            
+            if (checkMarkAnimation)
+            {
+                checkMarkAnimation.gameObject.SetActive(false);
+                checkMarkAnimation.Stop();
+            }
+            
             yield return StartCoroutine(DisplayResultCoroutine());
 
             CleanupLevel();
@@ -220,6 +251,11 @@ public class GameManager : MonoBehaviour
                 break;
             
             LevelLoader.LoadNextLevel();
+            
+            if (controlPanel)
+                yield return StartCoroutine(controlPanel.DoAnimationCoroutine(animationTime, ANIM_DIR.TO_END));
+            
+            
         } while (true);
 
         //TODO Finish the Game
