@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   worldPlaceTag: Truck
-  controlPanelType: 4
+  controlPanelType: 5
   usableControls: 1
   levelScript: 
   levelCompleteScript: 

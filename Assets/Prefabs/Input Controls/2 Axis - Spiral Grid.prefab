@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6144094315223604546}
   - component: {fileID: 1163159656041732350}
   m_Layer: 6
-  m_Name: 1 Axis - Spiral Grid
+  m_Name: 2 Axis - Spiral Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

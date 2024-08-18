@@ -7,5 +7,6 @@
         TWO_AXIS = 2,
         THREE_AXIS = 3,
         FOUR_AXIS = 4,
+        MAXIMUM = 5,
     }
 }
