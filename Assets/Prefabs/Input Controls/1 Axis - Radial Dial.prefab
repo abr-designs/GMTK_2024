@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 1906092420152965932}
   - component: {fileID: -1711543196557080305}
   m_Layer: 6
-  m_Name: Radial Dial
+  m_Name: 1 Axis - Radial Dial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

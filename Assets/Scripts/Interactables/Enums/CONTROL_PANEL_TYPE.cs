@@ -6,5 +6,6 @@
         ONE_AXIS = 1,
         TWO_AXIS = 2,
         THREE_AXIS = 3,
+        FOUR_AXIS = 4,
     }
 }

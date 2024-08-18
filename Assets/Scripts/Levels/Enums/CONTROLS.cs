@@ -11,6 +11,7 @@ namespace Levels.Enums
         Z_SCALE = 1 << 2,
         POS = 1 << 3,
         Z_POS = 1 << 4,
-        Y_ROT = 1 << 5
+        Y_ROT = 1 << 5,
+        XZ_SCALE = 1 << 6
     }
 }

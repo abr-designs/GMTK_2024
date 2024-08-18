@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 6303586568017918455}
   - component: {fileID: 545849082879374241}
   m_Layer: 0
-  m_Name: 2 - 1x1 Axis - Single Dial Control Panel
+  m_Name: 1 Axis - Single Dial Control Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

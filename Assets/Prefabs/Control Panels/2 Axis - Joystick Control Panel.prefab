@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8058309568041661947}
   - component: {fileID: 333282449206904744}
   m_Layer: 0
-  m_Name: 8 - 1x2 Axis - Joystick Control Panel
+  m_Name: 2 Axis - Joystick Control Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8058309568041661947
 Transform:
   m_ObjectHideFlags: 0
@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a0ecf8bf514274b68f2f45fe37f1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPanelType: 2
+  controlPanelType: 4
   controls:
-  - control: 0
+  - control: 64
     inputControl: {fileID: 2867055980605370849}
 --- !u!1 &885005610266745169
 GameObject:

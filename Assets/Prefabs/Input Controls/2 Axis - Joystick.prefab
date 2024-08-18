@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7216493532277907765}
   - component: {fileID: 8045253148446946431}
   m_Layer: 6
-  m_Name: Joystick 2 Axis
+  m_Name: 2 Axis - Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,8 @@ MonoBehaviour:
   connectedGantry: {fileID: 0}
   controlTransformType: 1
   transformAxis:
-  - {x: 1, y: 0, z: 0}
   - {x: 0, y: 0, z: -1}
+  - {x: 1, y: 0, z: 0}
   rangeOfMotion: 45
   twoAxisValue: {x: 0.5, y: 0.5}
   inputDampener: 125

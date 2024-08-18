@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6599348248394850167}
   - component: {fileID: 2130247235206578875}
   m_Layer: 6
-  m_Name: Studio Slider
+  m_Name: 2 Axis - Studio Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

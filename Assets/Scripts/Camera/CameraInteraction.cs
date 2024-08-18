@@ -113,8 +113,8 @@ public class CameraInteraction : MonoBehaviour
             float sinX = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
             float cosX = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
 
-            float adjustment1 = mouseY * cosY + mouseX * sinY;
-            float adjustment2 =  mouseY * sinX + mouseX * cosX;
+            float adjustment1 = mouseY * sinX + mouseX * cosX;
+            float adjustment2 = mouseY * cosY + mouseX * sinY;
 
             Vector2 adjustment = new Vector2 (adjustment1, adjustment2);
 

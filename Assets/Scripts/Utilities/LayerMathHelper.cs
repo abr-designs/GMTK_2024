@@ -43,6 +43,10 @@ namespace Utilities
                     case CONTROLS.Z_SCALE:
                         outScale.z = maxScale * Mathf.Clamp(value, 0.1f, 1f);
                         break;
+                    case CONTROLS.XZ_SCALE:
+                        outScale.x = maxScale * Mathf.Clamp(value, 0.1f, 1f);
+                        outScale.z = maxScale * Mathf.Clamp(value2, 0.1f, 1f);
+                        break;
                     case CONTROLS.POS:
                         outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
                         outPosition.z = Mathf.Lerp(levelMinPosition.z, levelMaxPosition.z, value2);
