@@ -226,6 +226,18 @@ Transform:
   - {fileID: 1620994076}
   m_Father: {fileID: 941803218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &224760023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9144933464341090641, guid: 51e7d55a732f908478e85e32c2bf5c05,
+    type: 3}
+  m_PrefabInstance: {fileID: 1426931150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7329f03daa44009e994bb7631d7536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &243870387
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +748,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Double Lever Control Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 35796665577252589, guid: b8c51ffb20a49f94da1f2a0635729b4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 384716056318270560, guid: b8c51ffb20a49f94da1f2a0635729b4e,
         type: 3}
       propertyPath: m_CastShadows
@@ -996,7 +1013,7 @@ Transform:
   m_GameObject: {fileID: 778489991}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06221719, y: 0.6976217, z: -0.061034016, w: 0.71114546}
-  m_LocalPosition: {x: -5.547843, y: 5.05, z: -4.2278404}
+  m_LocalPosition: {x: -5.547843, y: 5.0499997, z: -4.2278404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2147,6 +2164,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.68
       objectReference: {fileID: 0}
+    - target: {fileID: 3019510736394191545, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3096603200035432126, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
       propertyPath: m_CastShadows
@@ -2172,6 +2194,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4103259774897435537, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.39
+      objectReference: {fileID: 0}
     - target: {fileID: 4186379888584240117, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
       propertyPath: m_CastShadows
@@ -2187,6 +2214,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4707383304802669332, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: toggleButton
+      value: 
+      objectReference: {fileID: 224760023}
     - target: {fileID: 4829663228964577041, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
       propertyPath: m_CastShadows
@@ -2201,6 +2233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5065569089500484015, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.17
       objectReference: {fileID: 0}
     - target: {fileID: 5238305137081286703, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
@@ -2286,6 +2323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294418460760350855, guid: 51e7d55a732f908478e85e32c2bf5c05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6713372681110034249, guid: 51e7d55a732f908478e85e32c2bf5c05,
         type: 3}
@@ -2894,18 +2936,6 @@ Transform:
   - {fileID: 1516225610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1846845124 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4768969505979041622, guid: 51e7d55a732f908478e85e32c2bf5c05,
-    type: 3}
-  m_PrefabInstance: {fileID: 1426931150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a0ecf8bf514274b68f2f45fe37f1cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1862264273
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,6 +2990,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Single Lever Control Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2615115027706639217, guid: ca20c44cedc918649b8eac563daf8b9b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2849182877674341106, guid: ca20c44cedc918649b8eac563daf8b9b,
         type: 3}
@@ -4070,19 +4105,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
         type: 3}
+      propertyPath: controlPanelContainers.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
+        type: 3}
       propertyPath: controlPanelContainers.Array.data[0]
       value: 
-      objectReference: {fileID: 1876200259}
+      objectReference: {fileID: 333282449206904744, guid: 2e31f14bffde1bb4692e51d76954adc0,
+        type: 3}
     - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
         type: 3}
       propertyPath: controlPanelContainers.Array.data[1]
       value: 
-      objectReference: {fileID: 761486351}
+      objectReference: {fileID: 1876200259}
     - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
         type: 3}
       propertyPath: controlPanelContainers.Array.data[2]
       value: 
-      objectReference: {fileID: 1846845124}
+      objectReference: {fileID: 761486351}
+    - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
+        type: 3}
+      propertyPath: controlPanelContainers.Array.data[3]
+      value: 
+      objectReference: {fileID: 333282449206904744, guid: 0a9ccb60a2b76a546bc20b6f7ee84c03,
+        type: 3}
+    - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
+        type: 3}
+      propertyPath: controlPanelContainers.Array.data[4]
+      value: 
+      objectReference: {fileID: 391769290097451790, guid: 73564e512ebf3704cb67fc2e1118f80e,
+        type: 3}
     - target: {fileID: 6846225030868769744, guid: bdb1afcf79439604ca545606a02439e6,
         type: 3}
       propertyPath: moveCurve.m_Curve.Array.data[1].time

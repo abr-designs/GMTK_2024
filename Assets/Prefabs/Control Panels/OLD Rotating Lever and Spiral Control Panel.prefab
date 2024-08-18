@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5638431995344013569}
   - component: {fileID: 7362449939500581404}
   m_Layer: 0
-  m_Name: Rotating Lever and Spiral Control Panel
+  m_Name: OLD Rotating Lever and Spiral Control Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

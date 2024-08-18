@@ -9,7 +9,7 @@ namespace Printer {
         public override float InputValue => inputControlValue;
 
         [Header("Object References")]
-        [SerializeField] private ButtonToggleInteractable toggleButton;
+        [SerializeField] private ButtonInteractable toggleButton;
         [SerializeField] private Transform rotationPartReference;
         [SerializeField] private Transform positionPartReference;
         [SerializeField] private GantryController connectedGantry;

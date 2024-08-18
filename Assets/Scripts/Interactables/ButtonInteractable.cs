@@ -8,11 +8,21 @@ namespace Interactables
     {
         public override float InputValue => _inputValue;
 
+        [SerializeField] private bool isToggleButton = false;
+
         private float _inputValue;
 
         public override void SetIsInteracting(bool b)
         {
-            _inputValue = b ? 1f : 0f;
+            switch(isToggleButton) {
+                case false:
+                    _inputValue = b ? 1f : 0f;
+                    break;
+                case true:
+                    if (!b) _inputValue = UnityEngine.Mathf.Abs(_inputValue - 1f);
+                    break;
+            }
+            
 
         }
 
