@@ -48,7 +48,7 @@ MonoBehaviour:
   worldPlaceTag: Cake
   controlPanelType: 1
   usableControls: 1
-  levelScript: 
+  levelScript: this is a test
   levelTime: 3
   yScale: 2
   maxScale: 8
