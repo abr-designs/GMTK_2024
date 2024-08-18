@@ -3,6 +3,7 @@ using GameInput;
 using UnityEngine;
 using Printer;
 using Interactables;
+using UnityEngine.UIElements;
 
 public class CameraInteraction : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CameraInteraction : MonoBehaviour
     public LayerMask layerMask; // Layer mask to specify which objects the ray should interact with
 
     public float sensitivityY = 1f; // Sensitivity for the Y axis rotation
+    public float sensitivityX = 1f; // Sensitivity for the X axis rotation
 
     InteractableInputControl interactingController;
 
@@ -85,8 +87,39 @@ public class CameraInteraction : MonoBehaviour
         // Check if moving interactableObject
         if (interactingController == null) return;
 
+        // get interacting control local rotation
+        Vector3 controlRotation = interactingController.transform.localRotation.eulerAngles;
+
         float mouseY = delta.y * sensitivityY;
-        interactingController.AdjustValue(mouseY);
+        float mouseX = delta.x * sensitivityX;
+
+        //float dotValue = Vector3.Dot(new Vector3(mouseX, mouseY, 0), controlRotation);
+
+        Vector3[] controlRotationAxis = interactingController.GetTransformAxis();
+
+        if (controlRotationAxis.Length == 1) {
+            float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+
+            float adjustment = mouseY * cosY + mouseX * sinY;
+
+            interactingController.AdjustValue(adjustment);
+        }
+        else if (controlRotationAxis.Length == 2) {
+
+            float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+
+            float sinX = Mathf.Sin((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+            float cosX = Mathf.Cos((controlRotation.y + controlRotationAxis[0].y * 90f) * Mathf.Deg2Rad);
+
+            float adjustment1 = mouseY * cosY + mouseX * sinY;
+            float adjustment2 =  mouseY * sinX + mouseX * cosX;
+
+            Vector2 adjustment = new Vector2 (adjustment1, adjustment2);
+
+            interactingController.AdjustValue(adjustment);
+        }
     }
 
 

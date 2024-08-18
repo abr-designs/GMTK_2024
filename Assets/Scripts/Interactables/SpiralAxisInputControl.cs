@@ -114,5 +114,12 @@ namespace Printer {
             throw new System.NotImplementedException();
         }
 
+        public override Vector3[] GetTransformAxis() {
+            throw new System.NotImplementedException();
+        }
+
+        public override void AdjustValue(Vector2 delta) {
+            throw new System.NotImplementedException();
+        }
     }
 }
