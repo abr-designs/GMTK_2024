@@ -107,6 +107,8 @@ namespace UI
         {
             if (!_currentLevel) return;
 
+            float maxBounds = 0;
+
             // Alter materials based on current layer
             for (int i = 0; i < _currentLevel.layers.Length; i++)
             {
@@ -132,6 +134,9 @@ namespace UI
                     renderer.material.color = Color.gray;
                 }
 
+                var bounds = renderer.bounds.extents;
+                maxBounds = Mathf.Max(Mathf.Max(maxBounds, bounds.x),bounds.z);
+                
             }
 
 
@@ -142,7 +147,7 @@ namespace UI
             {
                 spriteCamera.transform.localPosition = new Vector3(0, ((_currentLevel.layers.Length / 2f) - 0.5f) * _currentLevel.yScale, -5f);
                 spriteCamera.transform.localRotation = Quaternion.identity;
-                spriteCamera.orthographicSize = _currentLevel.layers.Length * _currentLevel.yScale * 0.6f;
+                spriteCamera.orthographicSize = Mathf.Max( _currentLevel.layers.Length * _currentLevel.yScale * 0.6f, maxBounds * 1.2f );
             }
             else if (_currentView == SPRITE_VIEW.ISO_VIEW)
             {
@@ -150,7 +155,7 @@ namespace UI
                 spriteCamera.transform.localPosition = Vector3.zero;
                 spriteCamera.transform.localPosition = new Vector3(-5, 5 + ((_currentLevel.layers.Length / 2f) - 0.5f) * _currentLevel.yScale, -5);
                 spriteCamera.transform.localRotation = Quaternion.Euler(new Vector3(35.264f, 45, 0));
-                spriteCamera.orthographicSize = (_currentLevel.layers.Length + 1) * _currentLevel.yScale * 0.6f;
+                spriteCamera.orthographicSize = Mathf.Max( (_currentLevel.layers.Length + 1) * _currentLevel.yScale * 0.6f, maxBounds * 1.2f );
             }
 
             // Take picture (renderTexture)
