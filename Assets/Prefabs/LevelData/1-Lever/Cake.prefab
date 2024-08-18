@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: 
-  worldPlaceTag: 
+  worldPlaceTag: Cake
   controlPanelType: 1
   usableControls: 1
   levelDescription: 
   levelTime: 3
-  yScale: 1
+  yScale: 2
   width: 10
   depth: 10
   layers:
@@ -74,4 +74,4 @@ MonoBehaviour:
     localPosition: {x: 0, y: 0}
     yRotation: 0
     localScale: {x: 1.5, y: 1.5}
-  outputScale: 1
+  outputScale: 0.2

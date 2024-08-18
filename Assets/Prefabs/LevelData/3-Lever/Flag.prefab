@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: 
-  worldPlaceTag: 
+  worldPlaceTag: Flag
   controlPanelType: 2
   usableControls: 1
   levelDescription: 
@@ -84,4 +84,4 @@ MonoBehaviour:
     localPosition: {x: 0, y: 1.23}
     yRotation: 0
     localScale: {x: 0.5, y: 3}
-  outputScale: 1
+  outputScale: 0.75
