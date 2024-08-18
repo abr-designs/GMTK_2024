@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8490295268866124355}
   - component: {fileID: 3552129754597848672}
-  - component: {fileID: 2423579544464180560}
+  - component: {fileID: 2415864209005555417}
   - component: {fileID: 63457685958258073}
   m_Layer: 6
-  m_Name: OLD Toggle Button
+  m_Name: Push Button - Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2423579544464180560
+--- !u!114 &2415864209005555417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 668204331461088237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c67d183e327c2c846a4d4082d238a8a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a7329f03daa44009e994bb7631d7536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &63457685958258073
@@ -80,10 +80,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0e48ee600d4104a9bdd33e35e7552d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonInteractable: {fileID: 2423579544464180560}
+  buttonInteractable: {fileID: 2415864209005555417}
   buttonRenderer: {fileID: 1185337193919817047}
-  shouldSwitchColor: 1
-  hasDepressedColor: 0
+  shouldSwitchColor: 0
+  hasDepressedColor: 1
   onColor: {r: 0, g: 1, b: 0, a: 1}
   offColor: {r: 1, g: 0, b: 0, a: 1}
   waitingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -148,7 +148,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c9204903f666a94b8bc8720a39d6dab, type: 2}
+  - {fileID: 2100000, guid: 4b18bf6dc5c57784492d3893e0d4a7b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -232,7 +232,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e586a51b3932c7d4aaf53f505d662e17, type: 2}
+  - {fileID: 2100000, guid: 777f3e2a706cc6d4b89b61e3730221b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
