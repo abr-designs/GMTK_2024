@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8490295268866124355}
   - component: {fileID: 3552129754597848672}
-  - component: {fileID: 2423579544464180560}
+  - component: {fileID: 2415864209005555417}
   - component: {fileID: 63457685958258073}
+  - component: {fileID: -7280121598617166453}
   m_Layer: 6
-  m_Name: Toggle Button
+  m_Name: Push Button Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 668204331461088237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.024999619, z: -0.195}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2423579544464180560
+--- !u!114 &2415864209005555417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,9 +66,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 668204331461088237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c67d183e327c2c846a4d4082d238a8a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a7329f03daa44009e994bb7631d7536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isToggleButton: 1
 --- !u!114 &63457685958258073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,13 +82,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0e48ee600d4104a9bdd33e35e7552d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonInteractable: {fileID: 2423579544464180560}
+  buttonInteractable: {fileID: 2415864209005555417}
   buttonRenderer: {fileID: 1185337193919817047}
-  shouldSwitchColor: 1
-  hasDepressedColor: 0
+  shouldSwitchColor: 0
+  hasDepressedColor: 1
   onColor: {r: 0, g: 1, b: 0, a: 1}
   offColor: {r: 1, g: 0, b: 0, a: 1}
   waitingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  transformAnimator: {fileID: -7280121598617166453}
+--- !u!114 &-7280121598617166453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668204331461088237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d555c45d9ecce4aae1b7c45ee2c3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTimeRange: {x: 0.3, y: 0.5}
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.010120778
+      outSlope: 0.010120778
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.9736216
+    - serializedVersion: 3
+      time: 0.15216598
+      value: 1.1974933
+      inSlope: -0.47506917
+      outSlope: -0.47506917
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.32005715
+      value: 0.82007074
+      inSlope: -0.4598022
+      outSlope: -0.4598022
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5028325
+      value: 1.0628722
+      inSlope: 0.42888528
+      outSlope: 0.42888528
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7095619
+      value: 0.9655762
+      inSlope: -0.07933959
+      outSlope: -0.07933959
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.90142477
+      value: 1.0254307
+      inSlope: 0.026991293
+      outSlope: 0.026991293
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.011630966
+      outSlope: -0.011630966
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationOffset: 20
+  rotationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.010120778
+      outSlope: 0.010120778
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.9736216
+    - serializedVersion: 3
+      time: 0.15216598
+      value: 1.1974933
+      inSlope: -0.47506917
+      outSlope: -0.47506917
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.32005715
+      value: 0.82007074
+      inSlope: -0.4598022
+      outSlope: -0.4598022
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5028325
+      value: 1.0628722
+      inSlope: 0.42888528
+      outSlope: 0.42888528
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7095619
+      value: 0.9655762
+      inSlope: -0.07933959
+      outSlope: -0.07933959
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.90142477
+      value: 1.0254307
+      inSlope: 0.026991293
+      outSlope: 0.026991293
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.011630966
+      outSlope: -0.011630966
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5910213164924358018
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +303,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c9204903f666a94b8bc8720a39d6dab, type: 2}
+  - {fileID: 2100000, guid: 4b18bf6dc5c57784492d3893e0d4a7b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -232,7 +387,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e586a51b3932c7d4aaf53f505d662e17, type: 2}
+  - {fileID: 2100000, guid: 777f3e2a706cc6d4b89b61e3730221b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -28,6 +28,11 @@ namespace Printer {
 
         private bool _isInteracting = false;
 
+        private void OnEnable() {
+            // connect to Gantry through PrinterReferenceController
+            //
+
+        }
 
         private void SetMeshPositionFromValue(float value) {
             float rangeValue = value - 0.5f;
@@ -55,7 +60,10 @@ namespace Printer {
         private void ValueChanged(float newValue) {
             SetMeshPositionFromValue(newValue);
 
+            // tell the gantry to move
             connectedGantry?.ValueChanged(newValue);
+            // instead, broadcast a message that a control value has changed
+            //
         }
 
         public override void SetIsInteracting(bool b) {
@@ -75,7 +83,10 @@ namespace Printer {
         }
         
         public override void SetValue(float f) {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            //Debug.Log($"Value changed for {name} to {f}");
+            inputControlValue = f;
+            ValueChanged(inputControlValue);
         }
 
 #if UNITY_EDITOR

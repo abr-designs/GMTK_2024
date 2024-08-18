@@ -21,11 +21,21 @@ namespace Interactables
         [SerializeField]
         private ControlInputData[] controls;
 
+        private void OnEnable() {
+            GameManager.OnWorldShake += ShuffleControls;
+        }
+        private void OnDisable() {
+            GameManager.OnWorldShake -= ShuffleControls;
+        }
+
         public void SetActive(bool state) => gameObject.SetActive(state);
 
-        public void ShuffleControls()
-        {
+        private void ShuffleControls(float _) {
             //TODO Set all controls to be random values
+            foreach(ControlInputData controlInputData in controls) {
+                float randomValue = UnityEngine.Random.Range(0f, 1f);
+                controlInputData.inputControl.SetValue(randomValue);
+            }
         }
         
 

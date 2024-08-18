@@ -6,13 +6,23 @@ namespace Interactables
 {
     public class ButtonInteractable : InteractableInputControl
     {
-        public override float InputValue => inputValue;
+        public override float InputValue => _inputValue;
 
-        protected float inputValue;
+        [SerializeField] private bool isToggleButton = false;
+
+        private float _inputValue;
 
         public override void SetIsInteracting(bool b)
         {
-            inputValue = b ? 1f : 0f;
+            switch(isToggleButton) {
+                case false:
+                    _inputValue = b ? 1f : 0f;
+                    break;
+                case true:
+                    if (!b) _inputValue = UnityEngine.Mathf.Abs(_inputValue - 1f);
+                    break;
+            }
+            
 
         }
 
@@ -22,7 +32,7 @@ namespace Interactables
 
         public override void SetValue(float f)
         {
-            inputValue = f;
+            _inputValue = f;
         }
 
         [Conditional("UNITY_EDITOR"), ContextMenu("Press Button")]
