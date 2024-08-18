@@ -1,14 +1,10 @@
 using Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
-using UnityEngine.UIElements;
 using World;
 
 public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
-
 
     [Header("References")]
     [SerializeField] private List<string> worldTagList = new List<string>();
@@ -20,17 +16,11 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     [SerializeField] private GameObject testWorldObjectPrefab;
 
 
-
-
-
-
     private void Start() {
         EmptyChildObjects();
         IdentifyWorldTags();
         IdentifyWorldTagObjects();
     }
-
-
 
 
     [ContextMenu("Identify World Tags")]
@@ -41,7 +31,6 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     // identify world objects
     private void IdentifyWorldTags() {
 
-        // clear list
         worldTagList.Clear();
 
         WorldTagObject[] worldTagObjectArray = FindObjectsOfType<WorldTagObject>();
@@ -53,11 +42,8 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
             }
         }
 
-        // sort list
         worldTagList.Sort();
     }
-
-
 
 
     [ContextMenu("Identify World Tag Objects")]
@@ -69,12 +55,9 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     // identify world objects
     private void IdentifyWorldTagObjects() {
 
-        // clear dictionary
         dictionaryTagObjects.Clear();
 
         foreach (string tagString in worldTagList) {
-            //Debug.Log(tagString);
-
             // get list of all objects with this tag
             WorldTagObject[] worldTagObjectArray = FindObjectsOfType<WorldTagObject>();
             List<GameObject> worldGameObjectList = new List<GameObject>();
@@ -86,18 +69,8 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
             }
 
             dictionaryTagObjects.Add(tagString, worldGameObjectList);
-
         }
-
-        //Debug.Log(dictionaryTagObjects.Count);
-        //foreach(string s in dictionaryTagObjects.Keys) {
-        //    Debug.Log($"{s} = {dictionaryTagObjects[s].Count}");
-        //}
     }
-
-
-
-
 
 
     [ContextMenu("Spawn World Objects")]
@@ -105,10 +78,8 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
         CreateWorldVersion(testWorldTag, testScale, testWorldObjectPrefab);
         Debug.Log($"Spawned {dictionaryTagObjects[testWorldTag].Count} {testWorldTag}");
     }
-
+    // spawn objects based on prefabs
     public void CreateWorldVersion(string worldTag, float scale, GameObject container) {
-        //SpawnWorldObjectFromTag(worldTag, testScale, testWorldObjectPrefab);
-
 
         List<GameObject> worldObjectReference = dictionaryTagObjects[worldTag];
 
@@ -121,29 +92,11 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     }
 
 
-
-
-
-
-
-    //private void SpawnWorldObjectFromTag(string worldTag, float scale, GameObject container) {
-
-    //    List<GameObject> worldObjectReference = dictionaryTagObjects[worldTag];
-
-    //    foreach(GameObject worldObject in worldObjectReference) {
-
-    //        GameObject newGameObject = Instantiate(container, worldObject.transform.position, worldObject.transform.rotation, transform);
-    //        newGameObject.transform.localScale = Vector3.one * scale;
-
-    //    }
-    //}
-
-
-    [ContextMenu("Destroy Children")]
+    [ContextMenu("Destroy Transform Children")]
     private void Inspector_DestroyChildren() {
         EmptyChildObjects();
     }
-
+    // remove spawned prefab objects from transform
     private void EmptyChildObjects() {
 
         List<GameObject> children = new List<GameObject>();

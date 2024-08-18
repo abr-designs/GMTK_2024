@@ -45427,11 +45427,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ===WORLD REPLACE MANAGER===
       objectReference: {fileID: 0}
-    - target: {fileID: 8474418656125503289, guid: 91909450d5541094db8ebe28440b5fcd,
-        type: 3}
-      propertyPath: testWorldTag
-      value: Hedge
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
