@@ -2,14 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using GameInput;
 using Interactables;
 using Interactables.Enums;
 using Interfaces;
 using Levels;
-using Levels.Enums;
-using UI;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -52,10 +48,6 @@ public class GameManager : MonoBehaviour
     [SerializeField, Min(0f), Header("Animations")]
     private float animationTime;
 
-    [SerializeField]
-    private AnimationCurve scaleCurve;
-    [SerializeField]
-    private AnimationCurve moveCurve;
     [SerializeField, Min(0)]
     private float worldShakeTime;
 
@@ -87,6 +79,7 @@ public class GameManager : MonoBehaviour
         _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         _spawnLayers = GetComponentInParent<ISpawnLayers>();
+        _spawnLayers.SpawnLocation = spawnPosition;
         _moveLayers = GetComponentInParent<IMoveLayers>();
         _resultsDisplay = GetComponentInChildren<IDisplayResults>();
         
