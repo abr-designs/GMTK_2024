@@ -20,7 +20,7 @@ namespace Audio
             [SerializeField]
             private AudioClip[] audioClips;
 
-            [Range(0f,1f)]
+            [Range(0f, 1f)]
             public float volume;
 
             public AudioClip GetRandomAudioClip()
@@ -35,8 +35,8 @@ namespace Audio
         private AudioMixerGroup sfxAudioMixer;
         [SerializeField]
         private AudioSource sfxAudioSource;
-        
-        [SerializeField] 
+
+        [SerializeField]
         private AudioSource sfxSourcePrefab;
         private List<AudioSource> _audioSources;
         internal static SFXManager Instance;
@@ -87,10 +87,10 @@ namespace Audio
         {
             var sfxData = GetSFXData(vfx);
             var audioClip = sfxData.GetRandomAudioClip();
-            
+
             Assert.IsNotNull(sfxData);
             Assert.IsNotNull(audioClip);
-            
+
             sfxAudioSource.PlayOneShot(audioClip, volume);
         }
         //This is meant to be called via the VFXExtensions class
@@ -109,7 +109,7 @@ namespace Audio
 
             StartCoroutine(WaitForSoundFinishCoroutine(audioSource, audioClip.length));
         }
-        
+
         //============================================================================================================//
 
         private SfxData GetSFXData(SFX sfx)
@@ -125,7 +125,7 @@ namespace Audio
         private AudioSource TryGet3DAudioSource()
         {
             AudioSource audioSource = null;
-            if(_audioSources.Count > 0)
+            if (_audioSources.Count > 0)
                 audioSource = _audioSources.FirstOrDefault(x => x.gameObject.activeSelf == false);
 
             if (audioSource != null)
@@ -133,7 +133,7 @@ namespace Audio
                 audioSource.gameObject.SetActive(true);
                 return audioSource;
             }
-            
+
             audioSource = Instantiate(sfxSourcePrefab, transform);
             audioSource.name = $"[{_audioSources.Count}]_SFX_AudioSource";
             _audioSources.Add(audioSource);
@@ -144,14 +144,14 @@ namespace Audio
         private static IEnumerator WaitForSoundFinishCoroutine(AudioSource targetAudioSource, float time)
         {
             yield return new WaitForSeconds(time);
-            
+
             targetAudioSource.gameObject.SetActive(false);
             targetAudioSource.Stop();
         }
 
         //Unity Editor Functions
         //============================================================================================================//
-        
+
 #if UNITY_EDITOR
 
         private void OnValidate()
