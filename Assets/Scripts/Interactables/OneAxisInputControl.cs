@@ -1,5 +1,6 @@
 using Interactables;
 using UnityEngine;
+using Utilities.Animations;
 
 namespace Printer {
 
@@ -25,6 +26,9 @@ namespace Printer {
         [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
         [SerializeField] private float inputDampener = 125f;
         [SerializeField] private bool DEBUG_updateInEditor = false;
+
+        [SerializeField]
+        private TransformAnimator transformAnimator;
 
         private bool _isInteracting = false;
 
@@ -68,6 +72,9 @@ namespace Printer {
 
         public override void SetIsInteracting(bool b) {
             _isInteracting = b;
+            
+            if(_isInteracting == false)
+                transformAnimator?.Play();
         }
 
         public override void AdjustValue(float delta) {

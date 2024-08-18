@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using GameInput;
 using Interactables;
 using Interactables.Enums;
 using Interfaces;
@@ -11,6 +12,7 @@ using UI;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Utilities;
 using Utilities.Animations;
 
 public class GameManager : MonoBehaviour
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private ControlPanelContainer[] controlPanelContainers;
+    private Dictionary<CONTROL_PANEL_TYPE, List<ControlPanelContainer>> _controlPanelContainers;
 
     [SerializeField,Min(0f), Header("Level Setup")]
     private float levelStartCountdownTime;
@@ -71,6 +74,30 @@ public class GameManager : MonoBehaviour
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         
         Assert.IsNotNull(_startButton);
+
+
+        //Sort the Panels
+        //------------------------------------------------//
+        _controlPanelContainers = new Dictionary<CONTROL_PANEL_TYPE, List<ControlPanelContainer>>();
+        for (int i = 0; i < controlPanelContainers.Length; i++)
+        {
+            var container = controlPanelContainers[i];
+            if (container == null)
+                continue;
+            
+            if (_controlPanelContainers.ContainsKey(container.controlPanelType) == false)
+            {
+                _controlPanelContainers.Add(container.controlPanelType, new List<ControlPanelContainer>()
+                {
+                    container
+                });
+                continue;
+            }
+            
+            _controlPanelContainers[container.controlPanelType].Add(container);
+            
+        }
+        //============================================================================================================//
         
         
         StartCoroutine(GameLoop());
@@ -208,25 +235,27 @@ public class GameManager : MonoBehaviour
         //Go through each of the controls, then apply their values based on what they should be effecting
         for (int i = 0; i < controlValues.Length; i++)
         {
-            var (control, value) = controlValues[i];
+            var (control, value, value2) = controlValues[i];
 
             switch (control)
             {
                 case CONTROLS.SCALE:
                     var yScale = currentLevel.yScale;
-                    outScale = new Vector3(layerData.localScale.x * value, yScale, layerData.localScale.y * value);
+                    outScale = new Vector3(layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f), 
+                        yScale,
+                        layerData.localScale.y * Mathf.Clamp(value, 0.1f, 1f));
                     break;
                 case CONTROLS.X_SCALE:
-                    outScale.x = layerData.localScale.x * value;
+                    outScale.x = layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f);
                     break;
                 case CONTROLS.Z_SCALE:
-                    outScale.z = layerData.localScale.x * value;
+                    outScale.z = layerData.localScale.x * Mathf.Clamp(value, 0.1f, 1f);
                     break;
                 case CONTROLS.X_POS:
                     outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
                     break;
                 case CONTROLS.Z_POS:
-                    outPosition.z = Mathf.Lerp(levelMinPosition.z, levelMaxPosition.z, value);
+                    outPosition.z = Mathf.Lerp(levelMinPosition.z, levelMaxPosition.z, value2);
                     break;
                 case CONTROLS.Y_ROT:
                     outRotation.y = value * 360f;
@@ -234,7 +263,7 @@ public class GameManager : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
         }
 
 
@@ -268,20 +297,25 @@ public class GameManager : MonoBehaviour
     {
         Assert.IsTrue(controlPanelType != CONTROL_PANEL_TYPE.NONE);
         
-        var foundIndex = -1;
-        for (int i = 0; i < controlPanelContainers.Length; i++)
+        for (var i = 0; i < controlPanelContainers.Length; i++)
         {
-            var matches = controlPanelContainers[i].controlPanelType == controlPanelType;
-
-            controlPanelContainers[i].SetActive(matches);
-            if (matches)
-                foundIndex = i;
+            if (controlPanelContainers[i] == null)
+            {
+                Debug.LogWarning($"{nameof(GameManager)}.{nameof(controlPanelContainers)}[{i}] IS EMPTY!!");
+                continue;
+            }
+            
+            controlPanelContainers[i].SetActive(false);
         }
 
-        if(foundIndex < 0)
-            throw new Exception();
+        if (!_controlPanelContainers.TryGetValue(controlPanelType, out var list))
+            throw new Exception($"No control panel of type: {controlPanelType}");
+        
+        
+        var found = list.PickRandomElement();
+        found.SetActive(true);
 
-        return controlPanelContainers[foundIndex];
+        return found;
     }
 
     //Coroutine
@@ -300,6 +334,7 @@ public class GameManager : MonoBehaviour
             continuePressed = true;
         }
 
+        GameInputDelegator.LockInputs = true;
         //Replace world Objects
         //------------------------------------------------//
         var currentLevel = CurrentLevel;
@@ -316,6 +351,8 @@ public class GameManager : MonoBehaviour
         //------------------------------------------------//
         UIManager.OnContinuePressed += OnContinuePressed;
         yield return new WaitUntil(() => continuePressed);
+        
+        GameInputDelegator.LockInputs = false;
     }
     
     //Static Coroutines
