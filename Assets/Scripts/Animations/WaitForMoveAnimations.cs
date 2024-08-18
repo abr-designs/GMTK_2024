@@ -3,13 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Utilities.Animations;
+using Utilities.Debugging;
 
 namespace Animations
 {
-    public class WaitForDoorAnimations : WaitForAnimationBase
+    public class WaitForMoveAnimations : WaitForAnimationBase
     {
         [Serializable]
-        private class DoorData
+        private class MoveData
         {
             public Transform transform;
             public Vector3 startPosition;
@@ -20,28 +21,34 @@ namespace Animations
         [SerializeField] private AnimationCurve closeCurve;
 
         [SerializeField]
-        private DoorData[] doors;
+        private MoveData[] doors;
 
         //============================================================================================================//
 
-        private void Start()
+        protected override void Start()
         {
             Assert.IsNotNull(openCurve);
             Assert.IsNotNull(closeCurve);
+            
+            for (int i = 0; i < doors.Length; i++)
+            {
+                var data = doors[i];
+                data.transform.position = Vector3.Lerp(data.startPosition, data.endPosition, startingValue);
+            }
         }
 
 
         //============================================================================================================//
 
-        public override IEnumerator DoAnimationCoroutine(float time, bool invert)
+        public override IEnumerator DoAnimationCoroutine(float time, ANIM_DIR animDir)
         {
 
             for (int i = 0; i < doors.Length; i++)
             {
                 var door = doors[i];
-                var startPosition = invert ? door.endPosition : door.startPosition;
-                var endPosition = invert ? door.startPosition : door.endPosition;
-                var curve = invert ? closeCurve : openCurve;
+                var startPosition = animDir == ANIM_DIR.TO_END ? door.startPosition : door.endPosition;
+                var endPosition = animDir == ANIM_DIR.TO_END ? door.endPosition : door.startPosition;
+                var curve = animDir == ANIM_DIR.TO_END ? closeCurve : openCurve;
 
                 StartCoroutine(MoveToPositionCoroutine(door.transform, startPosition, endPosition, time, curve));
             }
@@ -69,7 +76,8 @@ namespace Animations
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(door.endPosition, 0.5f);
                 
-
+                var midPoint = (door.startPosition + door.endPosition) / 2f;
+                Draw.Label(midPoint, door.transform.name);
             }
         }
 #endif
