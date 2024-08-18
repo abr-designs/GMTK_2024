@@ -16,6 +16,9 @@ namespace UI
         private TextMeshPro timerWorldText;
 
         [SerializeField]
+        private GameObject resultsWindowObject;
+
+        [SerializeField]
         private Button continueButton;
 
         //============================================================================================================//
@@ -39,7 +42,7 @@ namespace UI
                 OnContinuePressed?.Invoke();
             });
 
-            continueButton.gameObject.SetActive(false);
+            resultsWindowObject.gameObject.SetActive(false);
         }
 
         private void OnDisable()
@@ -67,7 +70,7 @@ namespace UI
         }
         private void OnLevelComplete()
         {
-            continueButton.gameObject.SetActive(true);
+            resultsWindowObject.gameObject.SetActive(true);
         }
     }
 }

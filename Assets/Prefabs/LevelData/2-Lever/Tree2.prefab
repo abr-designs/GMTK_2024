@@ -48,9 +48,10 @@ MonoBehaviour:
   worldPlaceTag: Tree2
   controlPanelType: 2
   usableControls: 1
-  levelDescription: 
+  levelScript: 
   levelTime: 3
   yScale: 1
+  maxScale: 8
   width: 10
   depth: 10
   layers:

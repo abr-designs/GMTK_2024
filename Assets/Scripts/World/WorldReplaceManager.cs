@@ -14,6 +14,9 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
     [SerializeField] private string testWorldTag = "Tree";
     [SerializeField] private float testScale = 5f;
     [SerializeField] private GameObject testWorldObjectPrefab;
+    
+    [SerializeField] 
+    private LayerMask layerMask;
 
 
     private void Start() {
@@ -79,14 +82,26 @@ public class WorldReplaceManager : MonoBehaviour, ICreateWorldReplacers {
         Debug.Log($"Spawned {dictionaryTagObjects[testWorldTag].Count} {testWorldTag}");
     }
     // spawn objects based on prefabs
-    public void CreateWorldVersion(string worldTag, float scale, GameObject container) {
-
+    public void CreateWorldVersion(string worldTag, float scale, GameObject container)
+    {
+        //Layer Restrict the new Objects
+        //------------------------------------------------//
+        var gameObjects = container.GetComponentsInChildren<GameObject>();
+        foreach (var o in gameObjects)
+        {
+            o.layer = layerMask.value;
+        }
+        
+        //------------------------------------------------//
+        
         List<GameObject> worldObjectReference = dictionaryTagObjects[worldTag];
 
         foreach (GameObject worldObject in worldObjectReference) {
 
             GameObject newGameObject = Instantiate(container, worldObject.transform.position, worldObject.transform.rotation, transform);
             newGameObject.transform.localScale = Vector3.one * scale;
+            
+            
 
         }
     }

@@ -10,7 +10,6 @@ namespace Levels
     public class LevelDataContainer : MonoBehaviour
     {
         public int LayerCount => layers.Length;
-        public float MaxScale => layers.Max(x => Mathf.Max(x.localScale.x, x.localScale.y));
 
         //============================================================================================================//
         
@@ -30,6 +29,9 @@ namespace Levels
 
         [Min(1f)]
         public float yScale;
+        [Min(1f)]
+        public float maxScale;
+
 
         [SerializeField, Min(0f)]
         private float width;

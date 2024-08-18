@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a5a06c63bf8784faba0a9b8ef9e205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLevel: {fileID: 0}
+  _debugLevelDataContainer: {fileID: 0}
   layerPrefab: {fileID: 0}
   spriteCamera: {fileID: 9202875949324560880}
   cameraTargetContainer: {fileID: 706427774818336748}
+  toggleButtons: []
 --- !u!1 &5776835718462277306
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +61,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7102646750029816226}
   - component: {fileID: 9202875949324560880}
-  - component: {fileID: 5826295151636484634}
   - component: {fileID: 241263867024341959}
   m_Layer: 7
   m_Name: SpriteCamera
@@ -135,14 +135,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &5826295151636484634
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5776835718462277306}
-  m_Enabled: 1
 --- !u!114 &241263867024341959
 MonoBehaviour:
   m_ObjectHideFlags: 0
