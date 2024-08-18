@@ -11,7 +11,7 @@ namespace Utilities.Animations
 
         protected abstract void Start();
 
-        public abstract IEnumerator DoAnimationCoroutine(float time, ANIM_DIR animDir);
+        public abstract Coroutine DoAnimation(float time, ANIM_DIR animDir);
         
         protected IEnumerator ScaleCoroutine(Transform target, Vector3 startScale, Vector3 targetScale, float time, AnimationCurve animationCurve)
         {

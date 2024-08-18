@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1230611396829991935}
   - component: {fileID: 6846225030868769744}
+  - component: {fileID: 1389329100808479559}
+  - component: {fileID: 8357609026670887120}
+  - component: {fileID: 7027988715515197167}
   - component: {fileID: 6198028794145147045}
   m_Layer: 0
   m_Name: === GAME MANAGER ===
@@ -107,6 +110,100 @@ MonoBehaviour:
     m_RotationOrder: 4
   worldShakeTime: 1
   doorAnimation: {fileID: 0}
+  controlPanel: {fileID: 0}
+  startButton: {fileID: 0}
+  tvScreenAnimation: {fileID: 0}
+  checkMarkAnimation: {fileID: 0}
+--- !u!114 &1389329100808479559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447298099487854915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e11dd07abc3534fb5c308a29766433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTime: 0.25
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8357609026670887120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447298099487854915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d95d2246a94306ac6c4ec2c97e165a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimation: {fileID: 0}
+  animationTime: 0.25
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &7027988715515197167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447298099487854915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad41c9edc78a48b08365c0545c62dfdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTime: 0.25
+  checkMarkAnimation: {fileID: 0}
+  tvScreenAnimation: {fileID: 0}
 --- !u!114 &6198028794145147045
 MonoBehaviour:
   m_ObjectHideFlags: 0

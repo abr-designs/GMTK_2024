@@ -35,7 +35,11 @@ namespace Animations
             
         }
 
-        public override IEnumerator DoAnimationCoroutine(float time, ANIM_DIR animDir)
+        public override Coroutine DoAnimation(float time, ANIM_DIR animDir)
+        {
+            return StartCoroutine(DoAnimationCoroutine(time, animDir));
+        }
+        private IEnumerator DoAnimationCoroutine(float time, ANIM_DIR animDir)
         {
             for (int i = 0; i < objects.Length; i++)
             {

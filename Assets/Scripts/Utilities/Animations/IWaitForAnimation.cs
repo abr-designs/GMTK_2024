@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace Utilities.Animations
 {
@@ -9,6 +10,6 @@ namespace Utilities.Animations
     }
     public interface IWaitForAnimation
     {
-        IEnumerator DoAnimationCoroutine(float time, ANIM_DIR animDir);
+        Coroutine DoAnimation(float time, ANIM_DIR animDir);
     }
 }
