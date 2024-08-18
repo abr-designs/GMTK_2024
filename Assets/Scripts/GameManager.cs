@@ -59,8 +59,14 @@ public class GameManager : MonoBehaviour
     [SerializeField, Min(0)]
     private float worldShakeTime;
 
-    [SerializeField]
+    [SerializeField, Header("Animation Boys")]
     private WaitForAnimationBase doorAnimation;
+    [SerializeField]
+    private WaitForAnimationBase controlPanel;
+    [SerializeField]
+    private WaitForAnimationBase startButton;
+    [SerializeField]
+    private WaitForAnimationBase tvScreenAnimation;
 
     private IDisplayDialog _displayDialog;
     private IGenerateSilhouette _silhouetteGenerator;
@@ -76,9 +82,12 @@ public class GameManager : MonoBehaviour
         _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
+
+
+        //Find from Children
+        //------------------------------------------------//
         _displayDialog = GetComponentInChildren<IDisplayDialog>();
         _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
-        _createWorldReplacers = GetComponentInChildren<ICreateWorldReplacers>();
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         
         Assert.IsNotNull(_startButton);
@@ -119,6 +128,9 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         
+        //Find object the World, once loaded
+        //------------------------------------------------//
+        _createWorldReplacers = FindObjectOfType<WorldReplaceManager>();
         
         do
         {
