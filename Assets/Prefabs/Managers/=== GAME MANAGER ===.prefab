@@ -50,8 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d45a49e2e04bbaa235682fb15b6e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosition: {x: 0, y: 0.65, z: 0}
+  spawnPosition: {x: 0, y: 1, z: 0}
   controlPanelContainers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -60,60 +63,10 @@ MonoBehaviour:
   worldTagSceneIndex: 2
   _startButton: {fileID: 0}
   animationTime: 0.3
-  scaleCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  moveCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   worldShakeTime: 1
-  doorAnimation: {fileID: 0}
   controlPanel: {fileID: 0}
   startButton: {fileID: 0}
   tvScreenAnimation: {fileID: 0}
-  checkMarkAnimation: {fileID: 0}
 --- !u!114 &1389329100808479559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +346,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584874110060090731, guid: 370aa306f4554d5489a3f86edf69a877,
+        type: 3}
+      propertyPath: toggleButtons.Array.size
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
