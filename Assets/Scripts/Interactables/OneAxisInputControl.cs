@@ -1,10 +1,15 @@
+using Audio;
 using Interactables;
+using UnityEditor;
 using UnityEngine;
 using Utilities.Animations;
+using Audio.SoundFX;
 
-namespace Printer {
+namespace Printer
+{
 
-    enum ControlTransformType {
+    enum ControlTransformType
+    {
         Position,
         Rotation
     }
@@ -32,15 +37,18 @@ namespace Printer {
 
         private bool _isInteracting = false;
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             // connect to Gantry through PrinterReferenceController
             //
 
         }
 
-        private void SetMeshPositionFromValue(float value) {
+        private void SetMeshPositionFromValue(float value)
+        {
             float rangeValue = value - 0.5f;
-            switch (controlTransformType) {
+            switch (controlTransformType)
+            {
                 case ControlTransformType.Position:
                     SetPositionInRange(rangeValue);
                     break;
@@ -50,18 +58,21 @@ namespace Printer {
             }
         }
 
-        private void SetPositionInRange(float rangeValue) {
+        private void SetPositionInRange(float rangeValue)
+        {
             movingPartReference.localPosition = transformAxis * (rangeOfMotion * rangeValue);
         }
 
-        private void SetRotationInRange(float rangeValue) {
+        private void SetRotationInRange(float rangeValue)
+        {
             Vector3 rotationEuler = transformAxis * (rangeOfMotion * rangeValue);
             Quaternion quaternion = Quaternion.Euler(rotationEuler);
             movingPartReference.localRotation = quaternion;
         }
 
 
-        private void ValueChanged(float newValue) {
+        private void ValueChanged(float newValue)
+        {
             SetMeshPositionFromValue(newValue);
 
             // tell the gantry to move
@@ -70,14 +81,16 @@ namespace Printer {
             //
         }
 
-        public override void SetIsInteracting(bool b) {
+        public override void SetIsInteracting(bool b)
+        {
             _isInteracting = b;
-            
-            if(_isInteracting == false)
+
+            if (_isInteracting == false)
                 transformAnimator?.Play();
         }
 
-        public override void AdjustValue(float delta) {
+        public override void AdjustValue(float delta)
+        {
             // dampen input
             float dampening = 1f / inputDampener;
             float dampenedDelta = delta * dampening;
@@ -85,11 +98,12 @@ namespace Printer {
             // clamp
             inputControlValue += dampenedDelta;
             inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
-
+            SFX.Lever.PlaySound();
             ValueChanged(inputControlValue);
         }
-        
-        public override void SetValue(float f) {
+
+        public override void SetValue(float f)
+        {
             //throw new System.NotImplementedException();
             //Debug.Log($"Value changed for {name} to {f}");
             inputControlValue = f;
@@ -97,9 +111,10 @@ namespace Printer {
         }
 
 #if UNITY_EDITOR
-        void OnValidate() {
+        void OnValidate()
+        {
             // This method is called when any value in the Inspector is changed
-            if(DEBUG_updateInEditor) ValueChanged(inputControlValue);
+            if (DEBUG_updateInEditor) ValueChanged(inputControlValue);
         }
 #endif
 
