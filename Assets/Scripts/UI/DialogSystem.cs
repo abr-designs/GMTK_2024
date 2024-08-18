@@ -1,20 +1,80 @@
 using System.Collections;
 using Interfaces;
+using TMPro;
 using UnityEngine;
+using Audio.SoundFX;
+using Audio;
+using Utilities.Animations;
 
 namespace UI
 {
     public class DialogSystem : MonoBehaviour, IDisplayDialog
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField, Min(0f)]
+        private float waitTime;
+
+        [SerializeField]
+        private TMP_Text TMPText;
+
+        [SerializeField]
+        private TransformAnimator[] transformAnimators;
+
+        [SerializeField]
+        private GameObject speechBubble;
+
+        private void Start()
         {
-        
+            TMPText.text = string.Empty;
+            speechBubble.SetActive(false);
         }
 
         public IEnumerator DisplayDialogCoroutine(string text)
         {
-            yield break;
+            if(string.IsNullOrWhiteSpace(text))
+                yield break;
+            
+            speechBubble.SetActive(true);
+            PlayAnimations();
+            yield return new WaitForSeconds(1f);
+            
+            TMPText.text = "Hey You!";
+            PlayAnimations();
+            yield return StartCoroutine(WriteText(TMPText.text, waitTime));
+            yield return new WaitForSeconds(1f);
+            
+            TMPText.text = text;
+            PlayAnimations();
+            yield return StartCoroutine(WriteText(TMPText.text, waitTime));
+
+            yield return new WaitForSeconds(2f);
+            
+            TMPText.text = string.Empty;
+            PlayAnimations();
+
+            yield return new WaitForSeconds(0.5f);
+            
+            speechBubble.SetActive(false);
+        }
+
+        private IEnumerator WriteText(string text, float waitTime)
+        {
+            var wait = new WaitForSeconds(waitTime);
+            var textLength = text.Length;
+            
+            for (int i = 0; i <= textLength; i++)
+            {
+                TMPText.maxVisibleCharacters = i;
+                SFX.Text.PlaySound();
+                yield return wait;
+            }
+        }
+
+        private void PlayAnimations()
+        {
+            for (int i = 0; i < transformAnimators.Length; i++)
+            {
+                transformAnimators[i].Play();
+            }
         }
     }
 }
