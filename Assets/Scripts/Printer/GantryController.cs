@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
+using Audio.SoundFX;
 using TMPro;
 using UnityEngine;
 
@@ -20,8 +22,10 @@ public class GantryController : MonoBehaviour
     private float elapsedTime = 0f;
     private bool isLerping = false;
 
-    void Update() {
-        if (isLerping) {
+    void Update()
+    {
+        if (isLerping)
+        {
             // Calculate the current progress
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / lerpDuration;
@@ -34,26 +38,32 @@ public class GantryController : MonoBehaviour
             transform.localPosition = Vector3.Lerp(startPosition, targetPosition, t);
 
             // Check if the lerp is complete
-            if (elapsedTime >= lerpDuration) {
+            if (elapsedTime >= lerpDuration)
+            {
                 isLerping = false;
             }
         }
     }
 
-    void StartLerp(Vector3 targetPostion) {
+    void StartLerp(Vector3 targetPostion)
+    {
         startPosition = transform.localPosition;
         //this.targetPosition = targetPostion;
         elapsedTime = 0f;
         isLerping = true;
+
+        SFX.Gantry.PlaySound();
     }
 
-    public void SetMeshPositionFromValue(float value) {
+    public void SetMeshPositionFromValue(float value)
+    {
 
         float rangeValue = value - 0.5f;
         movableTransform.localPosition = (maxPositionRange * offsetAxis) * rangeValue;
     }
 
-    public Vector3 GetTargetPositionFromValue(float value) {
+    public Vector3 GetTargetPositionFromValue(float value)
+    {
         float rangeValue = value - 0.5f;
         Vector3 targetPosition = (maxPositionRange * offsetAxis) * rangeValue;
         return targetPosition;
@@ -64,7 +74,8 @@ public class GantryController : MonoBehaviour
     //    ValueChanged(inputValue);
     //}
 
-    public void ValueChanged(float newValue) {
+    public void ValueChanged(float newValue)
+    {
         //SetMeshPositionFromValue(newValue); // would like to lerp over time
         targetPosition = GetTargetPositionFromValue(newValue);
         StartLerp(targetPosition);
