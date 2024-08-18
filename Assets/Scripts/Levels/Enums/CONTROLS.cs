@@ -9,7 +9,7 @@ namespace Levels.Enums
         SCALE = 1 << 0,
         X_SCALE = 1 << 1,
         Z_SCALE = 1 << 2,
-        X_POS = 1 << 3,
+        POS = 1 << 3,
         Z_POS = 1 << 4,
         Y_ROT = 1 << 5
     }

@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     public static ControlPanelContainer ActiveControlPanel { get; private set; }
 
-    [SerializeField]
     private ControlPanelContainer[] controlPanelContainers;
     private Dictionary<CONTROL_PANEL_TYPE, List<ControlPanelContainer>> _controlPanelContainers;
 
@@ -74,6 +73,7 @@ public class GameManager : MonoBehaviour
     
     public void Start()
     {
+        controlPanelContainers = FindObjectsOfType<ControlPanelContainer>();
         _generatedPlayerContent = new Dictionary<string, GameObject>();
         LevelLoader.LoadFirstLevel();
 
