@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42dd13a880eb84489f3b2c6ec220613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionTransform: {fileID: 5327056103554215510}
   movingPartReference: {fileID: 9126783427593305099}
   connectedGantry: {fileID: 0}
   controlTransformType: 1

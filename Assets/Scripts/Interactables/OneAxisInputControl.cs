@@ -18,6 +18,12 @@ namespace Printer
     {
         public override float InputValue => inputControlValue;
 
+
+        public override Transform InteractionTransform => interactionTransform;
+
+        [SerializeField] 
+        private Transform interactionTransform;
+
         [Header("Object References")]
         [SerializeField] private Transform movingPartReference;
         [SerializeField] private GantryController connectedGantry;

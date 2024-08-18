@@ -1,10 +1,12 @@
+using System;
 using GameInput;
 using UnityEngine;
 using Printer;
 using Interactables;
 
-public class CameraInteraction : MonoBehaviour {
-
+public class CameraInteraction : MonoBehaviour
+{
+    public static event Action<Vector3, Transform> OnInteractionStarted;
     [Header("Object References")] 
     Camera cabCamera; // main camera
     [SerializeField] private CameraMouseFirstPersonRotation cameraMouseFirstPersonRotation;
@@ -57,12 +59,16 @@ public class CameraInteraction : MonoBehaviour {
         RaycastHit hit;
 
         // Perform the raycast and check if it hits an object with a BoxCollider
-        if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) {
-            // Check if the hit object has a PrinterInputContol
-            if (hit.collider.GetComponent<InteractableInputControl>() != null) {
-                interactingController = hit.collider.GetComponent<InteractableInputControl>();
-                interactingController.SetIsInteracting(true);
-            }
+        if (!Physics.Raycast(ray, out hit, maxRayDistance, layerMask)) 
+            return;
+        
+        
+        // Check if the hit object has a PrinterInputContol
+        if (hit.collider.GetComponent<InteractableInputControl>() != null) {
+            interactingController = hit.collider.GetComponent<InteractableInputControl>();
+            interactingController.SetIsInteracting(true);
+                
+            OnInteractionStarted?.Invoke(hit.point, interactingController.InteractionTransform);
         }
 
     }
@@ -71,6 +77,8 @@ public class CameraInteraction : MonoBehaviour {
         if (interactingController == null) return;
         interactingController.SetIsInteracting(false);
         interactingController = null;
+        
+        OnInteractionStarted?.Invoke(default, null);
     }
 
     private void CheckForMoveControlInteraction(Vector2 delta) {
