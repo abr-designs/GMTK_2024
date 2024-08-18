@@ -515,3 +515,5 @@ MonoBehaviour:
   inputDampener: 125
   DEBUG_updateInEditor: 0
   transformAnimator: {fileID: 4632592287337814132}
+  interactionSFX: 2
+  sfxCooldown: 0.5

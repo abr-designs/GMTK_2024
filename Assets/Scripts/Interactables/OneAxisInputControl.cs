@@ -34,6 +34,7 @@ namespace Printer
         [SerializeField] private float rangeOfMotion = 0.4f;
 
         [Header("Input Variables")]
+        //[SerializeField] private Vector3 positiveInputAxis = (enum)Vector3;
         [SerializeField, Range(0f, 1f)] private float inputControlValue = 0.5f;
         [SerializeField] private float inputDampener = 125f;
         [SerializeField] private bool DEBUG_updateInEditor = false;
@@ -42,12 +43,25 @@ namespace Printer
         private TransformAnimator transformAnimator;
 
         private bool _isInteracting = false;
+        [SerializeField] SFX interactionSFX;
+        [SerializeField] private float sfxCooldown = 0.5f;
+        private float sfxCountdown;
 
         private void OnEnable()
         {
             // connect to Gantry through PrinterReferenceController
             //
 
+        }
+
+        private void TriggerInteractionSFX() {
+            if (sfxCountdown > 0) return;
+
+            interactionSFX.PlaySound();
+            sfxCountdown = sfxCooldown;
+        }
+        private void Update() {
+            if(sfxCountdown > 0f) { sfxCountdown -= Time.deltaTime; }
         }
 
         private void SetMeshPositionFromValue(float value)
@@ -81,6 +95,8 @@ namespace Printer
         {
             SetMeshPositionFromValue(newValue);
 
+            TriggerInteractionSFX();
+
             // tell the gantry to move
             connectedGantry?.ValueChanged(newValue);
             // instead, broadcast a message that a control value has changed
@@ -104,8 +120,11 @@ namespace Printer
             // clamp
             inputControlValue += dampenedDelta;
             inputControlValue = Mathf.Clamp(inputControlValue, 0, 1);
-            SFX.Lever.PlaySound();
             ValueChanged(inputControlValue);
+        }
+
+        public override Vector3 GetTransformAxis() {
+            return transformAxis;
         }
 
         public override void SetValue(float f)

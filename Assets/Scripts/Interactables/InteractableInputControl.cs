@@ -9,5 +9,6 @@ namespace Interactables
         public abstract void SetIsInteracting(bool b);
         public abstract void AdjustValue(float delta);
         public virtual void SetValue(float f) { }
+        public abstract Vector3 GetTransformAxis();
     }
 }

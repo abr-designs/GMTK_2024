@@ -115,5 +115,8 @@ namespace Printer {
             throw new System.NotImplementedException();
         }
 
+        public override Vector3 GetTransformAxis() {
+            throw new System.NotImplementedException();
+        }
     }
 }

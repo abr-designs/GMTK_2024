@@ -16,6 +16,7 @@ public class CameraInteraction : MonoBehaviour
     public LayerMask layerMask; // Layer mask to specify which objects the ray should interact with
 
     public float sensitivityY = 1f; // Sensitivity for the Y axis rotation
+    public float sensitivityX = 1f; // Sensitivity for the X axis rotation
 
     InteractableInputControl interactingController;
 
@@ -85,8 +86,25 @@ public class CameraInteraction : MonoBehaviour
         // Check if moving interactableObject
         if (interactingController == null) return;
 
+        // get interacting control local rotation
+        Vector3 controlRotation = interactingController.transform.localRotation.eulerAngles;
+
         float mouseY = delta.y * sensitivityY;
-        interactingController.AdjustValue(mouseY);
+        float mouseX = delta.x * sensitivityX;
+
+        //float dotValue = Vector3.Dot(new Vector3(mouseX, mouseY, 0), controlRotation);
+
+        Vector3 controlRotationAxis = interactingController.GetTransformAxis();
+
+        float sinY = Mathf.Sin((controlRotation.y + controlRotationAxis.y * 90f) * Mathf.Deg2Rad);
+        float cosY = Mathf.Cos((controlRotation.y + controlRotationAxis.y * 90f) * Mathf.Deg2Rad);
+
+        //Debug.Log($"{controlRotation.y} {cosY}");
+
+        float adjustment = mouseY * cosY + mouseX * sinY;
+
+
+        interactingController.AdjustValue(adjustment);
     }
 
 

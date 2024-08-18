@@ -264,6 +264,8 @@ MonoBehaviour:
   inputDampener: 125
   DEBUG_updateInEditor: 0
   transformAnimator: {fileID: 7156640514997751226}
+  interactionSFX: 2
+  sfxCooldown: 0.4
 --- !u!1 &5964876580805179114
 GameObject:
   m_ObjectHideFlags: 0
