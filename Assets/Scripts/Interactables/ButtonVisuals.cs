@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utilities.Animations;
 
 namespace Interactables
 {
@@ -16,27 +17,40 @@ namespace Interactables
         [SerializeField] private Color offColor = Color.red;
         [SerializeField] private Color waitingColor = Color.yellow;
 
+        [SerializeField]
+        private TransformAnimator transformAnimator;
+
         // private
         private float lastKnownValue = 0f;
 
-        private void Update() {
+        private void Update()
+        {
             // check if button value changed
-            if(buttonInteractable.InputValue != lastKnownValue) {
+            if (buttonInteractable.InputValue == lastKnownValue)
+                return;
 
-                float newValue = buttonInteractable.InputValue;
+            float newValue = buttonInteractable.InputValue;
 
-                if (shouldSwitchColor) {
-                    if(newValue == 1f) buttonRenderer.material.color = onColor;
-                    else buttonRenderer.material.color = offColor;
-                } else {
-                    if (hasDepressedColor) {
-                        if (newValue == 1f) buttonRenderer.material.color = onColor;
-                        else buttonRenderer.material.color = waitingColor;
-                    }
-                }
-
-                lastKnownValue = newValue;
+            if (shouldSwitchColor)
+            {
+                transformAnimator.Play();
+                buttonRenderer.material.color = newValue == 1f ? onColor : offColor;
             }
+            else
+            {
+                if (hasDepressedColor)
+                {
+                    if (newValue == 1f)
+                    {
+                        buttonRenderer.material.color = onColor;
+                        transformAnimator.Play();
+                    }
+                    else buttonRenderer.material.color = waitingColor;
+                }
+            }
+
+            lastKnownValue = newValue;
+
 
         }
     }
