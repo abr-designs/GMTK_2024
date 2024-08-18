@@ -6,7 +6,7 @@ namespace Interactables
 {
     public class ButtonInteractable : InteractableInputControl
     {
-        public override float InputValue => inputValue;
+        public override float InputValue => _inputValue;
 
         [SerializeField] private bool isToggleButton = false;
 
@@ -32,7 +32,7 @@ namespace Interactables
 
         public override void SetValue(float f)
         {
-            inputValue = f;
+            _inputValue = f;
         }
 
         [Conditional("UNITY_EDITOR"), ContextMenu("Press Button")]
