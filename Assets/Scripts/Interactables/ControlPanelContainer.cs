@@ -1,6 +1,7 @@
 ﻿using System;
 using Interactables.Enums;
 using Levels.Enums;
+using Printer;
 using UnityEngine;
 
 namespace Interactables
@@ -39,13 +40,21 @@ namespace Interactables
         }
         
 
-        public (CONTROLS control, float value)[] GetControlValues()
+        public (CONTROLS control, float value, float value2)[] GetControlValues()
         {
-            var outData = new (CONTROLS, float)[controls.Length];
+            var outData = new (CONTROLS, float, float value2)[controls.Length];
 
             for (int i = 0; i < controls.Length; i++)
             {
-                outData[i] = (controls[i].control, controls[i].inputControl.InputValue);
+                if (controls[i].inputControl is SpiralAxisInputControl spiralAxisInputControl)
+                {
+                    var twoAxisValue = spiralAxisInputControl.InputValues;
+                    outData[i] = (controls[i].control, twoAxisValue.x, twoAxisValue.y);
+                    continue;
+                }
+                    
+                
+                outData[i] = (controls[i].control, controls[i].inputControl.InputValue, default);
             }
 
             return outData;
