@@ -9,5 +9,6 @@
         FOUR_AXIS = 4,
         FIVE_AXIS = 5,
         USE_FOR_TESTING = 6,
+        ONE_AXIS_SCALE_TUTORIAL = 7,
     }
 }

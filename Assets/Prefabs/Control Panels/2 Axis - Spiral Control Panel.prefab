@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlPanelType: 2
   controls:
-  - control: 8
+  - control: 64
     inputControl: {fileID: 5297082435577974769}
 --- !u!1 &885005610266745169
 GameObject:

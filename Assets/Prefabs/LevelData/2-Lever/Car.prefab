@@ -48,7 +48,9 @@ MonoBehaviour:
   worldPlaceTag: Car
   controlPanelType: 2
   usableControls: 1
-  levelScript: 
+  levelScript: Now we're printing! Here's some more controls to affect how the layer
+    will be printed.
+  levelCompleteScript: You've got these controls mastered!!!
   levelTime: 3
   yScale: 1
   maxScale: 8

@@ -48,7 +48,7 @@ MonoBehaviour:
   worldPlaceTag: Hedge
   controlPanelType: 1
   usableControls: 1
-  levelScript: 
+  levelScript: Try some of these other controls  to change the scale of the layers.
   levelCompleteScript: 
   levelTime: 3
   yScale: 1
