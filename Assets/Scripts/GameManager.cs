@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public static event Action<float> OnWorldShake;
     public static event Action<int> OnLayerSelected;
     public static event Action OnLayerStarted;
+    public static event Action OnLayerFinished;
     public static event Action<string> DisplayText;
     public static event Action<string> DisplayResultText;
     public static event Action<float> OnCountdown;
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
     private Vector3 spawnPosition;
     private Transform _containerInstance;
     private static LevelDataContainer CurrentLevel => LevelLoader.CurrentLevelDataContainer;
+
+    public static ControlPanelContainer ActiveControlPanel { get; private set; }
 
     [SerializeField]
     private ControlPanelContainer[] controlPanelContainers;
@@ -130,7 +133,8 @@ public class GameManager : MonoBehaviour
         do
         {
             var activeControlPanel = GetControlContainerAndDisableOthers(CurrentLevel.controlPanelType);
-
+            ActiveControlPanel = activeControlPanel;
+            
             SetupLevel(); 
             
             OnLevelStarted?.Invoke();
@@ -172,9 +176,11 @@ public class GameManager : MonoBehaviour
 
                 var layer = CurrentLevel.layers[i];
 
+                OnLayerStarted?.Invoke();
                 //Allow the player adjust controls
                 yield return StartCoroutine(CountdownCoroutine(levelWaitTime));
-                OnLayerStarted?.Invoke();
+                
+                OnLayerFinished?.Invoke();
 
                 yield return _spawnLayers.SpawnLayer(i, layer, CurrentLevel, activeControlPanel);
 
