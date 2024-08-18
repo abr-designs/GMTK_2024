@@ -1,5 +1,5 @@
-using System;
 using Cinemachine;
+using GameInput;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -9,8 +9,8 @@ public class CameraMouseFirstPersonRotation : MonoBehaviour {
     private CinemachineVirtualCamera virtualCamera;
 
     [Header("Variables")]
-    public float sensitivityX = 5f; // Sensitivity for the X axis rotation
-    public float sensitivityY = 5f; // Sensitivity for the Y axis rotation
+    public float sensitivityX = 0.25f; // Sensitivity for the X axis rotation
+    public float sensitivityY = 0.25f; // Sensitivity for the Y axis rotation
 
     private float rotationX = 0f;
     private float rotationY = 0f;
@@ -21,19 +21,24 @@ public class CameraMouseFirstPersonRotation : MonoBehaviour {
     public float minY = -80f; // Minimum Y rotation
     public float maxY = 80f;  // Maximum Y rotation
 
+    private void OnEnable() {
+        GameInputDelegator.OnMouseMove += GameInputDelegator_OnMouseMove;
+    }
+
+    private void OnDisable() {
+        GameInputDelegator.OnMouseMove -= GameInputDelegator_OnMouseMove;
+    }
+
     private void Start()
     {
         Assert.IsNotNull(virtualCamera);
     }
 
-    void Update() {
-        // Get mouse delta input
-        float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
+    private void GameInputDelegator_OnMouseMove(Vector2 delta) {
 
         // Update rotation values based on mouse input
-        rotationX -= mouseY; // Invert to rotate correctly with mouse movement
-        rotationY += mouseX;
+        rotationX -= delta.y * sensitivityX; // Invert to rotate correctly with mouse movement
+        rotationY += delta.x * sensitivityY;
 
         // Clamp the X rotation to prevent flipping
         rotationX = Mathf.Clamp(rotationX, minX, maxX);

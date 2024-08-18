@@ -98,9 +98,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7777109018335714303, guid: d880fbacf2e96044abf72ff550afb8f3,
         type: 3}
-      propertyPath: sfxDatas.Array.size
-      value: 0
+      propertyPath: sfxDatas.Array.data[1].audioClips.Array.size
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7777109018335714303, guid: d880fbacf2e96044abf72ff550afb8f3,
+        type: 3}
+      propertyPath: sfxDatas.Array.data[1].audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1b16fec07800f51458d40cedbf628777, type: 3}
+    - target: {fileID: 7777109018335714303, guid: d880fbacf2e96044abf72ff550afb8f3,
+        type: 3}
+      propertyPath: sfxDatas.Array.data[1].audioClips.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: 929d7b2ba77753b4184c52db8194d975, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
