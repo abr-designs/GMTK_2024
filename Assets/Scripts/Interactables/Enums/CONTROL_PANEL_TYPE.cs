@@ -2,8 +2,9 @@
 {
     public enum CONTROL_PANEL_TYPE
     {
-        NONE,
-        SINGLE_LEVER,
-        DOUBLE_LEVER,
+        NONE = 0,
+        ONE_AXIS = 1,
+        TWO_AXIS = 2,
+        THREE_AXIS = 3,
     }
 }
