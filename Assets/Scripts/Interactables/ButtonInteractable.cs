@@ -6,13 +6,13 @@ namespace Interactables
 {
     public class ButtonInteractable : InteractableInputControl
     {
-        public override float InputValue => _inputValue;
+        public override float InputValue => inputValue;
 
-        private float _inputValue;
+        protected float inputValue;
 
         public override void SetIsInteracting(bool b)
         {
-            _inputValue = b ? 1f : 0f;
+            inputValue = b ? 1f : 0f;
 
         }
 
@@ -22,7 +22,7 @@ namespace Interactables
 
         public override void SetValue(float f)
         {
-            _inputValue = f;
+            inputValue = f;
         }
 
         [Conditional("UNITY_EDITOR"), ContextMenu("Press Button")]
