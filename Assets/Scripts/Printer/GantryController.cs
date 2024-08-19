@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Audio;
 using Audio.SoundFX;
 using TMPro;
@@ -7,6 +8,14 @@ using UnityEngine;
 
 public class GantryController : MonoBehaviour
 {
+    public enum GantryControlAxis {
+        NONE = 0,
+        X = 1,
+        Z = 2,
+    }
+
+    [SerializeField] private GantryControlAxis gantryControlAxis = GantryControlAxis.X;
+    public GantryControlAxis GetGantryControlAxis() { return gantryControlAxis; }
     public Transform movableTransform;
 
     public float maxPositionRange = 4.5f;
