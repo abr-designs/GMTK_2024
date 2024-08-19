@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Utilities.Animations;
 using Audio.SoundFX;
+using System;
 
 namespace Printer
 {
@@ -17,6 +18,7 @@ namespace Printer
     public class OneAxisInputControl : InteractableInputControl // should inherit from something like an interactableInputControl
     {
         public override float InputValue => inputControlValue;
+        public override Vector2 InputValues => throw new NotImplementedException();
 
 
         public override Transform InteractionTransform => interactionTransform;

@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   worldPlaceTag: Flag
-  controlPanelType: 2
+  controlPanelType: 3
   usableControls: 1
   levelScript: 
+  levelCompleteScript: 
   levelTime: 3
   yScale: 1
   maxScale: 8

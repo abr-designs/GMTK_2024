@@ -46,9 +46,11 @@ namespace Interactables
 
             for (int i = 0; i < controls.Length; i++)
             {
-                if (controls[i].inputControl is SpiralAxisInputControl spiralAxisInputControl)
+                if (controls[i].inputControl.GetTransformAxis().Length == 2)
+                //if (controls[i].inputControl is SpiralAxisInputControl spiralAxisInputControl)
                 {
-                    var twoAxisValue = spiralAxisInputControl.InputValues;
+                    //var twoAxisValue = spiralAxisInputControl.InputValues;
+                    var twoAxisValue = controls[i].inputControl.InputValues;
                     outData[i] = (controls[i].control, twoAxisValue.x, twoAxisValue.y);
                     continue;
                 }
