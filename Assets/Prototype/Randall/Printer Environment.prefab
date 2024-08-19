@@ -2138,6 +2138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba26c6ff574f634a9c77d58dd43b327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gantryControlAxis: 1
   movableTransform: {fileID: 424718888947857272}
   maxPositionRange: 9
   offsetAxis: {x: 1, y: 0, z: 0}
@@ -2781,6 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba26c6ff574f634a9c77d58dd43b327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gantryControlAxis: 2
   movableTransform: {fileID: 2000807589644517226}
   maxPositionRange: 10
   offsetAxis: {x: 0, y: 0, z: 1}
@@ -2968,7 +2970,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903440787204834491}
-  - component: {fileID: 4432815042465378702}
   m_Layer: 0
   m_Name: Printer Environment
   m_TagString: Untagged
@@ -2995,20 +2996,6 @@ Transform:
   - {fileID: 2259463859600606802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4432815042465378702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5693453987569489523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1e3e831f889074b89afc0b1d65fbd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xAxisGantry: {fileID: 424718888947857272}
-  zAxisGantry: {fileID: 2000807589644517226}
 --- !u!1 &5733544224626178210
 GameObject:
   m_ObjectHideFlags: 0
