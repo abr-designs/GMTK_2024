@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Interactables
 {
-    public abstract class InteractableInputControl : MonoBehaviour
-    {
+    public abstract class InteractableInputControl : MonoBehaviour {
+        
         public abstract float InputValue { get; }
+        public abstract Vector2 InputValues { get; }
         public abstract Transform InteractionTransform { get; }
         public abstract void SetIsInteracting(bool b);
         public abstract void AdjustValue(float delta);

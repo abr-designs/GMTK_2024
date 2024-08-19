@@ -49,6 +49,7 @@ MonoBehaviour:
   controlPanelType: 1
   usableControls: 1
   levelScript: 
+  levelCompleteScript: 
   levelTime: 3
   yScale: 1
   maxScale: 8

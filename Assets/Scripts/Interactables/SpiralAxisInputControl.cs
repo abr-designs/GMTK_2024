@@ -5,8 +5,8 @@ namespace Printer {
 
     public class SpiralAxisInputControl : InteractableInputControl
     {
-        public Vector2 InputValues => twoAxisValue;
         public override float InputValue => inputControlValue;
+        public override Vector2 InputValues => twoAxisValue;
         public override Transform InteractionTransform => toggleButton.transform;
 
         [Header("Object References")]
@@ -19,8 +19,9 @@ namespace Printer {
         [SerializeField] private Color notChangingColor = Color.red;
 
         [Header("Motion Type")]
-        [SerializeField] private Vector3 rotationAxis = Vector3.up;
-        [SerializeField] private Vector3 positionAxis = Vector3.forward;
+        //[SerializeField] private Vector3 rotationAxis = Vector3.up;
+        //[SerializeField] private Vector3 positionAxis = Vector3.forward;
+        [SerializeField] private Vector3[] transformAxis = new Vector3[] { Vector3.up, Vector3.forward };
         [SerializeField] private float rotationSpeed = 0.4f;
         [SerializeField] private float positionSpeed = 0.8f;
         [SerializeField] private float positionRangeOfMotion = 0.1f;
@@ -75,14 +76,16 @@ namespace Printer {
             Vector2 rangeValue = value - (Vector2.one * 0.5f);
 
             //private void SetRotationInRange(float rangeValue) {
-            Vector3 rotationEuler = rotationAxis * (360f * rangeValue.x);
+            //Vector3 rotationEuler = rotationAxis * (360f * rangeValue.x);
+            Vector3 rotationEuler = transformAxis[0] * (360f * rangeValue.x);
             targetRotOffset = rotationEuler;
             Quaternion quaternion = Quaternion.Euler(rotationEuler);
             rotationPartReference.localRotation = quaternion;
             //}
 
             //private void SetPositionInRange(float rangeValue) {
-            targetPosOffset = positionAxis * (positionRangeOfMotion * 2f * rangeValue.y);
+            //targetPosOffset = positionAxis * (positionRangeOfMotion * 2f * rangeValue.y);
+            targetPosOffset = transformAxis[1] * (positionRangeOfMotion * 2f * rangeValue.y);
             positionPartReference.localPosition = targetPosOffset;
             //}
         }
@@ -108,6 +111,8 @@ namespace Printer {
         }
 
         public override void SetValue(float f) {
+            //SetIsChangingValue(true);
+            toggleButton.SetValue(1f);
         }
 
         public override void SetIsInteracting(bool b) {
@@ -115,7 +120,7 @@ namespace Printer {
         }
 
         public override Vector3[] GetTransformAxis() {
-            throw new System.NotImplementedException();
+            return transformAxis;
         }
 
         public override void AdjustValue(Vector2 delta) {

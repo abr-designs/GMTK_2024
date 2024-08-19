@@ -12,7 +12,9 @@ namespace Interactables
         public event Action OnButtonPressed;
 
         public override float InputValue => _inputValue;
+        public override Vector2 InputValues => throw new NotImplementedException();
         public override Transform InteractionTransform => transform;
+
 
         [SerializeField] private bool isToggleButton = false;
 
@@ -70,7 +72,8 @@ namespace Interactables
         }
 
         public override Vector3[] GetTransformAxis() {
-            throw new NotImplementedException();
+            return new Vector3[1];
+            //throw new NotImplementedException();
         }
 
         public override void AdjustValue(Vector2 delta) {

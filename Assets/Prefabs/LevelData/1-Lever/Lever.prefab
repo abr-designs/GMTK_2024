@@ -49,6 +49,7 @@ MonoBehaviour:
   controlPanelType: 1
   usableControls: 1
   levelScript: 
+  levelCompleteScript: Variety is the spice of life!
   levelTime: 3
   yScale: 1
   maxScale: 8

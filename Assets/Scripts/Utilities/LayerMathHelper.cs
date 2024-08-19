@@ -31,23 +31,33 @@ namespace Utilities
 
                 switch (control)
                 {
-                    case CONTROLS.SCALE:
+                    case CONTROLS.V1_SCALE:
                         var yScale = currentLevel.yScale;
                         outScale = new Vector3(maxScale * Mathf.Clamp(value, 0.1f, 1f),
                             yScale,
                             maxScale * Mathf.Clamp(value, 0.1f, 1f));
                         break;
-                    case CONTROLS.X_SCALE:
+                    case CONTROLS.V1_X_SCALE:
                         outScale.x = maxScale * Mathf.Clamp(value, 0.1f, 1f);
                         break;
-                    case CONTROLS.Z_SCALE:
+                    case CONTROLS.V1_Z_SCALE:
                         outScale.z = maxScale * Mathf.Clamp(value, 0.1f, 1f);
                         break;
-                    case CONTROLS.POS:
+                    case CONTROLS.V2_XZ_SCALE:
+                        outScale.x = maxScale * Mathf.Clamp(value, 0.1f, 1f);
+                        outScale.z = maxScale * Mathf.Clamp(value2, 0.1f, 1f);
+                        break;
+                    case CONTROLS.V1_X_POS:
+                        outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
+                        break;
+                    case CONTROLS.V1_Z_POS:
+                        outPosition.z = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
+                        break;
+                    case CONTROLS.V2_XZ_POS:
                         outPosition.x = Mathf.Lerp(levelMinPosition.x, levelMaxPosition.x, value);
                         outPosition.z = Mathf.Lerp(levelMinPosition.z, levelMaxPosition.z, value2);
                         break;
-                    case CONTROLS.Y_ROT:
+                    case CONTROLS.V1_Y_ROT:
                         outRotation.y = value * 360f;
                         break;
                     default:
