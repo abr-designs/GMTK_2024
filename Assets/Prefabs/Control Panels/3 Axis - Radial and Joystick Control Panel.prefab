@@ -528,6 +528,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3248281550276972512}
     m_Modifications:
+    - target: {fileID: -1711543196557080305, guid: 162c57216448b5048bbf83678bb54f3d,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1500535394780337233, guid: 162c57216448b5048bbf83678bb54f3d,
         type: 3}
       propertyPath: m_LocalPosition.x

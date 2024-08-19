@@ -448,6 +448,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3248281550276972512}
     m_Modifications:
+    - target: {fileID: 2839335668618143032, guid: bc10d14cd0ca0b84ba7824596119d6bd,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3760175943855412985, guid: bc10d14cd0ca0b84ba7824596119d6bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -534,6 +539,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3248281550276972512}
     m_Modifications:
+    - target: {fileID: 969393356628798166, guid: 285fdfc48010f6946a6beb5a3cdc6727,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2178183907417495831, guid: 285fdfc48010f6946a6beb5a3cdc6727,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -5,6 +5,9 @@ using UnityEngine;
 using Utilities.Animations;
 using Audio.SoundFX;
 using System;
+using System.Net.Http.Headers;
+using static GantryController;
+using World;
 
 namespace Printer
 {
@@ -28,6 +31,7 @@ namespace Printer
 
         [Header("Object References")]
         [SerializeField] private Transform movingPartReference;
+        [SerializeField] private GantryController.GantryControlAxis gantryControlAxis;
         [SerializeField] private GantryController connectedGantry;
 
         [Header("Motion Type")]
@@ -52,7 +56,15 @@ namespace Printer
         private void OnEnable()
         {
             // connect to Gantry through PrinterReferenceController
-            //
+            if (gantryControlAxis == GantryControlAxis.NONE) return;
+
+            GantryController[] gantryAxisObjectList = FindObjectsOfType<GantryController>();
+            foreach(GantryController controller in gantryAxisObjectList) {
+                if(controller.GetGantryControlAxis() == gantryControlAxis) {
+                    connectedGantry = controller;
+                    break;
+                }
+            }
 
         }
 

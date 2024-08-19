@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a0ecf8bf514274b68f2f45fe37f1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPanelType: 2
+  controlPanelType: 6
   controls:
   - control: 2
     inputControl: {fileID: 7846845175713305250}
@@ -497,6 +497,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 Axis - Radial Dial - Side Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8984885824035260089, guid: b4ef8effb874a9647bf18918404e4a31,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -577,6 +582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130247235206578875, guid: e2e6ae564596d8645b79870f479c7f76,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4832045413110831014, guid: e2e6ae564596d8645b79870f479c7f76,
         type: 3}

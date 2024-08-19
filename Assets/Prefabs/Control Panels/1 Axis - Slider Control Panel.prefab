@@ -489,6 +489,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2130247235206578875, guid: e2e6ae564596d8645b79870f479c7f76,
+        type: 3}
+      propertyPath: gantryControlAxis
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4832045413110831014, guid: e2e6ae564596d8645b79870f479c7f76,
         type: 3}
       propertyPath: m_Name
