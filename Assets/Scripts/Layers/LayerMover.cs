@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Audio;
+using Audio.SoundFX;
 using Interfaces;
 using UnityEngine;
 using Utilities.Animations;
@@ -25,8 +27,11 @@ namespace Layers
         
         private IEnumerator MoveLayerCoroutine(int layerIndex, float yScale,Transform targetTransform, Transform containerTransform)
         {
-            if(doorAnimation)
+            if (doorAnimation)
+            {
                 yield return doorAnimation.DoAnimation(animationTime, ANIM_DIR.TO_END);
+                SFX.SLAM.PlaySound();
+            }
 
             //Move the Container down
             //------------------------------------------------//
@@ -38,9 +43,13 @@ namespace Layers
                 objectCurrentPosition,
                 endPosition, 
                 animationTime));
-            
-            if(doorAnimation)
+
+            if (doorAnimation)
+            {
                 yield return doorAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
+                SFX.SLAM.PlaySound();
+            }
+            
             //------------------------------------------------//
         }
 

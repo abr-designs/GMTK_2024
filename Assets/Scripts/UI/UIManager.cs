@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Audio;
+using Audio.SoundFX;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -125,6 +127,7 @@ namespace UI
 
                 // TODO -- animate star
                 child.GetComponent<Image>().enabled = true;
+                SFX.STAR.PlaySound();
                 yield return StartCoroutine(AnimateStar(child.transform, 0.3f));
 
             }

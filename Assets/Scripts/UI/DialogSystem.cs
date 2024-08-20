@@ -68,7 +68,7 @@ namespace UI
             for (int i = 0; i <= textLength; i++)
             {
                 TMPText.maxVisibleCharacters = i;
-                SFX.Text.PlaySound();
+                SFX.TEXT.PlaySound();
                 yield return wait;
             }
             sourceAnimator?.Stop();
