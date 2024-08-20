@@ -215,8 +215,13 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
 
                 //Call to Display the UI to the player
-                // TODO -- calc score
-                OnLevelComplete?.Invoke(3);
+                List<Transform> playerLayers = new List<Transform>();
+                foreach(Transform t in _containerInstance.transform) {
+                    playerLayers.Add(t);
+                }
+                var score = currentLevel.EvaluateScore(playerLayers.ToArray());
+
+                OnLevelComplete?.Invoke(score);
                 DisplayResultText?.Invoke(CurrentLevel.levelCompleteScript);
             });
 
