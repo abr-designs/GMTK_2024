@@ -189,26 +189,67 @@ MonoBehaviour:
   - name: LEVER
     type: 2
     audioClips:
-    - {fileID: 8300000, guid: 92e053f7d965ae84f9014f48933d1b29, type: 3}
-    - {fileID: 8300000, guid: 2d10c69bf9d21d448b873fce14e46c16, type: 3}
-    - {fileID: 8300000, guid: 254195e03a81ad840a47b0f043f9fd54, type: 3}
-    - {fileID: 8300000, guid: 06fb15b363034fc4c88ad676c48b952e, type: 3}
-    - {fileID: 8300000, guid: 0db87931b4343464895b93ad99d0e0f1, type: 3}
-    - {fileID: 8300000, guid: cf93c01034a7a034e8594929e03225d8, type: 3}
-    - {fileID: 8300000, guid: 4fb2514e39df83a4fa1c3a94a2fdb9b9, type: 3}
-    - {fileID: 8300000, guid: 929d7b2ba77753b4184c52db8194d975, type: 3}
+    - {fileID: 8300000, guid: 1b16fec07800f51458d40cedbf628777, type: 3}
     volume: 1
     maxPlaying: 1
   - name: BUTTON
     type: 3
     audioClips:
-    - {fileID: 8300000, guid: 49bcea9f2f680304f9f4561a4e05243c, type: 3}
-    - {fileID: 8300000, guid: 80822df4fe2bd084c9376fd2379b2281, type: 3}
+    - {fileID: 8300000, guid: 1734d67da79a896419757798123475b0, type: 3}
+    - {fileID: 8300000, guid: 9e2f2533b6e6a404b9439bd2b9b7cb9d, type: 3}
+    - {fileID: 8300000, guid: 7b5a3c2ef0af00741919723b625c559c, type: 3}
+    - {fileID: 8300000, guid: bd2158368abadf34bb3038f2cc5d16f8, type: 3}
+    - {fileID: 8300000, guid: 59b7b777db4a5a44ca2c25ea09ce25c4, type: 3}
+    - {fileID: 8300000, guid: 4f05fa1ee256d3f48bdf6ae35be1e4cd, type: 3}
     volume: 1
     maxPlaying: 1
   - name: Text
     type: 4
     audioClips:
     - {fileID: 8300000, guid: ff305386fae5d7b429368c25581b620b, type: 3}
+    volume: 1
+    maxPlaying: 1
+  - name: INTERACT
+    type: 5
+    audioClips:
+    - {fileID: 8300000, guid: a854f537d716e694895aab98e7c5c5e6, type: 3}
+    - {fileID: 8300000, guid: a87633890e4573a4d93f99aa978b0825, type: 3}
+    - {fileID: 8300000, guid: bb52438d02bfe6f43bf0ac082b6bf1b7, type: 3}
+    - {fileID: 8300000, guid: acbf60f74af9aac488db254f17f433c4, type: 3}
+    - {fileID: 8300000, guid: a4fe9cc0df8b9b44c83aa6cbcda49e68, type: 3}
+    - {fileID: 8300000, guid: afa12429fb1821148ae34f6f2b7e73b2, type: 3}
+    - {fileID: 8300000, guid: 663530ecb39121c4c8c47a23e56fba3e, type: 3}
+    - {fileID: 8300000, guid: a9ffefb657b6f39419f19299ca3ad628, type: 3}
+    - {fileID: 8300000, guid: de7b2b71fd3cad0409c4c6da83125363, type: 3}
+    - {fileID: 8300000, guid: a95c6b3b1ff9bb94b9e46bcfdc824c9b, type: 3}
+    volume: 1
+    maxPlaying: 1
+  - name: SLAM
+    type: 6
+    audioClips:
+    - {fileID: 8300000, guid: a70ff47aee1b9e94798c4f323475e148, type: 3}
+    - {fileID: 8300000, guid: fec564a94fcfac8418807462e9820b72, type: 3}
+    - {fileID: 8300000, guid: 34a9f9856ab757e4fa5a536fcc380389, type: 3}
+    - {fileID: 8300000, guid: c5d1fd0be3106d5499e05c686e5bc1c3, type: 3}
+    - {fileID: 8300000, guid: a197a8cd9ac6e5f408539eda0e0d9f79, type: 3}
+    volume: 1
+    maxPlaying: 1
+  - name: SHIFT
+    type: 7
+    audioClips:
+    - {fileID: 8300000, guid: e0542c07a37c96548a77d0417556c2ba, type: 3}
+    - {fileID: 8300000, guid: b6c79c72bdc69af4cb9dcf6f8473854a, type: 3}
+    - {fileID: 8300000, guid: f623debe875fc6a4caaef71514fc29d9, type: 3}
+    - {fileID: 8300000, guid: e2934cede3245d84f87594a9ff2d754d, type: 3}
+    - {fileID: 8300000, guid: ab408883fb393844d861c155ce987ede, type: 3}
+    volume: 1
+    maxPlaying: 1
+  - name: STAR
+    type: 8
+    audioClips:
+    - {fileID: 8300000, guid: 3e519d3bb8eeaab4f8bfe80713927c4d, type: 3}
+    - {fileID: 8300000, guid: 1c0ab5f5ab2fd6d4ca6fc0a848da12d1, type: 3}
+    - {fileID: 8300000, guid: 27cd3a32caa20444d9c9cc8d80227449, type: 3}
+    - {fileID: 8300000, guid: a5d97108b2ee39f499f8f9dcf5419e33, type: 3}
     volume: 1
     maxPlaying: 1

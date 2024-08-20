@@ -123,6 +123,8 @@ namespace Printer
 
             if (_isInteracting == false)
                 transformAnimator?.Play();
+            
+            SFX.INTERACT.PlaySound();
         }
 
         public override void AdjustValue(float delta)

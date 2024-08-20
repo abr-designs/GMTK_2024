@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
+using Audio.SoundFX;
 using Cinemachine;
 using Interactables;
 using Interactables.Enums;
@@ -145,12 +147,18 @@ public class GameManager : MonoBehaviour
             DisplayText?.Invoke("Press Button to Start");
 
             if (startButton)
+            {
+                SFX.SHIFT.PlaySound();
                 yield return startButton.DoAnimation(animationTime, ANIM_DIR.TO_START);
+            }
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
 
             if (startButton)
+            {
+                SFX.SHIFT.PlaySound();
                 startButton.DoAnimation(animationTime, ANIM_DIR.TO_END);
+            }
 
             if (tvScreenAnimation)
                 tvScreenAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
@@ -161,7 +169,10 @@ public class GameManager : MonoBehaviour
             yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
 
             if (controlPanel)
+            {
+                SFX.SHIFT.PlaySound();
                 yield return controlPanel.DoAnimation(animationTime, ANIM_DIR.TO_START);
+            }
 
             //------------------------------------------------//
             var levelWaitTime = CurrentLevel.levelTime;

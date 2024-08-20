@@ -36,6 +36,8 @@ namespace Interactables
 
         public override void SetIsInteracting(bool b)
         {
+            
+            
             switch (isToggleButton)
             {
                 case false:
