@@ -15,7 +15,7 @@ using Utilities.Animations;
 public class GameManager : MonoBehaviour
 {
     public static event Action OnLevelStarted;
-    public static event Action OnLevelComplete;
+    public static event Action<int> OnLevelComplete;
     public static event Action<float> OnWorldShake;
     public static event Action<int> OnLayerSelected;
     public static event Action OnLayerStarted;
@@ -34,14 +34,14 @@ public class GameManager : MonoBehaviour
     private ControlPanelContainer[] controlPanelContainers;
     private Dictionary<CONTROL_PANEL_TYPE, List<ControlPanelContainer>> _controlPanelContainers;
 
-    [SerializeField,Min(0f), Header("Level Setup")]
+    [SerializeField, Min(0f), Header("Level Setup")]
     private float levelStartCountdownTime;
     [SerializeField, Min(0f)]
     private float layerFinishedWaitTime;
-    
+
     [SerializeField, Min(0), Space(10f)]
     private int worldTagSceneIndex;
-    
+
     [SerializeField, Header("Static Interactables")]
     private ButtonInteractable _startButton;
 
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     private IDisplayResults _resultsDisplay;
 
     //============================================================================================================//
-    
+
     public void Start()
     {
         controlPanelContainers = FindObjectsOfType<ControlPanelContainer>();
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         _spawnLayers = GetComponentInParent<ISpawnLayers>();
         _moveLayers = GetComponentInParent<IMoveLayers>();
         _resultsDisplay = GetComponentInChildren<IDisplayResults>();
-        
+
         Assert.IsNotNull(_startButton);
         Assert.IsNotNull(_spawnLayers);
         Assert.IsNotNull(_moveLayers);
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
             var container = controlPanelContainers[i];
             if (container == null)
                 continue;
-            
+
             if (_controlPanelContainers.ContainsKey(container.controlPanelType) == false)
             {
                 _controlPanelContainers.Add(container.controlPanelType, new List<ControlPanelContainer>()
@@ -105,12 +105,12 @@ public class GameManager : MonoBehaviour
                 });
                 continue;
             }
-            
+
             _controlPanelContainers[container.controlPanelType].Add(container);
-            
+
         }
         //============================================================================================================//
-        
+
         StartCoroutine(GameLoop());
     }
 
@@ -122,44 +122,44 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        
+
         //Find object the World, once loaded
         //------------------------------------------------//
         _createWorldReplacers = FindObjectOfType<WorldReplaceManager>();
-        
+
         do
         {
             var activeControlPanel = GetControlContainerAndDisableOthers(CurrentLevel.controlPanelType);
             ActiveControlPanel = activeControlPanel;
-            
-            SetupLevel(); 
-            
+
+            SetupLevel();
+
             OnLevelStarted?.Invoke();
 
             yield return StartCoroutine(ApplyLevelObstaclesCoroutine());
-            
+
             if (_displayDialog != null)
                 yield return StartCoroutine(_displayDialog.DisplayDialogCoroutine(CurrentLevel.levelScript));
 
             //TODO Wait for button press
             DisplayText?.Invoke("Press Button to Start");
-            
+
             if (startButton)
                 yield return startButton.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
             yield return new WaitUntil(() => _startButton.InputValue >= 1f);
-            
+
             if (startButton)
                 startButton.DoAnimation(animationTime, ANIM_DIR.TO_END);
-            
+
             if (tvScreenAnimation)
                 tvScreenAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
             DisplayText?.Invoke("Get Ready!");
-            
+
             //Level
             yield return StartCoroutine(CountdownCoroutine(levelStartCountdownTime));
-            
+
             if (controlPanel)
                 yield return controlPanel.DoAnimation(animationTime, ANIM_DIR.TO_START);
 
@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
                 OnLayerStarted?.Invoke();
                 //Allow the player adjust controls
                 yield return StartCoroutine(CountdownCoroutine(levelWaitTime));
-                
+
                 OnLayerFinished?.Invoke();
 
                 yield return _spawnLayers.SpawnLayer(i, layer, CurrentLevel, activeControlPanel);
@@ -204,22 +204,23 @@ public class GameManager : MonoBehaviour
                 //------------------------------------------------//
 
                 //Call to Display the UI to the player
-                OnLevelComplete?.Invoke();
+                // TODO -- calc score
+                OnLevelComplete?.Invoke(3);
                 DisplayResultText?.Invoke(CurrentLevel.levelCompleteScript);
             });
 
             CleanupLevel();
 
             //If we've just wrapped the last lever, exit, and begin finishing the game
-            if(LevelLoader.OnLastLevel())
+            if (LevelLoader.OnLastLevel())
                 break;
-            
+
             LevelLoader.LoadNextLevel();
-            
+
             if (controlPanel)
                 yield return controlPanel.DoAnimation(animationTime, ANIM_DIR.TO_END);
-            
-            
+
+
         } while (true);
 
         //TODO Finish the Game
@@ -242,17 +243,17 @@ public class GameManager : MonoBehaviour
         var dataContainer = LevelLoader.CurrentLevelDataContainer;
         var layerHeight = dataContainer.yScale;
         var layerCount = dataContainer.layers.Length;
-        
+
         newContainer.position = Vector3.down * (layerHeight * layerCount);
 
         return newContainer;
     }
-    
+
     //Level End Functions
     //============================================================================================================//
 
     //This function should take the generated Object, and apply it to all of the equivalent tagged world objects
-    
+
     private void CleanupLevel()
     {
         _containerInstance = null;
@@ -264,7 +265,7 @@ public class GameManager : MonoBehaviour
     private ControlPanelContainer GetControlContainerAndDisableOthers(CONTROL_PANEL_TYPE controlPanelType)
     {
         Assert.IsTrue(controlPanelType != CONTROL_PANEL_TYPE.NONE);
-        
+
         for (var i = 0; i < controlPanelContainers.Length; i++)
         {
             if (controlPanelContainers[i] == null)
@@ -272,14 +273,14 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning($"{nameof(GameManager)}.{nameof(controlPanelContainers)}[{i}] IS EMPTY!!");
                 continue;
             }
-            
+
             controlPanelContainers[i].SetActive(false);
         }
 
         if (!_controlPanelContainers.TryGetValue(controlPanelType, out var list))
             throw new Exception($"No control panel of type: {controlPanelType}");
-        
-        
+
+
         var found = list.PickRandomElement();
         found.SetActive(true);
 
@@ -293,21 +294,21 @@ public class GameManager : MonoBehaviour
     {
         yield break;
     }
-    
-    
+
+
     //Static Coroutines
     //============================================================================================================//
 
     private static IEnumerator CountdownCoroutine(float time, bool countUp = false)
     {
-        if(time <= 0f)
+        if (time <= 0f)
             yield break;
-        
-        for (var t = 0f; t < time; t+= Time.deltaTime)
+
+        for (var t = 0f; t < time; t += Time.deltaTime)
         {
             var value = countUp ? t : time - t;
             OnCountdown?.Invoke(value);
-            
+
             yield return null;
         }
     }

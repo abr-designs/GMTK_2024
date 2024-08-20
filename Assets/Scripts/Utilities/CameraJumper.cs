@@ -14,10 +14,10 @@ namespace Utilities
 
         //Unity Functions
         //============================================================================================================//
-    
+
         private void OnEnable()
         {
-            GameManager.OnLevelComplete += OnLevelComplete; 
+            GameManager.OnLevelComplete += OnLevelComplete;
             GameManager.OnLevelStarted += OnLevelStarted;
         }
 
@@ -29,10 +29,10 @@ namespace Utilities
             Assert.IsFalse(cameraPositionTransforms.Length == 0);
             Assert.IsNotNull(camera);
         }
-    
+
         private void OnDisable()
         {
-            GameManager.OnLevelComplete -= OnLevelComplete; 
+            GameManager.OnLevelComplete -= OnLevelComplete;
             GameManager.OnLevelStarted -= OnLevelStarted;
         }
 
@@ -46,22 +46,22 @@ namespace Utilities
             camera.transform.position = targetTransform.position;
             camera.transform.rotation = targetTransform.rotation;
         }
-    
+
 
         //Callbacks
         //============================================================================================================//
-    
+
         private void OnLevelStarted()
         {
             camera.enabled = false;
         }
 
-        private void OnLevelComplete()
+        private void OnLevelComplete(int score)
         {
             SetNewCameraPosition();
             camera.enabled = true;
         }
-    
+
         //============================================================================================================//
     }
 }

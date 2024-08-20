@@ -64,16 +64,13 @@ public class LayerSpawner : MonoBehaviour, ISpawnLayers
         PLA_Fill_Material.SetFloat("_ObjectHeight", currentLevel.yScale);
         GeneratedTransform.gameObject.GetComponent<MeshRenderer>().sharedMaterial = PLA_Fill_Material;
         // Start filament
-        toggleFilament(true, layerData.Material.color);
+        toggleFilament(true, animationTime + 0.2f, layerData.Material.color);
         // Wait a bit for filament
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
 
         yield return StartCoroutine(ScaleCoroutine(GeneratedTransform, Vector3.zero, scale, animationTime));
 
         toggleFilament(false);
-        // Wait a bit for filament
-        yield return new WaitForSeconds(0.7f);
-
 
         // Restore material
         GeneratedTransform.gameObject.GetComponent<MeshRenderer>().sharedMaterial = layerData.Material;
@@ -119,19 +116,23 @@ public class LayerSpawner : MonoBehaviour, ISpawnLayers
 
     }
 
-    private void toggleFilament(bool isOn, Color? fColor = null) {
+    private void toggleFilament(bool isOn, float time = 1.0f, Color? fColor = null) {
         if(!_filamentStreamVFX)
         {
             var filament = Instantiate(filamentPrefab, nozzlePosition);
             _filamentStreamVFX = filament.GetComponent<ParticleSystem>();
         }
-        
+
+        // Always have to stop the system (may be restarting)
+        _filamentStreamVFX.Stop();
         if(isOn)
         {            
+            
             _filamentStreamVFX.GetComponent<ParticleSystemRenderer>().sharedMaterial.color = fColor.GetValueOrDefault();
+            var main = _filamentStreamVFX.main;
+            main.duration = time;            
             _filamentStreamVFX.Play();
         }
-        else
-            _filamentStreamVFX.Stop();
+    
     }
 }
