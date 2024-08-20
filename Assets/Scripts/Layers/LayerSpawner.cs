@@ -122,15 +122,17 @@ public class LayerSpawner : MonoBehaviour, ISpawnLayers
             var filament = Instantiate(filamentPrefab, nozzlePosition);
             _filamentStreamVFX = filament.GetComponent<ParticleSystem>();
         }
-        
+
+        // Always have to stop the system (may be restarting)
+        _filamentStreamVFX.Stop();
         if(isOn)
         {            
+            
             _filamentStreamVFX.GetComponent<ParticleSystemRenderer>().sharedMaterial.color = fColor.GetValueOrDefault();
             var main = _filamentStreamVFX.main;
             main.duration = time;            
             _filamentStreamVFX.Play();
         }
-        else
-            _filamentStreamVFX.Stop();
+    
     }
 }
