@@ -18,7 +18,7 @@ namespace Audio.SoundFX
             var sfxManager = SfxManager;
             
             Assert.IsNotNull(sfxManager, $"Missing the {nameof(SfxManager)} in the Scene!!");
-            sfxManager.PlaySoundAtLocation(sfx, volume);
+            sfxManager.PlaySound(sfx, volume);
         }
 
         private static SFXManager SfxManager => SFXManager.Instance;
