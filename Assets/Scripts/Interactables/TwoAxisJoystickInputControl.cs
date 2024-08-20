@@ -112,7 +112,10 @@ namespace Printer {
             _isInteracting = b;
 
             if (_isInteracting == false)
+            {
                 transformAnimator?.Play();
+                SFX.INTERACT.PlaySound();
+            }
         }
 
         public override Vector3[] GetTransformAxis() {
