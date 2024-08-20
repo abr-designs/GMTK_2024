@@ -18,7 +18,7 @@ namespace UI
         private WaitForAnimationBase windowMoveAnimation;
         [SerializeField, Min(0f)]
         private float animationTime;
-        
+
         [SerializeField]
         private TMP_Text timerWorldText;
 
@@ -26,6 +26,14 @@ namespace UI
         private GameObject resultsWindowObject;
         [SerializeField]
         private TMP_Text resultsText;
+
+        [SerializeField]
+        private GameObject resultStars;
+        [SerializeField]
+        private AnimationCurve scaleCurve;
+
+        [SerializeField]
+        private float starsAnimationTime;
 
         [SerializeField]
         private Button continueButton;
@@ -45,7 +53,7 @@ namespace UI
             Assert.IsNotNull(displayText);
             Assert.IsNotNull(timerWorldText);
             Assert.IsNotNull(continueButton);
-            
+
             continueButton.onClick.AddListener(() =>
             {
                 OnContinuePressed?.Invoke();
@@ -60,35 +68,36 @@ namespace UI
             GameManager.OnCountdown -= OnCountdown;
             GameManager.DisplayText -= OnDisplayText;
             GameManager.DisplayResultText -= DisplayResultText;
-            GameManager.OnLayerStarted -= OnLayerStarted;  
+            GameManager.OnLayerStarted -= OnLayerStarted;
             GameManager.OnLevelComplete -= OnLevelComplete;
         }
-        
+
         //============================================================================================================//
-        
+
         private void OnLayerStarted()
         {
             OnDisplayText(string.Empty);
         }
-        
+
         private void OnCountdown(float time)
         {
             timerWorldText.text = $"{time:00.00}";
         }
-        
+
         private void OnDisplayText(string textToDisplay)
         {
             StartCoroutine(AnimateText(textToDisplay));
         }
-        
+
         private void DisplayResultText(string textToDisplay)
         {
             resultsText.text = textToDisplay;
         }
-        
-        private void OnLevelComplete()
+
+        private void OnLevelComplete(int score)
         {
             resultsWindowObject.gameObject.SetActive(true);
+            StartCoroutine(AnimateScore(score));
         }
         //============================================================================================================//
 
@@ -96,11 +105,44 @@ namespace UI
         {
             yield return windowMoveAnimation.DoAnimation(animationTime, ANIM_DIR.TO_END);
             displayText.text = textToDisplay;
-            
-            if(string.IsNullOrWhiteSpace(textToDisplay))
+
+            if (string.IsNullOrWhiteSpace(textToDisplay))
                 yield break;
-            
+
             yield return windowMoveAnimation.DoAnimation(animationTime, ANIM_DIR.TO_START);
         }
+
+        private IEnumerator AnimateScore(int value)
+        {
+            foreach (Transform t in resultStars.transform)
+            {
+                t.GetComponent<Image>().enabled = false;
+            }
+
+            for (int i = 0; i < value; i++)
+            {
+                var child = resultStars.transform.GetChild(i);
+
+                // TODO -- animate star
+                child.GetComponent<Image>().enabled = true;
+                yield return StartCoroutine(AnimateStar(child.transform, 0.3f));
+
+            }
+
+        }
+
+        private IEnumerator AnimateStar(Transform target, float time)
+        {
+            var startScale = Vector3.one * scaleCurve.Evaluate(0);
+            var targetScale = Vector3.one * scaleCurve.Evaluate(1);
+            for (var t = 0f; t <= time; t += Time.deltaTime)
+            {
+                var dt = t / time;
+                target.transform.localScale = Vector3.Lerp(startScale, targetScale, scaleCurve.Evaluate(dt));
+
+                yield return null;
+            }
+        }
+
     }
 }

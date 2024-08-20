@@ -185,6 +185,7 @@ MonoBehaviour:
     audioClips:
     - {fileID: 8300000, guid: 8c5962dfe9a78594d9ff29ea3f04642d, type: 3}
     volume: 1
+    maxPlaying: 2
   - name: LEVER
     type: 2
     audioClips:
@@ -197,14 +198,17 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 4fb2514e39df83a4fa1c3a94a2fdb9b9, type: 3}
     - {fileID: 8300000, guid: 929d7b2ba77753b4184c52db8194d975, type: 3}
     volume: 1
+    maxPlaying: 1
   - name: BUTTON
     type: 3
     audioClips:
     - {fileID: 8300000, guid: 49bcea9f2f680304f9f4561a4e05243c, type: 3}
     - {fileID: 8300000, guid: 80822df4fe2bd084c9376fd2379b2281, type: 3}
     volume: 1
+    maxPlaying: 1
   - name: Text
     type: 4
     audioClips:
     - {fileID: 8300000, guid: ff305386fae5d7b429368c25581b620b, type: 3}
     volume: 1
+    maxPlaying: 1

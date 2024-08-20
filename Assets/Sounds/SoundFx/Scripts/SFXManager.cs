@@ -23,6 +23,9 @@ namespace Audio
             [Range(0f, 1f)]
             public float volume;
 
+            [SerializeField, Min(0)]
+            public int maxPlaying;
+
             public AudioClip GetRandomAudioClip()
             {
                 return audioClips.Length == 1 ? audioClips[0] : audioClips[Random.Range(0, audioClips.Length)];
@@ -44,6 +47,7 @@ namespace Audio
         [SerializeField] private SfxData[] sfxDatas;
 
         private Dictionary<SFX, SfxData> _sfxDataDictionary;
+        private Dictionary<SFX, int> _sfxAntiSpam;
 
         //Unity Functions
         //============================================================================================================//
@@ -63,6 +67,8 @@ namespace Audio
         private void Start()
         {
             InitVfxLibrary();
+
+            _sfxAntiSpam = new Dictionary<SFX, int>();
         }
 
         //============================================================================================================//
@@ -83,15 +89,25 @@ namespace Audio
 
         //============================================================================================================//
 
-        internal void PlaySoundAtLocation(SFX vfx, float volume = 1f)
+        internal void PlaySound(SFX sfx, float volume = 1f)
         {
-            var sfxData = GetSFXData(vfx);
+            var sfxData = GetSFXData(sfx);
+
+            var hasAntiSpam = _sfxAntiSpam.TryGetValue(sfx, out var count);
+            if (sfxData.maxPlaying > 0 && hasAntiSpam && count > sfxData.maxPlaying)
+                return;
+            
+            if(hasAntiSpam == false)
+                _sfxAntiSpam.Add(sfx, 0);
+            
+            
             var audioClip = sfxData.GetRandomAudioClip();
 
             Assert.IsNotNull(sfxData);
             Assert.IsNotNull(audioClip);
 
             sfxAudioSource.PlayOneShot(audioClip, volume);
+            StartCoroutine(DequeueSFXCoroutine(sfx, audioClip.length));
         }
         //This is meant to be called via the VFXExtensions class
         internal void PlaySoundAtLocation(SFX vfx, Vector3 worldPosition)
@@ -147,6 +163,15 @@ namespace Audio
 
             targetAudioSource.gameObject.SetActive(false);
             targetAudioSource.Stop();
+        }
+        
+        private IEnumerator DequeueSFXCoroutine(SFX sfx, float time)
+        {
+            _sfxAntiSpam[sfx]++;
+            
+            yield return new WaitForSeconds(time);
+
+            _sfxAntiSpam[sfx]--;
         }
 
         //Unity Editor Functions
