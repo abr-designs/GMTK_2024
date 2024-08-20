@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
 
     private Dictionary<string, GameObject> _generatedPlayerContent;
 
-    [SerializeField]
-    private Vector3 spawnPosition;
     private Transform _containerInstance;
     private static LevelDataContainer CurrentLevel => LevelLoader.CurrentLevelDataContainer;
 
@@ -83,7 +81,6 @@ public class GameManager : MonoBehaviour
         _silhouetteGenerator = GetComponentInChildren<IGenerateSilhouette>();
         _impulseSource = GetComponentInChildren<CinemachineImpulseSource>();
         _spawnLayers = GetComponentInParent<ISpawnLayers>();
-        _spawnLayers.SpawnLocation = spawnPosition;
         _moveLayers = GetComponentInParent<IMoveLayers>();
         _resultsDisplay = GetComponentInChildren<IDisplayResults>();
         

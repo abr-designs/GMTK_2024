@@ -21,7 +21,7 @@ namespace UI
         [SerializeField] private Material outlineMaterial;
 
         private int _activeLayerIndex = 0;
-        private SPRITE_VIEW _currentView = SPRITE_VIEW.SIDE_VIEW;
+        private SPRITE_VIEW _currentView = SPRITE_VIEW.ISO_VIEW;
         private LevelDataContainer _currentLevel;
 
         [SerializeField] private ButtonInteractable[] toggleButtons;
