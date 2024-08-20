@@ -867,5 +867,5 @@ MonoBehaviour:
   TMPText: {fileID: 2317720292010067389}
   transformAnimators:
   - {fileID: 6666273991725319567}
-  - {fileID: 8640974223939932813}
+  sourceAnimator: {fileID: 8640974223939932813}
   speechBubble: {fileID: 2401147156002687114}
