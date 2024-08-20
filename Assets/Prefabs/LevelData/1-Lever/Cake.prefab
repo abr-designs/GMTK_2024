@@ -46,14 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   worldPlaceTag: Cake
-  controlPanelType: 1
+  controlPanelType: 7
   usableControls: 1
   levelScript: pull the lever to determine the size of the current layer. try your
     best to match the image! can you do it? I guess we are gonna find out! now get
     pulling that lever!!!!
-  levelCompleteScript: pull the lever to determine the size of the current layer.
-    try your best to match the image! can you do it? I guess we are gonna find out!
-    now get pulling that lever!!!!
+  levelCompleteScript: The timer counts down quickly. Adjust the size of the layer
+    before it is printed.
   levelTime: 3
   yScale: 2
   maxScale: 8

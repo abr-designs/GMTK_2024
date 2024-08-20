@@ -20,6 +20,9 @@ namespace UI
         private TransformAnimator[] transformAnimators;
 
         [SerializeField]
+        private TransformAnimator sourceAnimator;
+
+        [SerializeField]
         private GameObject speechBubble;
 
         private void Start()
@@ -61,12 +64,14 @@ namespace UI
             var wait = new WaitForSeconds(waitTime);
             var textLength = text.Length;
             
+            sourceAnimator?.Loop();
             for (int i = 0; i <= textLength; i++)
             {
                 TMPText.maxVisibleCharacters = i;
                 SFX.Text.PlaySound();
                 yield return wait;
             }
+            sourceAnimator?.Stop();
         }
 
         private void PlayAnimations()

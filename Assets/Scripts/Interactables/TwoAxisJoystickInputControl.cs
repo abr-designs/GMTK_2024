@@ -8,8 +8,8 @@ namespace Printer {
 
     public class TwoAxisJoystickInputControl : InteractableInputControl
     {
-        public Vector2 InputValues => twoAxisValue;
         public override float InputValue => inputControlValue;
+        public override Vector2 InputValues => twoAxisValue;
         public override Transform InteractionTransform => interactionTransform;
 
         [SerializeField]
@@ -105,7 +105,7 @@ namespace Printer {
         }
 
         public override void SetValue(float f) {
-            throw new System.NotImplementedException();
+            ValueChanged(new Vector2(f, f));
         }
 
         public override void SetIsInteracting(bool b) {

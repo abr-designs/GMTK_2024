@@ -4,6 +4,10 @@ using UnityEditor;
 using UnityEngine;
 using Utilities.Animations;
 using Audio.SoundFX;
+using System;
+using System.Net.Http.Headers;
+using static GantryController;
+using World;
 
 namespace Printer
 {
@@ -17,6 +21,7 @@ namespace Printer
     public class OneAxisInputControl : InteractableInputControl // should inherit from something like an interactableInputControl
     {
         public override float InputValue => inputControlValue;
+        public override Vector2 InputValues => throw new NotImplementedException();
 
 
         public override Transform InteractionTransform => interactionTransform;
@@ -26,6 +31,7 @@ namespace Printer
 
         [Header("Object References")]
         [SerializeField] private Transform movingPartReference;
+        [SerializeField] private GantryController.GantryControlAxis gantryControlAxis;
         [SerializeField] private GantryController connectedGantry;
 
         [Header("Motion Type")]
@@ -50,7 +56,15 @@ namespace Printer
         private void OnEnable()
         {
             // connect to Gantry through PrinterReferenceController
-            //
+            if (gantryControlAxis == GantryControlAxis.NONE) return;
+
+            GantryController[] gantryAxisObjectList = FindObjectsOfType<GantryController>();
+            foreach(GantryController controller in gantryAxisObjectList) {
+                if(controller.GetGantryControlAxis() == gantryControlAxis) {
+                    connectedGantry = controller;
+                    break;
+                }
+            }
 
         }
 
