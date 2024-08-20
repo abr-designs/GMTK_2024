@@ -48,8 +48,9 @@ MonoBehaviour:
   worldPlaceTag: GreekColumn
   controlPanelType: 2
   usableControls: 1
-  levelScript: 
-  levelTime: 3
+  levelScript: Keep going!
+  levelCompleteScript: What a great column!
+  levelTime: 8
   yScale: 1
   maxScale: 8
   width: 10
@@ -91,3 +92,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 2, y: 2}
   outputScale: 0.5
+  strikesPerStar: 18

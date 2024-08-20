@@ -50,8 +50,8 @@ MonoBehaviour:
   usableControls: 1
   levelScript: Now we're printing! Here's some more controls to affect how the layer
     will be printed.
-  levelCompleteScript: You've got these controls mastered!!!
-  levelTime: 3
+  levelCompleteScript: You've got these controls mastered!
+  levelTime: 8
   yScale: 1
   maxScale: 8
   width: 10
@@ -68,3 +68,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 4, y: 1.5}
   outputScale: 0.65
+  strikesPerStar: 8

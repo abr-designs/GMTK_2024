@@ -48,7 +48,8 @@ MonoBehaviour:
   worldPlaceTag: Lever
   controlPanelType: 1
   usableControls: 1
-  levelScript: 
+  levelScript: We need more controls in order to make complex shapes.  Lets print
+    some more levers!
   levelCompleteScript: Variety is the spice of life!
   levelTime: 3
   yScale: 1
@@ -85,15 +86,11 @@ MonoBehaviour:
     printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
     localPosition: {x: 0, y: 0}
     yRotation: 0
-    localScale: {x: 1.5, y: 1.5}
+    localScale: {x: 2, y: 2}
   - Material: {fileID: 2100000, guid: 5ac9cb5f524cafb4dbbaaca8034abefd, type: 2}
     printLayerShape: {fileID: 11400000, guid: 2fae44eac44f4b84385700884504fc45, type: 2}
     localPosition: {x: 0, y: 0}
     yRotation: 0
-    localScale: {x: 2, y: 2}
-  - Material: {fileID: 2100000, guid: 5ac9cb5f524cafb4dbbaaca8034abefd, type: 2}
-    printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
-    localPosition: {x: 0, y: 0}
-    yRotation: 0
-    localScale: {x: 2, y: 2}
+    localScale: {x: 2.5, y: 2.5}
   outputScale: 0.1
+  strikesPerStar: 15

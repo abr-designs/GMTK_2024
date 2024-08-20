@@ -49,7 +49,8 @@ MonoBehaviour:
   controlPanelType: 2
   usableControls: 1
   levelScript: 
-  levelTime: 3
+  levelCompleteScript: 
+  levelTime: 10
   yScale: 1
   maxScale: 8
   width: 10
@@ -82,7 +83,7 @@ MonoBehaviour:
     localScale: {x: 3, y: 5}
   - Material: {fileID: 2100000, guid: 6ca1396e18160224c8815905c3b1ea78, type: 2}
     printLayerShape: {fileID: 11400000, guid: ca4dd7be25dd2c946b78ba2e42850102, type: 2}
-    localPosition: {x: -0.03, y: 0}
+    localPosition: {x: 0, y: 0}
     yRotation: 0
     localScale: {x: 4, y: 2.5}
   - Material: {fileID: 2100000, guid: 6ca1396e18160224c8815905c3b1ea78, type: 2}
@@ -101,3 +102,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 1, y: 1}
   outputScale: 1
+  strikesPerStar: 20

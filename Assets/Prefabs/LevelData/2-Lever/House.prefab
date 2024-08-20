@@ -49,6 +49,7 @@ MonoBehaviour:
   controlPanelType: 2
   usableControls: 1
   levelScript: 
+  levelCompleteScript: 
   levelTime: 3
   yScale: 1
   maxScale: 8
@@ -76,3 +77,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 5, y: 4}
   outputScale: 1.5
+  strikesPerStar: 9

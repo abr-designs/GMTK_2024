@@ -50,7 +50,7 @@ MonoBehaviour:
   usableControls: 1
   levelScript: 
   levelCompleteScript: 
-  levelTime: 3
+  levelTime: 10
   yScale: 1
   maxScale: 8
   width: 10
@@ -78,12 +78,13 @@ MonoBehaviour:
     localScale: {x: 0.5, y: 0.5}
   - Material: {fileID: 2100000, guid: b8d39b1edf4c435438a2c9db8f707f23, type: 2}
     printLayerShape: {fileID: 11400000, guid: 8d909839527347948a223c7f271e3df5, type: 2}
-    localPosition: {x: 0, y: 1.5}
+    localPosition: {x: 0, y: 1.7}
     yRotation: 0
     localScale: {x: 0.5, y: 3}
   - Material: {fileID: 2100000, guid: b8d39b1edf4c435438a2c9db8f707f23, type: 2}
     printLayerShape: {fileID: 11400000, guid: 8d909839527347948a223c7f271e3df5, type: 2}
-    localPosition: {x: 0, y: 1.23}
+    localPosition: {x: 0, y: 1}
     yRotation: 0
     localScale: {x: 0.5, y: 3}
   outputScale: 0.75
+  strikesPerStar: 15

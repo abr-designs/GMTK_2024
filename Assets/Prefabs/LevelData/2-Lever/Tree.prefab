@@ -48,8 +48,9 @@ MonoBehaviour:
   worldPlaceTag: Tree
   controlPanelType: 2
   usableControls: 1
-  levelScript: 
-  levelTime: 3
+  levelScript: Lets try some tricky trees!
+  levelCompleteScript: Wow great job!
+  levelTime: 10
   yScale: 1
   maxScale: 8
   width: 10
@@ -101,3 +102,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 1, y: 1}
   outputScale: 0.5
+  strikesPerStar: 20
