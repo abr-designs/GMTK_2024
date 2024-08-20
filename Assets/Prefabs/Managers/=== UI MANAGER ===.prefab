@@ -927,6 +927,31 @@ MonoBehaviour:
   resultsWindowObject: {fileID: 7718200896566511243}
   resultsText: {fileID: 3823932607635256469}
   resultStars: {fileID: 7662596898977283421}
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  starsAnimationTime: 0.3
   continueButton: {fileID: 2911015936713985362}
 --- !u!223 &3168616358603095439
 Canvas:
