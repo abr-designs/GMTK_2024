@@ -15,7 +15,7 @@ namespace Utilities
         {
             if (Instance != null)
             {
-                Debug.LogError($"Attempted to create Multiple instances of {typeof(T).Name}");
+                Debug.Log($"<color=red>Attempted to create Multiple instances of {typeof(T).Name}</color>");
                 Destroy(gameObject);
                 return;
             }
