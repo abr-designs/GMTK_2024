@@ -48,9 +48,10 @@ MonoBehaviour:
   worldPlaceTag: Wheel
   controlPanelType: 1
   usableControls: 1
-  levelScript: 
-  levelCompleteScript: 
-  levelTime: 3
+  levelScript: We are going to need some transportation eventually.  Lets start with
+    a wheel! Some objects will have to be assembled at a different angle!
+  levelCompleteScript: Perfect!  This will come in handy later.
+  levelTime: 5
   yScale: 1
   maxScale: 8
   width: 10
@@ -72,3 +73,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 2, y: 2}
   outputScale: 0.4
+  strikesPerStar: 8

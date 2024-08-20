@@ -48,9 +48,9 @@ MonoBehaviour:
   worldPlaceTag: Tower
   controlPanelType: 1
   usableControls: 1
-  levelScript: 
-  levelCompleteScript: 
-  levelTime: 3
+  levelScript: We've got an order in for more towers!
+  levelCompleteScript: Great job!
+  levelTime: 5
   yScale: 2
   maxScale: 8
   width: 10
@@ -97,3 +97,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 0.25, y: 0.25}
   outputScale: 4
+  strikesPerStar: 15

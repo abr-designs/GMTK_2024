@@ -49,8 +49,9 @@ MonoBehaviour:
   controlPanelType: 1
   usableControls: 1
   levelScript: Try some of these other controls  to change the scale of the layers.
-  levelCompleteScript: 
-  levelTime: 3
+  levelCompleteScript: What a great looking hedge! The objects you make will fill
+    out your world!
+  levelTime: 5
   yScale: 1
   maxScale: 8
   width: 10
@@ -82,3 +83,4 @@ MonoBehaviour:
     yRotation: 0
     localScale: {x: 1.5, y: 1.5}
   outputScale: 0.33
+  strikesPerStar: 15

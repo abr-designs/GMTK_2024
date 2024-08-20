@@ -48,9 +48,10 @@ MonoBehaviour:
   worldPlaceTag: LampPost
   controlPanelType: 3
   usableControls: 1
-  levelScript: 
-  levelCompleteScript: 
-  levelTime: 3
+  levelScript: Looks like you've got the hang of it.  Lets add position into the
+    mix!
+  levelCompleteScript: Great job!  It's getting tougher now.
+  levelTime: 10
   yScale: 1
   maxScale: 8
   width: 10
@@ -85,5 +86,6 @@ MonoBehaviour:
     printLayerShape: {fileID: 11400000, guid: 5c6919bbe0d7fcd48a5dae23c66aa777, type: 2}
     localPosition: {x: 1, y: 0}
     yRotation: 0
-    localScale: {x: 3, y: 1}
+    localScale: {x: 2, y: 2}
   outputScale: 0.75
+  strikesPerStar: 15
