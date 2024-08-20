@@ -72,16 +72,20 @@ namespace Levels
                 var localRotation = new Vector3(0f, layerData.yRotation, 0f);
                 var localScale = new Vector3(layerData.localScale.x, yScale, layerData.localScale.y);
                 
-                var posDif = (transform.localPosition - localPosition).magnitude;
-                var rotDif = (transform.localEulerAngles - localRotation).magnitude;
-                var scaleDif = (transform.localScale - localScale).magnitude;
+                var posDif = (playerAttempt[i].localPosition - localPosition).magnitude;
+                var rotDif = (playerAttempt[i].localEulerAngles - localRotation).magnitude;
+                var scaleDif = (playerAttempt[i].localScale - localScale).magnitude;
+
+                Debug.Log($"posDif {posDif} rotDif {rotDif} scaleDif {scaleDif}");
 
                 strikes += posDif + rotDif + scaleDif;
             }
-            
+
             Debug.Log($"Strikes for level {strikes}");
 
             int stars = Mathf.Max(5 - Mathf.FloorToInt(strikes / strikesPerStar), 1);
+
+            Debug.Log($"Level stars {stars}");
 
             return stars;
         }

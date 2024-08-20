@@ -125,10 +125,9 @@ namespace UI
             {
                 var child = resultStars.transform.GetChild(i);
 
-                // TODO -- animate star
                 child.GetComponent<Image>().enabled = true;
                 SFX.STAR.PlaySound();
-                yield return StartCoroutine(AnimateStar(child.transform, 0.3f));
+                yield return StartCoroutine(AnimateStar(child.transform, starsAnimationTime));
 
             }
 
@@ -141,10 +140,11 @@ namespace UI
             for (var t = 0f; t <= time; t += Time.deltaTime)
             {
                 var dt = t / time;
-                target.transform.localScale = Vector3.Lerp(startScale, targetScale, scaleCurve.Evaluate(dt));
+                target.transform.localScale = Vector3.one * scaleCurve.Evaluate(dt);
 
                 yield return null;
             }
+            target.transform.localScale = targetScale;
         }
 
     }
